@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Directory — AI Assets for HMAX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/theme-c.css">
+<style>
+.list-head { padding:48px 0 26px; border-bottom:2px solid var(--ink); }
+.list-head .mono-label { color:var(--red); }
+.list-head h1 { font-family:var(--display); font-size:clamp(48px,9vw,128px); text-transform:uppercase; line-height:.86; letter-spacing:-.012em; margin-top:14px; }
+.list-head p { margin-top:18px; font-size:14.5px; color:var(--ink-2); max-width:60ch; }
+
+.controls { position:sticky; top:66px; z-index:50; background:var(--bg); border-bottom:2px solid var(--ink); padding:16px 0; }
+.controls-row { display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+.controls-row .search-box { flex:1; min-width:240px; }
+.chips { margin-top:16px; }
+
+.result-bar { display:flex; align-items:baseline; gap:12px; margin:28px 0 22px; font-family:var(--mono); font-size:11px;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+.result-bar b { font-family:var(--display); font-size:40px; color:var(--ink); letter-spacing:0; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(252px,1fr)); gap:18px; }
+.more-wrap { text-align:center; padding:46px 0 8px; }
+
+@media (max-width:560px){ .controls-row{flex-direction:column; align-items:stretch;} }
+</style>
+</head>
+<body data-page="list" data-badges data-detail="page">
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-logo">AI</span>
+      <span class="brand-name">Assets <b>4</b> HMAX</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html" data-i18n="nav_index">Index</a>
+      <a href="agents.html" aria-current="page" data-i18n="nav_agents">Directory</a>
+      <a href="agents.html?sort=newest" data-i18n="nav_new">New</a>
+    </nav>
+  </div>
+</header>
+
+<section class="list-head"><div class="wrap">
+  <span class="mono-label">All Agents · Full Index</span>
+  <h1>Directory</h1>
+  <p data-i18n="list_desc_a">公開中の AI エージェントを横断検索。キーワード・カテゴリ・並び順で、目的の一体へ最短で。</p>
+</div></section>
+
+<div class="controls"><div class="wrap">
+  <div class="controls-row">
+    <div class="search-box">
+      <span class="ic">⌕</span>
+      <input id="q" type="text" placeholder="Search name / owner / summary…" data-i18n-ph="search_ph_en" autocomplete="off">
+    </div>
+    <div class="sort-wrap">
+      <label for="sort" data-i18n="sort_label_en">Sort</label>
+      <select id="sort">
+        <option value="views" data-i18n="sort_views">人気順（ビュー）</option>
+        <option value="rating" data-i18n="sort_rating">評価順（★）</option>
+        <option value="newest" data-i18n="sort_newest">新着順</option>
+        <option value="likes" data-i18n="sort_likes">いいね順</option>
+        <option value="title" data-i18n="sort_title">名前順</option>
+      </select>
+    </div>
+  </div>
+  <div class="chips" id="chips"></div>
+  <div class="facets">
+    <label class="facet-field"><span data-i18n="facet_diff_label">難度</span>
+      <select id="facet-difficulty"><option value="" data-i18n="facet_all">All</option><option value="低" data-i18n="facet_diff_low">低</option><option value="中" data-i18n="facet_diff_mid">中</option><option value="高" data-i18n="facet_diff_high">高</option></select>
+    </label>
+    <label class="facet-field"><span data-i18n="facet_dept_label">部門</span>
+      <select id="facet-dept"><option value="" data-i18n="facet_all">All</option></select>
+    </label>
+    <label class="facet-check"><input type="checkbox" id="facet-certified"> <span data-i18n="facet_cert_c">認定</span></label>
+    <label class="facet-check"><input type="checkbox" id="facet-api"> <span data-i18n="facet_api_c">API</span></label>
+    <label class="facet-check"><input type="checkbox" id="facet-pick"> <span data-i18n="facet_pick_c">⭐ Pick</span></label>
+  </div>
+</div></div>
+
+<main class="wrap">
+  <div class="result-bar"><b id="result-count">0</b> <span data-i18n="result_suffix_en">Agents found</span></div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty">
+    <div class="big">No Match</div>
+    <p data-i18n="empty_msg">条件に合うエージェントが見つかりませんでした。キーワードやカテゴリを変えてお試しください。</p>
+  </div>
+  <div class="more-wrap"><button id="more" style="display:none">さらに表示</button></div>
+</main>
+
+<footer class="site-foot"><div class="wrap">
+  <div class="foot-brand">AI Assets <b>4</b> HMAX</div>
+  <div class="foot-meta">© 2026 Hitachi Group AI Center of Excellence<br>Data exported 2026.06.09 · 781 agents indexed<br><span class="demo-note">※ 評価・実装難度・効果・技術仕様・セキュリティ等の一部はデモ用サンプルデータです</span></div>
+</div></footer>
+
+<script src="../agents.js"></script>
+<script src="../assets/app.js"></script>
+<script>
+(function(){ var s=new URLSearchParams(location.search).get('sort'); if(s){var el=document.getElementById('sort'); if(el) el.value=s;} })();
+</script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Assets for HMAX — 社内AIエージェント索引</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..700&family=Space+Mono:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/app.css">
+<style>
+/* ===== HERO ===== */
+.hero { padding: 84px 0 64px; position: relative; }
+.hero-grid {
+  display: grid; grid-template-columns: 1.55fr .95fr; gap: 56px; align-items: end;
+}
+.hero-eyebrow { margin-bottom: 26px; }
+.hero h1 {
+  font-family: var(--serif); font-weight: 340; font-optical-sizing: auto;
+  font-size: clamp(44px, 6.4vw, 92px); line-height: .98; letter-spacing: -.02em;
+  color: var(--ink);
+}
+.hero h1 .jp {
+  display: block; font-family: var(--sans); font-weight: 900;
+  font-size: clamp(28px, 3.6vw, 52px); letter-spacing: -.01em; line-height: 1.08; margin-top: 6px;
+}
+.hero h1 em { font-style: italic; color: var(--red); }
+.hero-lead {
+  margin: 30px 0 34px; max-width: 50ch; font-size: 16px; color: var(--ink-soft); line-height: 1.75;
+}
+.hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+.hero-stats {
+  border-top: 2px solid var(--ink); padding-top: 8px;
+}
+.hstat {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  padding: 16px 0; border-bottom: 1px solid var(--line);
+}
+.hstat .n {
+  font-family: var(--serif); font-weight: 500; font-size: clamp(36px, 4.3vw, 58px);
+  line-height: 1; letter-spacing: -.02em; color: var(--ink); font-variant-numeric: lining-nums;
+}
+.hstat .n.red { color: var(--red); }
+.hstat .l {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); text-align: right; line-height: 1.5;
+}
+
+/* ===== section frame ===== */
+.section { padding: 64px 0 0; }
+.sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 34px; }
+.sec-head h2 {
+  font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 3.4vw, 42px);
+  letter-spacing: -.015em; line-height: 1.05;
+}
+.sec-head h2 .jp { font-family: var(--sans); font-weight: 700; font-size: .62em; color: var(--ink-soft); margin-left: 14px; }
+.sec-link { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; color: var(--red); white-space: nowrap; }
+.sec-link:hover { text-decoration: underline; }
+
+/* ===== category index ===== */
+.cat-row {
+  display: grid; grid-template-columns: 44px 32px 1fr 200px 64px 24px; align-items: center; gap: 18px;
+  padding: 18px 8px; border-bottom: 1px solid var(--line); transition: background .25s var(--ease), padding .25s var(--ease);
+}
+.cat-row:first-child { border-top: 1px solid var(--line); }
+.cat-row:hover { background: var(--paper-2); padding-left: 16px; }
+.cat-no { font-family: var(--mono); font-size: 12px; color: var(--muted-2); }
+.cat-gl { font-family: var(--mono); font-size: 18px; color: var(--red); }
+.cat-name { font-weight: 700; font-size: 17px; letter-spacing: -.005em; }
+.cat-bar { height: 4px; background: var(--line-soft); border-radius: 2px; overflow: hidden; }
+.cat-bar span { display: block; height: 100%; background: var(--red); border-radius: 2px; }
+.cat-count { font-family: var(--mono); font-size: 14px; text-align: right; color: var(--ink-soft); }
+.cat-arr { color: var(--muted-2); transition: transform .25s var(--ease), color .25s var(--ease); }
+.cat-row:hover .cat-arr { transform: translateX(5px); color: var(--red); }
+
+/* ===== ranking ===== */
+.rank-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 56px; }
+.rank-row {
+  display: grid; grid-template-columns: 40px 1fr auto; gap: 18px; align-items: center;
+  padding: 17px 6px; border-bottom: 1px solid var(--line); cursor: pointer;
+  transition: background .2s var(--ease), padding .2s var(--ease);
+}
+.rank-row:hover { background: var(--paper-2); padding-left: 12px; }
+.rank-no { font-family: var(--serif); font-weight: 600; font-size: 26px; color: var(--red); line-height: 1; }
+.rank-title { display: block; font-weight: 700; font-size: 14.5px; line-height: 1.35;
+  display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.rank-cat { font-family: var(--mono); font-size: 10.5px; color: var(--muted); letter-spacing: .04em; }
+.rank-stats { display: flex; gap: 16px; font-family: var(--mono); font-size: 10.5px; color: var(--muted); text-align: right; }
+.rank-stats .rs b { display: block; font-size: 15px; color: var(--ink); font-weight: 700; }
+
+/* ===== newest grid ===== */
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+/* ===== big CTA ===== */
+.cta-band {
+  margin-top: 80px; border: 1px solid var(--ink); border-radius: 4px; background: var(--ink);
+  color: var(--paper-2); padding: 56px 48px; display: flex; align-items: center; justify-content: space-between;
+  gap: 32px; flex-wrap: wrap; position: relative; overflow: hidden;
+}
+.cta-band::before {
+  content: "AI"; position: absolute; right: -10px; bottom: -54px; font-family: var(--serif);
+  font-style: italic; font-weight: 300; font-size: 260px; color: rgba(250,246,236,.05); line-height: 1; pointer-events: none;
+}
+.cta-band h2 { font-family: var(--serif); font-weight: 360; font-size: clamp(28px, 3.6vw, 46px); letter-spacing: -.015em; line-height: 1.05; position: relative; }
+.cta-band h2 .jp { display: block; font-family: var(--sans); font-weight: 700; font-size: .5em; color: var(--muted-2); margin-top: 10px; }
+.cta-band .btn { background: var(--red); border-color: var(--red); color: #fff; position: relative; font-size: 15px; padding: 16px 30px; }
+.cta-band .btn:hover { background: var(--paper-2); border-color: var(--paper-2); color: var(--ink); }
+
+/* ===== modal ===== */
+.modal { position: fixed; inset: 0; z-index: 200; display: none; }
+.modal.open { display: block; }
+.modal-bg { position: absolute; inset: 0; background: rgba(27,22,19,.5); backdrop-filter: blur(3px); animation: fade .25s; }
+@keyframes fade { from { opacity: 0; } }
+.modal-card {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: min(560px, 92vw); max-height: 88vh; overflow-y: auto;
+  background: var(--paper-2); border: 1px solid var(--line-strong); border-radius: 4px;
+  padding: 38px 38px 32px; box-shadow: 0 40px 90px -30px rgba(27,22,19,.6);
+  animation: pop .35s var(--ease);
+}
+@keyframes pop { from { opacity: 0; transform: translate(-50%,-46%) scale(.97); } }
+.modal-x { position: absolute; top: 16px; right: 18px; border: none; background: none; font-size: 30px;
+  line-height: 1; color: var(--muted); cursor: pointer; transition: color .2s; }
+.modal-x:hover { color: var(--red); }
+.modal-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+.modal-title { font-family: var(--sans); font-weight: 900; font-size: 25px; line-height: 1.3; letter-spacing: -.01em; margin-bottom: 14px; }
+.modal-desc { color: var(--ink-soft); font-size: 14px; line-height: 1.7; margin-bottom: 24px; }
+.modal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 0; }
+.mg { display: flex; flex-direction: column; gap: 4px; }
+.mg-n { font-family: var(--serif); font-weight: 600; font-size: 26px; line-height: 1; color: var(--ink); }
+.mg-l { font-family: var(--mono); font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.modal-meta { display: grid; gap: 10px; }
+.modal-meta > div { display: grid; grid-template-columns: 90px 1fr; gap: 12px; font-size: 13.5px; }
+.modal-meta dt { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.modal-meta dd { color: var(--ink); }
+.modal-note { margin-top: 22px; font-size: 11px; color: var(--muted-2); font-family: var(--mono); }
+
+/* ===== responsive ===== */
+@media (max-width: 940px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .rank-list { grid-template-columns: 1fr; gap: 0; }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .hero { padding: 52px 0 40px; }
+  .cat-row { grid-template-columns: 32px 26px 1fr 56px 20px; }
+  .cat-bar { display: none; }
+  .grid-4 { grid-template-columns: 1fr; }
+  .cta-band { padding: 40px 28px; }
+}
+</style>
+</head>
+<body data-page="home" data-badges data-detail="page">
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">AI Assets <b>for</b> HMAX</span>
+      <span class="brand-sub">Hitachi · AI CoE Index</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html" aria-current="page" data-i18n="nav_index">索引</a>
+      <a href="agents.html" data-i18n="nav_agents">エージェント一覧</a>
+      <a href="agents.html?sort=newest" data-i18n="nav_new">新着</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="hero-eyebrow eyebrow">Internal AI Catalog · 2026</div>
+        <h1>The <em>Index</em> of<br>Agents.
+          <span class="jp" data-i18n-html="hero_jp_a">あなたにとって最適な<br>AIエージェントを<br>お届けします。</span>
+        </h1>
+        <p class="hero-lead" data-i18n-html="hero_lead_a">
+          AI CoE が公開する <span data-stat="total">—</span> 個のAI Agentを、
+          カテゴリ・人気・新着から横断的に索引。業務にぴったりの一体を、最短で。
+        </p>
+        <div class="hero-cta">
+          <a class="btn" href="agents.html"><span data-i18n="cta_explore">エージェントを探す</span> <span class="arr">→</span></a>
+          <a class="btn btn-ghost" href="#categories" data-i18n="cta_cats">カテゴリから見る</a>
+        </div>
+      </div>
+      <aside class="hero-stats">
+        <div class="hstat"><span class="n red" data-stat="total">—</span><span class="l" data-i18n-html="stat_agents_br">公開エージェント<br>Published</span></div>
+        <div class="hstat"><span class="n" data-stat="views">—</span><span class="l" data-i18n-html="stat_reuse_br">再利用数<br>REUSE COUNT</span></div>
+        <div class="hstat"><span class="n" data-stat="cats">—</span><span class="l" data-i18n-html="stat_cats_br">カテゴリ<br>Categories</span></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PRODUCER'S PICKS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Producer's Picks<span class="jp" data-i18n="sec_picks_sub">プロデューサーズピック</span></h2>
+        <a class="sec-link" href="agents.html?facet=pick" data-i18n="link_picks">ピック一覧 →</a>
+      </div>
+      <div class="grid-4" id="picks"></div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="section" id="categories">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Categories<span class="jp" data-i18n="sec_cats_sub">利用シーン別インデックス</span></h2>
+        <a class="sec-link" href="agents.html" data-i18n="link_cats">すべて見る →</a>
+      </div>
+      <div id="cat-index"></div>
+    </div>
+  </section>
+
+  <!-- RANKING -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Most Viewed<span class="jp" data-i18n="sec_ranking_sub">人気ランキング TOP 8</span></h2>
+        <a class="sec-link" href="agents.html?sort=views" data-i18n="link_ranking">ランキング全体 →</a>
+      </div>
+      <div class="rank-list" id="ranking"></div>
+    </div>
+  </section>
+
+  <!-- NEWEST -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Newly Added<span class="jp" data-i18n="sec_newest_sub">新着エージェント</span></h2>
+        <a class="sec-link" href="agents.html?sort=newest" data-i18n="link_newest">新着をもっと →</a>
+      </div>
+      <div class="grid-4" id="newest"></div>
+
+      <!-- CTA -->
+      <div class="cta-band">
+        <h2 data-i18n-html="cta_band_a">781の選択肢から、<br>あなたの一体を。<span class="jp">Search across every published agent.</span></h2>
+        <a class="btn" href="agents.html"><span data-i18n="cta_dir_btn">エージェント一覧へ</span> <span class="arr">→</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-brand">AI Assets <b>for</b> HMAX</div>
+    <div class="foot-meta">
+      © 2026 Hitachi Group AI Center of Excellence<br>
+      Data exported 2026.06.09 · 781 agents indexed<br>
+      <span class="demo-note">※ 評価・実装難度・効果・技術仕様・セキュリティ等の一部はデモ用サンプルデータです</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../agents.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

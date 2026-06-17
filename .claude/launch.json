@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "kmpf",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "3333", "--directory", "kmpf"],
+      "name": "aa4h",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-ExecutionPolicy", "Bypass", "-NonInteractive", "-File", "serve.ps1"],
       "port": 3333
     }
   ]

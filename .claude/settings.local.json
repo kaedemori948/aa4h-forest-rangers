@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "PowerShell(Get-Command ruby, php, deno, bun -ErrorAction SilentlyContinue)"
+      "PowerShell(Get-Command ruby, php, deno, bun -ErrorAction SilentlyContinue)",
+      "Bash(where node *)",
+      "PowerShell(Get-Command node, npx, python, python3, py -ErrorAction SilentlyContinue)",
+      "mcp__Claude_Preview__preview_start"
     ]
   }
 }

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Assets for HMAX — Pattern C</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/theme-c.css">
+<style>
+.hero { padding:54px 0 0; border-bottom:2px solid var(--ink); }
+.hero-top { display:flex; justify-content:space-between; align-items:center; gap:16px;
+  border-bottom:1px solid var(--line-soft); padding-bottom:16px; margin-bottom:40px; }
+.hero-title { font-family:var(--display); font-size:clamp(58px,13.5vw,185px); line-height:.84;
+  text-transform:uppercase; letter-spacing:-.012em; }
+.hero-title .slash { color:var(--red); }
+.hero-title .jp { display:block; font-family:var(--jp); font-weight:900; font-size:clamp(19px,3.3vw,40px);
+  letter-spacing:0; line-height:1.22; margin-top:22px; text-transform:none; }
+.hero-lead { max-width:52ch; font-size:16px; color:var(--ink-2); margin:34px 0 30px; line-height:1.7; }
+.hero-cta { display:flex; gap:14px; flex-wrap:wrap; padding-bottom:50px; }
+.metrics { display:grid; grid-template-columns:repeat(3,1fr); border-top:2px solid var(--ink); }
+.metric { padding:30px 26px; border-right:1px solid var(--line); }
+.metric:last-child { border-right:0; }
+.metric .n { font-family:var(--display); font-size:clamp(44px,6.4vw,78px); line-height:.86; }
+.metric .n.red { color:var(--red); }
+.metric .l { font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-top:12px; }
+
+.section { padding:62px 0 0; }
+.sec-head { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; padding-bottom:20px; }
+.sec-head h2 { font-family:var(--display); font-size:clamp(30px,4.6vw,56px); text-transform:uppercase; line-height:.92; letter-spacing:-.005em; }
+.sec-head .sub { font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-top:10px; }
+.sec-link { font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--red); white-space:nowrap; }
+.sec-link:hover { text-decoration:underline; }
+
+.grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:8px; }
+
+.cta-band { margin-top:74px; background:var(--ink); color:#fff; padding:56px 44px; display:flex;
+  align-items:center; justify-content:space-between; gap:28px; flex-wrap:wrap; }
+.cta-band h2 { font-family:var(--display); font-size:clamp(32px,4.8vw,64px); text-transform:uppercase; line-height:.92; }
+.cta-band h2 .red { color:var(--red); }
+.cta-band .sub { font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted-2); margin-top:14px; }
+.cta-band .btn { background:var(--red); border-color:var(--red); color:#fff; }
+.cta-band .btn:hover { background:#fff; color:var(--ink); border-color:#fff; box-shadow:5px 5px 0 var(--red); }
+
+@media (max-width:760px){ .metrics{grid-template-columns:1fr; } .metric{border-right:0; border-bottom:1px solid var(--line);} .grid-4{grid-template-columns:1fr 1fr;} }
+@media (max-width:520px){ .grid-4{grid-template-columns:1fr;} }
+</style>
+</head>
+<body data-page="home" data-badges data-detail="page">
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-logo">AI</span>
+      <span class="brand-name">Assets <b>4</b> HMAX</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html" aria-current="page" data-i18n="nav_index">Index</a>
+      <a href="agents.html" data-i18n="nav_agents">Directory</a>
+      <a href="agents.html?sort=newest" data-i18n="nav_new">New</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-top">
+        <span class="mono-label">Hitachi AI CoE — International Edition</span>
+        <span class="mono-label">№ 03 · Pattern C</span>
+      </div>
+      <h1 class="hero-title">AI<span class="slash">/</span>AGENTS
+        <span class="jp" data-i18n-html="hero_jp_c">最適なエージェントを、<br>見つけ出せ。</span>
+      </h1>
+      <p class="hero-lead" data-i18n-html="hero_lead_c">AI CoE が公開する <span data-stat="total">—</span> 個の AI Agent を横断的に索引。業務に効く最適な一体へ、最短距離で。</p>
+      <div class="hero-cta">
+        <a class="btn" href="agents.html">Explore Directory <span class="arr">→</span></a>
+        <a class="btn btn-ghost" href="#categories">Browse Categories</a>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="n red" data-stat="total">—</div><div class="l" data-i18n="stat_agents">Agents Published</div></div>
+        <div class="metric"><div class="n" data-stat="views">—</div><div class="l" data-i18n="stat_reuse_en">REUSE COUNT</div></div>
+        <div class="metric"><div class="n" data-stat="cats">—</div><div class="l" data-i18n="stat_cats">Categories</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section"><div class="wrap">
+    <div class="sec-head">
+      <div><h2>Producer's Picks</h2><div class="sub" data-i18n="sec_picks_sub">AI-CoE 厳選 — Curated</div></div>
+      <a class="sec-link" href="agents.html?facet=pick" data-i18n="link_picks">All picks →</a>
+    </div>
+    <div class="grid-4" id="picks"></div>
+  </div></section>
+
+  <section class="section" id="categories"><div class="wrap">
+    <div class="sec-head">
+      <div><h2>Categories</h2><div class="sub" data-i18n="sec_cats_sub">利用シーン別 — 10 Index</div></div>
+      <a class="sec-link" href="agents.html" data-i18n="link_cats">View all →</a>
+    </div>
+    <div id="cat-index"></div>
+  </div></section>
+
+  <section class="section"><div class="wrap">
+    <div class="sec-head">
+      <div><h2>Most Viewed</h2><div class="sub" data-i18n="sec_ranking_sub">人気ランキング — Top 8</div></div>
+      <a class="sec-link" href="agents.html?sort=views" data-i18n="link_ranking">Full ranking →</a>
+    </div>
+    <div class="rank-list" id="ranking"></div>
+  </div></section>
+
+  <section class="section"><div class="wrap">
+    <div class="sec-head">
+      <div><h2>Newly Added</h2><div class="sub" data-i18n="sec_newest_sub">新着エージェント</div></div>
+      <a class="sec-link" href="agents.html?sort=newest" data-i18n="link_newest">More new →</a>
+    </div>
+    <div class="grid-4" id="newest"></div>
+
+    <div class="cta-band">
+      <div><h2>781 agents.<br><span class="red">One match.</span></h2><div class="sub">キーワード・カテゴリ・並び替えで横断検索</div></div>
+      <a class="btn" href="agents.html">Enter Directory <span class="arr">→</span></a>
+    </div>
+  </div></section>
+</main>
+
+<footer class="site-foot"><div class="wrap">
+  <div class="foot-brand">AI Assets <b>4</b> HMAX</div>
+  <div class="foot-meta">© 2026 Hitachi Group AI Center of Excellence<br>Data exported 2026.06.09 · 781 agents indexed<br><span class="demo-note">※ 評価・実装難度・効果・技術仕様・セキュリティ等の一部はデモ用サンプルデータです</span></div>
+</div></footer>
+
+<script src="../agents.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>
