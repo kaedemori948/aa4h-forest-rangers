@@ -292,6 +292,7 @@
   // ---- helpers ----
   const fmt = n => (n == null ? "0" : n.toLocaleString("en-US"));
   const esc = s => String(s ?? "").replace(/[&<>"]/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+  const safeUrl = u => /^https?:\/\//i.test(u) ? esc(u) : "#";
   const catName  = id => (CAT_BY_ID[id] ? CAT_BY_ID[id].name  : "その他");
   const catGlyph = id => esc(CAT_BY_ID[id] ? CAT_BY_ID[id].icon : "✦");
   const fmtDate  = iso => { if (!iso) return "—"; const [y,m,d] = iso.split("-"); return `${y}.${m}.${d}`; };
@@ -532,7 +533,10 @@
       if (!append) grid.innerHTML = "";
       const next = state.results.slice(state.shown, state.shown + state.step);
       grid.insertAdjacentHTML("beforeend", next.map((a,i) => cardHTML(a, append?null:i)).join(""));
-      bindCardSliders(grid);
+      grid.querySelectorAll("[data-slider]:not([data-slider-bound])").forEach(el => {
+        bindCardSlider(el);
+        el.dataset.sliderBound = "1";
+      });
       state.shown += next.length;
       countEl.textContent = fmt(state.results.length);
       moreBtn.style.display = state.shown < state.results.length ? "" : "none";
@@ -585,7 +589,7 @@
       <div class="detail-metrics">
         <div class="mg"><span class="mg-n">${fmt(a.views)}</span><span class="mg-l">${t("dtl_reuse")}</span></div>
         <div class="mg"><span class="mg-n">${fmt(a.uniqueViews)}</span><span class="mg-l">${t("dtl_uniq")}</span></div>
-        <div class="mg"><span class="mg-n">★ ${a.rating.toFixed(1)}</span><span class="mg-l">${t("dtl_eval")} (${fmt(a.ratingCount)})</span></div>
+        <div class="mg"><span class="mg-n">★ ${(a.rating ?? 0).toFixed(1)}</span><span class="mg-l">${t("dtl_eval")} (${fmt(a.ratingCount)})</span></div>
         <div class="mg"><span class="mg-n">#${rank}</span><span class="mg-l">${t("dtl_rank")}</span></div>
       </div>
       <dl class="fld-list">
@@ -601,31 +605,36 @@
       <div class="effect-hero"><span class="effect-ic">📈</span><p>${esc(a.effect)}</p></div>
       <h3 class="panel-h">${t("voices_h")}</h3>
       <div class="voices">
-        ${a.testimonials.map(v => `<blockquote class="voice"><p>"${esc(v.text)}"</p><cite>— ${esc(v.role)}</cite></blockquote>`).join("")}
+        ${(a.testimonials || []).map(v => `<blockquote class="voice"><p>"${esc(v.text)}"</p><cite>— ${esc(v.role)}</cite></blockquote>`).join("")}
       </div>
       <h3 class="panel-h">${t("cases_h")}</h3>
-      <ul class="usecase-list">${a.useCases.map(u => `<li>${esc(u)}</li>`).join("")}</ul>`;
+      <ul class="usecase-list">${(a.useCases || []).map(u => `<li>${esc(u)}</li>`).join("")}</ul>`;
+
+    const tech_obj     = a.tech     || {};
+    const api_obj      = a.api      || {};
+    const security_obj = a.security || {};
+    const support_obj  = a.support  || {};
 
     const tech = `
       <dl class="fld-list">
-        ${field(t("fld_model"), esc(a.tech.model))}
-        ${field(t("fld_integr"), chips(a.tech.integrations))}
-        ${field(t("fld_perf"), esc(a.tech.performance))}
-        ${field(t("fld_custom"), a.tech.customizable ? t("fld_custom_y") : t("fld_custom_n"))}
+        ${field(t("fld_model"), esc(tech_obj.model))}
+        ${field(t("fld_integr"), chips(tech_obj.integrations))}
+        ${field(t("fld_perf"), esc(tech_obj.performance))}
+        ${field(t("fld_custom"), tech_obj.customizable ? t("fld_custom_y") : t("fld_custom_n"))}
         ${field(t("fld_diff"), `${t("diff_pre")} ${esc(a.difficulty)}`)}
-        ${field(t("fld_api"), a.api.available
-          ? `${t("fld_api_y")}　<a class="api-link" href="${esc(a.api.docUrl)}">${t("fld_api_doc")}</a>`
+        ${field(t("fld_api"), api_obj.available
+          ? `${t("fld_api_y")}　<a class="api-link" href="${safeUrl(api_obj.docUrl)}">${t("fld_api_doc")}</a>`
           : `<span class="muted">${t("fld_api_n")}</span>`)}
       </dl>`;
 
     const sec = `
       <dl class="fld-list">
-        ${field(t("fld_auth"), esc(a.security.auth))}
-        ${field(t("fld_data"), esc(a.security.dataHandling))}
-        ${field(t("fld_comply"), chips(a.security.compliance))}
-        ${field(t("fld_svcs"), chips(a.tech.integrations))}
-        ${field(t("fld_support"), esc(a.support.channel))}
-        ${field(t("fld_sla"), esc(a.support.sla))}
+        ${field(t("fld_auth"), esc(security_obj.auth))}
+        ${field(t("fld_data"), esc(security_obj.dataHandling))}
+        ${field(t("fld_comply"), chips(security_obj.compliance))}
+        ${field(t("fld_svcs"), chips(tech_obj.integrations))}
+        ${field(t("fld_support"), esc(support_obj.channel))}
+        ${field(t("fld_sla"), esc(support_obj.sla))}
         ${field(t("fld_cert"), a.certified ? `<span class="ok">${t("fld_cert_y")}</span>` : t("fld_cert_n"))}
       </dl>`;
 
@@ -643,10 +652,10 @@
         <div class="detail-eyebrow"><span class="gl">${catGlyph(a.category)}</span> ${esc(catName(a.category))} · №${a.id}${a.pick?` · ${t("pick_badge")}`:""}</div>
         <h1 class="detail-title">${esc(a.title)}</h1>
         <div class="detail-badges">
-          <span class="bdg bdg-rate">★ ${a.rating.toFixed(1)} <small>(${fmt(a.ratingCount)})</small></span>
+          <span class="bdg bdg-rate">★ ${(a.rating ?? 0).toFixed(1)} <small>(${fmt(a.ratingCount)})</small></span>
           <span class="bdg bdg-diff diff-${a.difficulty}">${t("diff_pre")} ${esc(a.difficulty)}</span>
           ${a.certified ? `<span class="bdg bdg-cert">${_lang==="en"?"Cert.":"認定"}</span>` : ""}
-          ${a.api.available ? '<span class="bdg bdg-api">API</span>' : ""}
+          ${api_obj.available ? '<span class="bdg bdg-api">API</span>' : ""}
           <span class="bdg bdg-dept">${esc(a.department||"—")}</span>
         </div>
         <div class="detail-cta">
