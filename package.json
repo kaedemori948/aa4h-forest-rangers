@@ -1,0 +1,15 @@
+{
+  "name": "aa4h-forest-rangers",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "npm run test:syntax && npm run test:data && npm run test:e2e",
+    "test:syntax": "node --check assets/app.js && node --check agents.js",
+    "test:data": "node scripts/validate-data.js",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.0",
+    "http-server": "^14.1.1"
+  }
+}
