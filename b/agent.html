@@ -9,7 +9,165 @@
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/theme-b.css">
 <style>
-.detail-wrap { max-width:900px; }
+.detail-wrap { max-width:960px; }
+
+.detail-back {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:13px; color:var(--muted); margin:24px 0 20px;
+  transition:color .18s;
+}
+.detail-back:hover { color:var(--red); }
+
+/* ── Hero: 2-col grid ── */
+.dtl-hero {
+  display:grid;
+  grid-template-columns:55% 1fr;
+  border:1px solid var(--line);
+  border-radius:14px;
+  overflow:hidden;
+  margin-bottom:40px;
+}
+.dtl-img {
+  position:relative;
+  min-height:340px;
+  background:var(--surface);
+}
+.dtl-img img {
+  width:100%; height:100%; object-fit:cover; display:block;
+}
+.dtl-img-placeholder {
+  width:100%; height:100%; min-height:340px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:48px; color:var(--line-strong);
+}
+.dtl-info {
+  padding:32px 28px;
+  display:flex; flex-direction:column;
+  border-left:1px solid var(--line);
+}
+
+.dtl-eyebrow {
+  display:flex; align-items:center; gap:7px; flex-wrap:wrap;
+  font-size:11.5px; font-weight:500; color:var(--muted);
+  letter-spacing:.05em; margin-bottom:10px;
+}
+.dtl-pick { color:var(--red); }
+
+.dtl-title {
+  font-size:clamp(20px,2.6vw,30px);
+  font-weight:700; line-height:1.12; letter-spacing:-.02em;
+  color:var(--ink); margin-bottom:24px;
+}
+
+/* Stats grid */
+.dtl-stats {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:1px; background:var(--line);
+  border:1px solid var(--line); border-radius:8px;
+  overflow:hidden; margin-bottom:22px;
+}
+.dtl-stat { background:var(--surface); padding:13px 8px; text-align:center; }
+.dtl-stat-n {
+  display:block; font-size:20px; font-weight:700;
+  letter-spacing:-.02em; color:var(--ink); line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.dtl-stat-l {
+  display:block; font-size:10px; color:var(--muted); margin-top:4px;
+}
+
+/* CTA */
+.dtl-cta { display:flex; align-items:center; gap:12px; margin-bottom:24px; }
+.detail-demo { font-size:11.5px; color:var(--muted); line-height:1.4; }
+
+/* Meta list */
+.dtl-meta {
+  margin-top:auto; padding-top:18px;
+  border-top:1px solid var(--line);
+  display:flex; flex-direction:column; gap:9px;
+}
+.dtl-meta > div {
+  display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+  font-size:12.5px;
+}
+.dtl-meta dt { color:var(--muted); flex-shrink:0; }
+.dtl-meta dd { color:var(--ink); font-weight:500; text-align:right; }
+
+/* ── Overview section ── */
+.dtl-body { padding-bottom:60px; }
+.dtl-section-label {
+  font-size:11px; font-weight:600; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--muted);
+  padding-bottom:12px; border-bottom:1px solid var(--line);
+  margin-bottom:20px;
+}
+.dtl-overview {
+  font-size:14.5px; line-height:1.85; color:var(--ink);
+  max-width:72ch;
+}
+.dtl-overview p { margin:0 0 1.1em; }
+.dtl-overview p:last-child { margin-bottom:0; }
+
+/* Status + access badges */
+.dtl-status-row { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:14px; }
+.dtl-badge {
+  font-size:11px; font-weight:600; letter-spacing:.04em;
+  padding:3px 10px; border-radius:100px;
+}
+.dtl-badge-status { background:#d1fae5; color:#065f46; }
+.dtl-badge-access { background:var(--surface); border:1px solid var(--line); color:var(--muted); }
+
+/* Capability tags */
+.dtl-caps { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:18px; }
+.dtl-cap {
+  font-size:12px; font-weight:500; color:var(--red);
+  background:color-mix(in srgb, var(--red) 8%, transparent);
+  border:1px solid color-mix(in srgb, var(--red) 20%, transparent);
+  padding:4px 12px; border-radius:100px;
+}
+
+/* Owner role tag */
+.dtl-role {
+  display:inline-block; margin-left:6px;
+  font-size:10.5px; color:var(--muted);
+  background:var(--surface); border:1px solid var(--line);
+  padding:1px 7px; border-radius:4px; vertical-align:middle;
+}
+
+/* Links in meta */
+.dtl-email {
+  color:var(--ink); font-weight:500; word-break:break-all;
+}
+.dtl-email:hover { color:var(--red); }
+
+/* Terms link */
+.dtl-terms {
+  display:inline-flex; align-items:center; gap:5px;
+  margin-top:16px; font-size:12.5px; font-weight:500;
+  color:var(--muted); transition:color .18s;
+}
+.dtl-terms:hover { color:var(--red); }
+
+/* Moderators */
+.dtl-mods-section { margin-top:36px; }
+.dtl-mods { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; }
+.dtl-mod {
+  display:flex; justify-content:space-between; align-items:baseline;
+  gap:16px; padding:12px 14px;
+  background:var(--surface); border:1px solid var(--line); border-radius:8px;
+  font-size:13px;
+}
+.dtl-mod-name { font-weight:500; color:var(--ink); }
+.dtl-mod-email { font-size:12px; color:var(--muted); }
+.dtl-mod-email:hover { color:var(--red); }
+
+@media (max-width:740px) {
+  .dtl-hero { grid-template-columns:1fr; }
+  .dtl-img, .dtl-img-placeholder { min-height:220px; }
+  .dtl-info { border-left:none; border-top:1px solid var(--line); padding:24px 20px; }
+  .dtl-stats { grid-template-columns:repeat(3,1fr); }
+  .dtl-mod { flex-direction:column; gap:4px; }
+}
 </style>
 </head>
 <body data-page="detail" data-badges>
@@ -35,7 +193,7 @@
   <div class="foot-meta">© 2026 Hitachi Group AI Center of Excellence<br>Data exported 2026.06.09 · 781 agents indexed<br><span class="demo-note">※ 評価・実装難度・効果・技術仕様・セキュリティ等の一部はデモ用サンプルデータです</span></div>
 </div></footer>
 
-<script src="../agents.js"></script>
+<script src="../data/test.js"></script>
 <script src="../assets/app.js"></script>
 </body>
 </html>

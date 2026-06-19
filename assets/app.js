@@ -1,18 +1,17 @@
 /* ============================================================
-   AI Assets for HMAX — shared logic (with image slider)
-   Reads window.AGENTS_DATA (from agents.js)
+   AI Assets for HMAX — shared logic
+   Fetches /data/test.json and transforms to internal format
    ============================================================ */
 (function () {
   "use strict";
 
-  const DATA = window.AGENTS_DATA || { meta: {}, categories: [], agents: [] };
-  const CATS = DATA.categories;
-  const CAT_BY_ID = Object.fromEntries(CATS.map(c => [c.id, c]));
+  let DATA = { meta: {}, categories: [], agents: [] };
+  let CATS = [];
+  let CAT_BY_ID = {};
 
-  // ---- detect card padding for correct bleed margin ----
   const CARD_PAD = document.querySelector('link[href*="theme-b"],link[href*="theme-c"]') ? 18 : 22;
 
-  // ---- slider CSS (injected once) ----
+  // ---- slider CSS ----
   (function injectSliderCSS() {
     const id = "aa4h-slider-css";
     if (document.getElementById(id)) return;
@@ -20,7 +19,6 @@
     const s = document.createElement("style");
     s.id = id;
     s.textContent = `
-/* ===== card image slider ===== */
 .card.has-slider{padding-top:0;}
 .card-slider{position:relative;overflow:hidden;border-radius:3px 3px 0 0;
   margin:0 -${p}px ${p===18?"12px":"14px"};height:160px;background:var(--line-soft);}
@@ -40,8 +38,6 @@
 .card:hover .card-slider-btn{opacity:1;}
 .card-slider-prev{left:7px;}
 .card-slider-next{right:7px;}
-
-/* ===== detail page image slider ===== */
 .detail-slider{position:relative;overflow:hidden;border-radius:3px;margin-bottom:28px;
   background:var(--line-soft);aspect-ratio:16/7;}
 .detail-slider-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.2,.7,.2,1);}
@@ -62,18 +58,20 @@
 .detail-slider-count{position:absolute;bottom:12px;right:14px;
   font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.8);
   background:rgba(0,0,0,.35);padding:3px 8px;border-radius:100px;z-index:2;}
+.detail-overview{font-size:14.5px;line-height:1.8;color:var(--ink);margin:24px 0;}
+.detail-overview p{margin:0 0 1em;}
 `;
     document.head.appendChild(s);
   })();
 
-  // ---- build a card-level mini slider ----
+  // ---- card-level slider ----
   function cardSliderHTML(images) {
     if (!images || !images.length) return "";
     if (images.length === 1) {
       return `<div class="card-slider"><div class="card-slider-track"><img src="${images[0]}" alt="" loading="lazy"></div></div>`;
     }
     const dots = images.map((_, i) =>
-      `<button class="card-slider-dot${i === 0 ? " active" : ""}" data-idx="${i}" aria-label="スライド${i+1}"></button>`
+      `<button class="card-slider-dot${i===0?" active":""}" data-idx="${i}" aria-label="スライド${i+1}"></button>`
     ).join("");
     const imgs = images.map(u => `<img src="${u}" alt="" loading="lazy">`).join("");
     return `
@@ -85,7 +83,6 @@
 </div>`;
   }
 
-  // ---- wire card slider interactivity ----
   function bindCardSlider(el) {
     const track = el.querySelector(".card-slider-track");
     const dots  = el.querySelectorAll(".card-slider-dot");
@@ -105,7 +102,7 @@
     });
   }
 
-  // ---- build a full detail-page slider ----
+  // ---- detail-page slider ----
   function detailSliderHTML(images) {
     if (!images || !images.length) return "";
     const imgs = images.map(u => `<img src="${u}" alt="" loading="lazy">`).join("");
@@ -143,133 +140,167 @@
     dots.forEach(d => d.addEventListener("click", () => go(+d.dataset.idx)));
   }
 
+  // ---- data transform ----
+  const CAT_ICONS = {
+    '資料・文書作成': '✎', '開発・コード支援': '</>', 'データ分析・診断': '◴',
+    '情報収集・調査': '⌕', '営業・顧問対応': '♚', '営業・顧客対応': '♚',
+    'レビュー・チェック': '⚑', 'テスト・品質保証': '✓',
+    'サービス・プロダクト': '◆', 'ナレッジ・業務支援': '◈', 'Product': '✦',
+  };
+
+  function getCatIcon(title) {
+    return CAT_ICONS[title] || '✦';
+  }
+
+  function stripHTML(html) {
+    return (html || "").replace(/<[^>]+>/g, "").trim();
+  }
+
+  function transformData(json) {
+    const assets = json.assets;
+    const typeMap = new Map();
+    assets.forEach(a => {
+      if (!typeMap.has(a.type.id)) {
+        typeMap.set(a.type.id, {
+          id: String(a.type.id),
+          name: a.type.title,
+          icon: getCatIcon(a.type.title),
+          count: 0,
+        });
+      }
+      typeMap.get(a.type.id).count++;
+    });
+    const categories = [...typeMap.values()];
+
+    const agents = assets.map((a, i) => ({
+      id: a.id,
+      title: a.title,
+      category: String(a.type.id),
+      views: a.stats?.view_count || 0,
+      uniqueViews: a.stats?.unique_view_count || 0,
+      downloads: a.stats?.download_count || 0,
+      likes: a.stats?.like_count || 0,
+      comments: a.stats?.comment_count || 0,
+      published: a.last_updated_at ? a.last_updated_at.split('T')[0] : null,
+      owner: (a.owners && a.owners[0] && a.owners[0].full_name) ||
+             (a.creator && a.creator.full_name) || null,
+      ownerRole: (a.owners && a.owners[0] && a.owners[0].ownership_type) || null,
+      ownerEmail: (a.owners && a.owners[0] && a.owners[0].email_id) || null,
+      moderators: (a.moderators || []).map(m => ({ name: m.full_name, email: m.email_id })),
+      capabilities: (a.capabilities || []).map(c => {
+        const ja = (c.translations || []).find(t => t.language_code === 'ja');
+        return ja ? ja.title : c.title;
+      }),
+      status: a.status?.title || null,
+      accessType: a.access_type?.title || null,
+      termsUrl: a.type?.download_term_condition_url || null,
+      termsTitle: a.type?.download_term_condition_title || null,
+      description: stripHTML(a.overview),
+      overview: a.overview || null,
+      pick: i < 4,
+      images: a.preview_url ? [a.preview_url] : [],
+    }));
+
+    return {
+      meta: {
+        total: agents.length,
+        totalViews: agents.reduce((s, a) => s + a.views, 0),
+        totalLikes: agents.reduce((s, a) => s + a.likes, 0),
+      },
+      categories,
+      agents,
+    };
+  }
+
   // ---- i18n ----
   const I18N = {
     ja: {
       nav_index:"索引", nav_home:"ホーム", nav_agents:"エージェント一覧", nav_new:"新着",
-      stat_agents_br:"公開エージェント<br>Published", stat_reuse_br:"再利用数<br>REUSE COUNT", stat_cats_br:"カテゴリ<br>Categories",
-      stat_agents:"公開エージェント", stat_reuse:"再利用数", stat_cats:"カテゴリ",
-      stat_reuse_en:"REUSE COUNT",
+      stat_agents_br:"公開アセット<br>Published", stat_reuse_br:"閲覧数<br>VIEWS", stat_cats_br:"カテゴリ<br>Categories",
+      stat_agents:"公開アセット", stat_reuse:"閲覧数", stat_cats:"カテゴリ",
       sec_picks_sub:"AI-CoE 厳選 — Curated", sec_cats_sub:"利用シーン別 — Index",
-      sec_ranking_sub:"人気ランキング — Top 8", sec_newest_sub:"新着エージェント",
+      sec_ranking_sub:"人気ランキング — Top 8", sec_newest_sub:"新着アセット",
       link_picks:"ピック一覧 →", link_cats:"すべて見る →", link_ranking:"ランキング全体 →", link_newest:"新着をもっと →",
-      list_h1:"エージェント一覧", list_desc:"公開中のAIエージェントを横断検索。キーワード・カテゴリ・並び順で、目的のエージェントへ素早くたどり着けます。",
+      list_h1:"アセット一覧", list_desc:"公開中のAIアセットを横断検索。キーワード・カテゴリ・並び順で、目的のアセットへ素早くたどり着けます。",
       list_h1_en:"Directory",
-      search_ph:"エージェント名・オーナー・概要で検索…", search_ph_en:"Search name / owner / summary…",
-      sort_label:"並び順", sort_label_en:"Sort",
-      sort_views:"人気順（ビュー）", sort_rating:"評価順（★）", sort_newest:"新着順", sort_likes:"いいね順", sort_title:"名前順",
-      facet_diff_label:"難度", facet_dept_label:"部門", facet_diff_label_b:"実装難度", facet_dept_label_b:"担当部門",
-      facet_all:"すべて", facet_diff_low:"低", facet_diff_mid:"中", facet_diff_high:"高",
-      facet_cert:"認定済みのみ", facet_api:"API対応のみ", facet_pick:"⭐ ピックのみ",
-      facet_cert_c:"認定", facet_api_c:"API", facet_pick_c:"⭐ Pick",
-      result_suffix:"件のエージェント", result_suffix_en:"Agents found",
+      search_ph:"アセット名・オーナー・概要で検索…",
+      sort_label:"並び順",
+      sort_views:"人気順（ビュー）", sort_newest:"新着順", sort_likes:"いいね順", sort_title:"名前順",
+      facet_dept_label_b:"担当",
+      facet_all:"すべて",
+      result_suffix:"件のアセット",
       more_text:"さらに表示", more_remain:"残り",
       empty_title:"No matches.", empty_title_b:"該当なし",
-      empty_msg:"条件に合うエージェントが見つかりませんでした。キーワードやカテゴリを変えてお試しください。",
+      empty_msg:"条件に合うアセットが見つかりませんでした。キーワードやカテゴリを変えてお試しください。",
       rail_cats:"カテゴリ", rail_filter:"絞り込み",
-      card_reuse:"再利用", card_users:"USER",
-      rank_reuse:"再利用",
-      modal_reuse:"再利用数", modal_uniq:"ユニーク", modal_likes:"いいね", modal_rank:"人気順位",
-      modal_owner:"オーナー", modal_pubdate:"公開日", modal_assetid:"アセットID",
-      modal_note:"※ 統計は 2026.06.17 時点のエクスポート値です。", modal_close:"閉じる",
-      detail_back:"← エージェント一覧へ戻る", detail_demo:"※ 評価・技術仕様・セキュリティ等の一部はデモ用サンプルです",
+      card_reuse:"ビュー", card_users:"ユニーク",
+      rank_reuse:"ビュー",
+      modal_reuse:"ビュー数", modal_uniq:"ユニーク", modal_likes:"いいね", modal_rank:"人気順位",
+      modal_owner:"オーナー", modal_pubdate:"更新日", modal_assetid:"アセットID",
+      modal_note:"※ 統計は表示時点のデータです。", modal_close:"閉じる",
+      detail_back:"← アセット一覧へ戻る", detail_demo:"※ 一部の情報はデモ用データです",
       detail_try:"試す", detail_try_done:"デモ環境のため起動しません ✓",
-      tab_overview:"概要", tab_effect:"効果・活用事例", tab_tech:"技術・API", tab_sec:"セキュリティ・連携・サポート",
-      fld_summary:"概要", fld_usecases:"主な活用シーン", fld_dept:"担当部門",
-      fld_owner:"オーナー", fld_pubdate:"公開日", fld_assetid:"アセットID",
-      fld_model:"ベースモデル", fld_integr:"既存システム連携", fld_perf:"パフォーマンス",
-      fld_custom:"カスタマイズ性", fld_custom_y:"対応（プロンプト/設定の調整可）", fld_custom_n:"標準構成での提供",
-      fld_diff:"実装難度", fld_api:"API 連携", fld_api_y:"提供あり", fld_api_doc:"API仕様書を見る →", fld_api_n:"現時点では未提供",
-      fld_auth:"認証方式", fld_data:"データの取り扱い", fld_comply:"コンプライアンス",
-      fld_svcs:"連携可能サービス", fld_support:"サポート窓口", fld_sla:"対応SLA",
-      fld_cert:"認定", fld_cert_y:"✓ AI-CoE 認定済み", fld_cert_n:"未認定",
-      dtl_reuse:"再利用数", dtl_uniq:"ユニーク", dtl_eval:"評価", dtl_rank:"人気順位",
-      voices_h:"活用の声", cases_h:"活用事例",
-      notfound:"エージェントが見つかりませんでした。", notfound_link:"← 一覧へ戻る",
-      pick_badge:"⭐ ピック", diff_pre:"難度",
-      chat_name:"AIアシスタント", chat_sub:"Find the Right Agent",
-      chat_close:"閉じる", chat_ph:"例：メール文章を自動で作りたい", chat_open_label:"AIアシスタントを開く",
+      fld_owner:"オーナー", fld_pubdate:"更新日", fld_assetid:"アセットID",
+      dtl_reuse:"ビュー", dtl_uniq:"ユニーク", dtl_dl:"DL", dtl_likes:"いいね",
+      notfound:"アセットが見つかりませんでした。", notfound_link:"← 一覧へ戻る",
+      pick_badge:"⭐ ピック",
+      chat_name:"AIアシスタント", chat_sub:"Find the Right Asset",
+      chat_close:"閉じる", chat_ph:"例：資料作成を自動化したい", chat_open_label:"AIアシスタントを開く",
       chat_hello:"こんにちは！<b>AI Assets</b> の検索アシスタントです。<br>どんな業務をAIでサポートしたいか教えてください。",
-      chat_found:"件見つかりました", chat_noresult:"該当するエージェントが見つかりませんでした。<br>別のキーワードでお試しください。",
-      chat_detail_link:"詳細を見る →", chat_reuse:"再利用",
+      chat_found:"件見つかりました", chat_noresult:"該当するアセットが見つかりませんでした。<br>別のキーワードでお試しください。",
+      chat_detail_link:"詳細を見る →", chat_reuse:"ビュー",
       chat_sugs:["資料作成","コードレビュー","データ分析","営業支援","情報収集","テスト自動化"],
-      cta_explore:"エージェントを探す", cta_cats:"カテゴリから見る", cta_dir_btn:"エージェント一覧へ",
-      hero_jp_a:"あなたにとって最適な<br>AIエージェントを<br>お届けします。",
-      hero_lead_a:'AI CoE が公開する <span data-stat="total">—</span> 個のAI Assetを、カテゴリ・人気・新着から横断的に索引。業務にぴったりの一体を、最短で。',
-      cta_band_a:"30の選択肢から、<br>あなたの一体を。",
-      cta_band_a_sub:"キーワード・カテゴリ・新着から探せる",
-      hero_badge_b:"AI CoE · 社内AIエージェント カタログ",
-      hero_h1_b:'あなたに最適な、<br><em>AIエージェント</em>を。',
+      cta_explore:"アセットを探す", cta_cats:"カテゴリから見る", cta_dir_btn:"アセット一覧へ",
+      hero_badge_b:"AI CoE · 社内AIアセット カタログ",
+      hero_h1_b:'あなたに最適な、<br><em>AIアセット</em>を。',
       hero_lead_b:'AI CoE が公開する <span data-stat="total">—</span> 個のAI Assetを、カテゴリ・人気・新着から横断検索。業務にぴったりの一体が、すぐ見つかります。',
       sec_h_picks_b:"⭐ プロデューサーズピック", sec_h_cats_b:"カテゴリから探す",
-      sec_h_ranking_b:"人気のエージェント", sec_h_newest_b:"新着エージェント",
-      cta_band_b:"30の選択肢から、あなたの一体を。", cta_band_sub_b:"キーワード・カテゴリ・並び替えで横断検索",
-      hero_jp_c:"最適なエージェントを、<br>見つけ出せ。",
-      hero_lead_c:'AI CoE が公開する <span data-stat="total">—</span> 個の AI Asset を横断的に索引。業務に効く最適な一体へ、最短距離で。',
-      list_h1_jp:"エージェント一覧", list_desc_a:"公開中のAIエージェントを横断検索。キーワード・カテゴリ・並び順で、目的のエージェントへ素早くたどり着けます。",
+      sec_h_ranking_b:"人気のアセット", sec_h_newest_b:"新着アセット",
+      cta_band_b:"選択肢から、あなたの一体を。", cta_band_sub_b:"キーワード・カテゴリ・並び替えで横断検索",
     },
     en: {
       nav_index:"Index", nav_home:"Home", nav_agents:"Directory", nav_new:"New",
-      stat_agents_br:"Agents Published", stat_reuse_br:"Reuse Count", stat_cats_br:"Categories",
-      stat_agents:"Agents", stat_reuse:"Reuse Count", stat_cats:"Categories",
-      stat_reuse_en:"REUSE COUNT",
+      stat_agents_br:"Assets Published", stat_reuse_br:"Views", stat_cats_br:"Categories",
+      stat_agents:"Assets", stat_reuse:"Views", stat_cats:"Categories",
       sec_picks_sub:"Curated by AI-CoE", sec_cats_sub:"Browse by use case",
       sec_ranking_sub:"Top 8 by popularity", sec_newest_sub:"Recently published",
       link_picks:"All picks →", link_cats:"View all →", link_ranking:"Full ranking →", link_newest:"More new →",
-      list_h1:"Directory", list_desc:"Search across all published AI agents. Filter by keyword, category, or sort order.",
+      list_h1:"Directory", list_desc:"Search across all published AI assets. Filter by keyword, category, or sort order.",
       list_h1_en:"Directory",
-      search_ph:"Search by name, owner, or description…", search_ph_en:"Search name / owner / summary…",
-      sort_label:"Sort", sort_label_en:"Sort",
-      sort_views:"Most Popular", sort_rating:"Top Rated", sort_newest:"Newest", sort_likes:"Most Liked", sort_title:"Name A–Z",
-      facet_diff_label:"Difficulty", facet_dept_label:"Department", facet_diff_label_b:"Difficulty", facet_dept_label_b:"Department",
-      facet_all:"All", facet_diff_low:"Low", facet_diff_mid:"Medium", facet_diff_high:"High",
-      facet_cert:"Certified only", facet_api:"API Ready only", facet_pick:"⭐ Picks only",
-      facet_cert_c:"Certified", facet_api_c:"API", facet_pick_c:"⭐ Pick",
-      result_suffix:"agents found", result_suffix_en:"Agents found",
+      search_ph:"Search by name, owner, or description…",
+      sort_label:"Sort",
+      sort_views:"Most Popular", sort_newest:"Newest", sort_likes:"Most Liked", sort_title:"Name A–Z",
+      facet_dept_label_b:"Department",
+      facet_all:"All",
+      result_suffix:"assets found",
       more_text:"Load more", more_remain:"remaining",
       empty_title:"No matches.", empty_title_b:"No matches.",
-      empty_msg:"No agents match your filters. Try a different keyword or category.",
+      empty_msg:"No assets match your filters. Try a different keyword or category.",
       rail_cats:"Categories", rail_filter:"Filters",
-      card_reuse:"Reuse", card_users:"Users",
-      rank_reuse:"Reuse",
-      modal_reuse:"Reuse", modal_uniq:"Unique", modal_likes:"Likes", modal_rank:"Rank",
-      modal_owner:"Owner", modal_pubdate:"Published", modal_assetid:"Asset ID",
-      modal_note:"* Stats as of export date 2026.06.17.", modal_close:"Close",
-      detail_back:"← Back to Directory", detail_demo:"* Ratings, tech specs, and security info are sample data.",
+      card_reuse:"Views", card_users:"Unique",
+      rank_reuse:"Views",
+      modal_reuse:"Views", modal_uniq:"Unique", modal_likes:"Likes", modal_rank:"Rank",
+      modal_owner:"Owner", modal_pubdate:"Updated", modal_assetid:"Asset ID",
+      modal_note:"* Stats as of display date.", modal_close:"Close",
+      detail_back:"← Back to Directory", detail_demo:"* Some info is sample data.",
       detail_try:"Try it", detail_try_done:"Not available in demo ✓",
-      tab_overview:"Overview", tab_effect:"Impact & Use Cases", tab_tech:"Tech & API", tab_sec:"Security & Support",
-      fld_summary:"Summary", fld_usecases:"Use Cases", fld_dept:"Department",
-      fld_owner:"Owner", fld_pubdate:"Published", fld_assetid:"Asset ID",
-      fld_model:"Base Model", fld_integr:"Integrations", fld_perf:"Performance",
-      fld_custom:"Customizable", fld_custom_y:"Yes (prompt/config adjustable)", fld_custom_n:"Standard config only",
-      fld_diff:"Difficulty", fld_api:"API", fld_api_y:"Available", fld_api_doc:"View API Docs →", fld_api_n:"Not yet available",
-      fld_auth:"Auth Method", fld_data:"Data Handling", fld_comply:"Compliance",
-      fld_svcs:"Integrations", fld_support:"Support Channel", fld_sla:"SLA",
-      fld_cert:"Certification", fld_cert_y:"✓ AI-CoE Certified", fld_cert_n:"Not certified",
-      dtl_reuse:"Reuse", dtl_uniq:"Unique", dtl_eval:"Rating", dtl_rank:"Rank",
-      voices_h:"User Voices", cases_h:"Use Cases",
-      notfound:"Agent not found.", notfound_link:"← Back to Directory",
-      pick_badge:"⭐ Pick", diff_pre:"Diff.",
-      chat_name:"AI Assistant", chat_sub:"Find the Right Agent",
-      chat_close:"Close", chat_ph:"e.g. I want to automate email drafting", chat_open_label:"Open AI Assistant",
+      fld_owner:"Owner", fld_pubdate:"Updated", fld_assetid:"Asset ID",
+      dtl_reuse:"Views", dtl_uniq:"Unique", dtl_dl:"DL", dtl_likes:"Likes",
+      notfound:"Asset not found.", notfound_link:"← Back to Directory",
+      pick_badge:"⭐ Pick",
+      chat_name:"AI Assistant", chat_sub:"Find the Right Asset",
+      chat_close:"Close", chat_ph:"e.g. I want to automate document creation", chat_open_label:"Open AI Assistant",
       chat_hello:"Hi! I\'m the <b>AI Assets</b> assistant.<br>What task would you like AI to help with?",
-      chat_found:"agent(s) found", chat_noresult:"No matching agents found.<br>Try a different keyword.",
-      chat_detail_link:"View details →", chat_reuse:"Reuse",
+      chat_found:"asset(s) found", chat_noresult:"No matching assets found.<br>Try a different keyword.",
+      chat_detail_link:"View details →", chat_reuse:"Views",
       chat_sugs:["Document creation","Code review","Data analysis","Sales support","Research","Test automation"],
-      cta_explore:"Explore Agents", cta_cats:"Browse Categories", cta_dir_btn:"View Directory",
-      hero_jp_a:"Delivering the best<br>AI agent<br>for your work.",
-      hero_lead_a:'Browse <span data-stat="total">—</span> AI agents published by AI CoE.',
-      cta_band_a:"30 choices.<br>Find yours.",
-      cta_band_a_sub:"Search by category, keyword, or newest",
-      hero_badge_b:"AI CoE · Internal AI Agent Catalog",
-      hero_h1_b:'Find the AI Agent<br><em>built for you.</em>',
-      hero_lead_b:'Discover <span data-stat="total">—</span> AI agents published by AI CoE.',
+      cta_explore:"Explore Assets", cta_cats:"Browse Categories", cta_dir_btn:"View Directory",
+      hero_badge_b:"AI CoE · Internal AI Asset Catalog",
+      hero_h1_b:'Find the AI Asset<br><em>built for you.</em>',
+      hero_lead_b:'Discover <span data-stat="total">—</span> AI assets published by AI CoE.',
       sec_h_picks_b:"⭐ Producer's Picks", sec_h_cats_b:"Browse Categories",
       sec_h_ranking_b:"Most Popular", sec_h_newest_b:"Newly Added",
-      cta_band_b:"30 choices, one perfect match.", cta_band_sub_b:"Search by keyword, category, or sort order",
-      hero_jp_c:"Find the agent<br>built for you.",
-      hero_lead_c:'Browse <span data-stat="total">—</span> AI agents published by AI CoE.',
-      list_h1_jp:"All Agents", list_desc_a:"Search across all published AI agents. Filter by keyword, category, or sort order.",
+      cta_band_b:"Find your perfect match.", cta_band_sub_b:"Search by keyword, category, or sort order",
     },
   };
 
@@ -297,19 +328,7 @@
   const catGlyph = id => esc(CAT_BY_ID[id] ? CAT_BY_ID[id].icon : "✦");
   const fmtDate  = iso => { if (!iso) return "—"; const [y,m,d] = iso.split("-"); return `${y}.${m}.${d}`; };
 
-  const flagBadges     = () => document.body.dataset.badges    != null;
   const flagDetailPage = () => document.body.dataset.detail === "page";
-
-  function badgesHTML(a) {
-    if (!flagBadges() || a.rating == null) return "";
-    const cert = a.certified ? `<span class="bdg bdg-cert">${_lang==="en"?"Cert.":"認定"}</span>` : "";
-    const api  = (a.api && a.api.available) ? `<span class="bdg bdg-api">API</span>` : "";
-    return `<div class="card-badges">
-      <span class="bdg bdg-rate">★ ${a.rating.toFixed(1)}</span>
-      <span class="bdg bdg-diff diff-${a.difficulty}">${t("diff_pre")} ${esc(a.difficulty)}</span>
-      ${cert}${api}
-    </div>`;
-  }
 
   function cardHTML(a, idx) {
     const delay = idx != null ? ` style="animation-delay:${Math.min(idx,12)*45}ms"` : "";
@@ -317,11 +336,6 @@
     const desc = a.description
       ? `<p class="card-desc">${esc(a.description)}</p>`
       : `<p class="card-desc" style="opacity:.5">— 概要なし —</p>`;
-    const actions = flagBadges() ? `
-      <div class="card-actions">
-        <button class="card-try" data-try="${a.id}">${_lang==="en"?"Try":"試す"}</button>
-        <span class="card-detail-hint">${_lang==="en"?"Details →":"詳細 →"}</span>
-      </div>` : "";
     const sliderClass = slider ? " has-slider" : "";
     return `
 <article class="card reveal${sliderClass}" data-id="${a.id}"${delay}>
@@ -331,19 +345,16 @@
     <span class="card-id">№${a.id}</span>
   </div>
   <h3 class="card-title">${esc(a.title)}</h3>
-  ${badgesHTML(a)}
   ${desc}
   <div class="card-foot">
     <span class="stat"><span class="lab">${t("card_reuse")}</span> ${fmt(a.views)}</span>
     <span class="stat"><span class="lab">${t("card_users")}</span> ${fmt(a.uniqueViews)}</span>
-    ${flagBadges() && a.ratingCount ? `<span class="stat"><span class="lab">★</span> ${fmt(a.ratingCount)}</span>` : (a.likes ? `<span class="stat"><span class="lab">♥</span> ${fmt(a.likes)}</span>` : "")}
+    ${a.likes ? `<span class="stat"><span class="lab">♥</span> ${fmt(a.likes)}</span>` : ""}
     ${a.owner ? `<span class="card-owner">${esc(a.owner)}</span>` : ""}
   </div>
-  ${actions}
 </article>`;
   }
 
-  // ---- bind card sliders after insertion ----
   function bindCardSliders(root) {
     root.querySelectorAll("[data-slider]").forEach(bindCardSlider);
   }
@@ -397,9 +408,6 @@
 
   function bindCards(root) {
     root.addEventListener("click", e => {
-      const tb = e.target.closest("[data-try]");
-      if (tb) { e.stopPropagation(); location.href = `agent.html?id=${tb.dataset.try}`; return; }
-      // ignore slider button clicks
       if (e.target.closest("[data-slider]") &&
           (e.target.closest(".card-slider-btn") || e.target.closest(".card-slider-dot"))) return;
       const c = e.target.closest(".card");
@@ -473,31 +481,17 @@
     const params  = new URLSearchParams(location.search);
     const qInput  = document.getElementById("q");
     const sortSel = document.getElementById("sort");
-    const validSorts = ["views","newest","likes","title","rating"];
+    const validSorts = ["views","newest","likes","title"];
     const urlSort = params.get("sort");
     const state = {
       q:"", cat: params.get("cat")||"all",
       sort: validSorts.includes(urlSort) ? urlSort : "views",
-      facets: { difficulty:"", dept:"", certified:false, api:false, pick:false },
       shown:0, step:48, results:[],
     };
     const chipWrap  = document.getElementById("chips");
     const countEl   = document.getElementById("result-count");
     const moreBtn   = document.getElementById("more");
     const emptyEl   = document.getElementById("empty");
-
-    const fc = {
-      difficulty: document.getElementById("facet-difficulty"),
-      dept:       document.getElementById("facet-dept"),
-      certified:  document.getElementById("facet-certified"),
-      api:        document.getElementById("facet-api"),
-      pick:       document.getElementById("facet-pick"),
-    };
-    if (fc.dept) {
-      const depts = [...new Set(DATA.agents.map(a => a.department).filter(Boolean))].sort();
-      fc.dept.insertAdjacentHTML("beforeend", depts.map(d => `<option value="${esc(d)}">${esc(d)}</option>`).join(""));
-    }
-    if (params.get("facet") === "pick" && fc.pick) { fc.pick.checked = true; state.facets.pick = true; }
 
     const chips = [{ id:"all", name:t("facet_all"), icon:"✦", count:DATA.meta.total }, ...CATS];
     chipWrap.innerHTML = chips.map(c =>
@@ -506,16 +500,10 @@
 
     function compute() {
       const q = state.q.trim().toLowerCase();
-      const f = state.facets;
       let r = DATA.agents.filter(a => {
         if (state.cat !== "all" && a.category !== state.cat) return false;
         if (q && !(a.title.toLowerCase().includes(q) || (a.owner||"").toLowerCase().includes(q)
           || (a.description||"").toLowerCase().includes(q))) return false;
-        if (f.difficulty && a.difficulty !== f.difficulty) return false;
-        if (f.dept && a.department !== f.dept) return false;
-        if (f.certified && !a.certified) return false;
-        if (f.api && !(a.api && a.api.available)) return false;
-        if (f.pick && !a.pick) return false;
         return true;
       });
       const sorters = {
@@ -523,7 +511,6 @@
         newest: (a,b) => (b.published||"").localeCompare(a.published||""),
         title:  (a,b) => a.title.localeCompare(b.title,"ja"),
         likes:  (a,b) => b.likes - a.likes || b.views - a.views,
-        rating: (a,b) => (b.rating||0) - (a.rating||0) || b.views - a.views,
       };
       r.sort(sorters[state.sort]);
       state.results = r; state.shown = 0;
@@ -561,12 +548,6 @@
     moreBtn.addEventListener("click", () => paint(true));
     bindCards(grid);
 
-    if (fc.difficulty) fc.difficulty.addEventListener("change", () => { state.facets.difficulty = fc.difficulty.value; refresh(); });
-    if (fc.dept)       fc.dept.addEventListener("change",       () => { state.facets.dept = fc.dept.value; refresh(); });
-    if (fc.certified)  fc.certified.addEventListener("change",  () => { state.facets.certified = fc.certified.checked; refresh(); });
-    if (fc.api)        fc.api.addEventListener("change",        () => { state.facets.api = fc.api.checked; refresh(); });
-    if (fc.pick)       fc.pick.addEventListener("change",       () => { state.facets.pick = fc.pick.checked; refresh(); });
-
     refresh();
   }
 
@@ -581,102 +562,90 @@
       return;
     }
     document.title = `${a.title} — AI Assets for HMAX`;
-    const rank = [...DATA.agents].sort((x,y) => y.views - x.views).findIndex(x => x.id === id) + 1;
-    const chips = arr => (arr && arr.length ? arr.map(s => `<span class="chip-tag">${esc(s)}</span>`).join("") : `<span class="muted">—</span>`);
-    const field = (label, val) => `<div class="fld"><dt>${esc(label)}</dt><dd>${val}</dd></div>`;
 
-    const overview = `
-      <div class="detail-metrics">
-        <div class="mg"><span class="mg-n">${fmt(a.views)}</span><span class="mg-l">${t("dtl_reuse")}</span></div>
-        <div class="mg"><span class="mg-n">${fmt(a.uniqueViews)}</span><span class="mg-l">${t("dtl_uniq")}</span></div>
-        <div class="mg"><span class="mg-n">★ ${(a.rating ?? 0).toFixed(1)}</span><span class="mg-l">${t("dtl_eval")} (${fmt(a.ratingCount)})</span></div>
-        <div class="mg"><span class="mg-n">#${rank}</span><span class="mg-l">${t("dtl_rank")}</span></div>
-      </div>
-      <dl class="fld-list">
-        ${field(t("fld_summary"), a.description ? esc(a.description) : '<span class="muted">概要なし</span>')}
-        ${field(t("fld_usecases"), chips(a.useCases))}
-        ${field(t("fld_dept"), esc(a.department||"—"))}
-        ${field(t("fld_owner"), esc(a.owner||"—"))}
-        ${field(t("fld_pubdate"), fmtDate(a.published))}
-        ${field(t("fld_assetid"), a.id)}
-      </dl>`;
+    const imgHTML = a.images && a.images[0]
+      ? `<img src="${safeUrl(a.images[0])}" alt="" loading="eager">`
+      : `<div class="dtl-img-placeholder">${catGlyph(a.category)}</div>`;
 
-    const effect = `
-      <div class="effect-hero"><span class="effect-ic">📈</span><p>${esc(a.effect)}</p></div>
-      <h3 class="panel-h">${t("voices_h")}</h3>
-      <div class="voices">
-        ${(a.testimonials || []).map(v => `<blockquote class="voice"><p>"${esc(v.text)}"</p><cite>— ${esc(v.role)}</cite></blockquote>`).join("")}
-      </div>
-      <h3 class="panel-h">${t("cases_h")}</h3>
-      <ul class="usecase-list">${(a.useCases || []).map(u => `<li>${esc(u)}</li>`).join("")}</ul>`;
+    const capsHTML = a.capabilities && a.capabilities.length
+      ? `<div class="dtl-caps">${a.capabilities.map(c => `<span class="dtl-cap">${esc(c)}</span>`).join("")}</div>`
+      : "";
 
-    const tech_obj     = a.tech     || {};
-    const api_obj      = a.api      || {};
-    const security_obj = a.security || {};
-    const support_obj  = a.support  || {};
+    const badgesHTML = [
+      a.status     ? `<span class="dtl-badge dtl-badge-status">${esc(a.status)}</span>` : "",
+      a.accessType ? `<span class="dtl-badge dtl-badge-access">${esc(a.accessType)}</span>` : "",
+    ].join("");
 
-    const tech = `
-      <dl class="fld-list">
-        ${field(t("fld_model"), esc(tech_obj.model))}
-        ${field(t("fld_integr"), chips(tech_obj.integrations))}
-        ${field(t("fld_perf"), esc(tech_obj.performance))}
-        ${field(t("fld_custom"), tech_obj.customizable ? t("fld_custom_y") : t("fld_custom_n"))}
-        ${field(t("fld_diff"), `${t("diff_pre")} ${esc(a.difficulty)}`)}
-        ${field(t("fld_api"), api_obj.available
-          ? `${t("fld_api_y")}　<a class="api-link" href="${safeUrl(api_obj.docUrl)}">${t("fld_api_doc")}</a>`
-          : `<span class="muted">${t("fld_api_n")}</span>`)}
-      </dl>`;
+    const modsHTML = a.moderators && a.moderators.length
+      ? `<section class="dtl-mods-section">
+          <h2 class="dtl-section-label">モデレーター</h2>
+          <ul class="dtl-mods">${a.moderators.map(m => `
+            <li class="dtl-mod">
+              <span class="dtl-mod-name">${esc(m.name)}</span>
+              <a class="dtl-mod-email" href="mailto:${esc(m.email)}">${esc(m.email)}</a>
+            </li>`).join("")}
+          </ul>
+        </section>`
+      : "";
 
-    const sec = `
-      <dl class="fld-list">
-        ${field(t("fld_auth"), esc(security_obj.auth))}
-        ${field(t("fld_data"), esc(security_obj.dataHandling))}
-        ${field(t("fld_comply"), chips(security_obj.compliance))}
-        ${field(t("fld_svcs"), chips(tech_obj.integrations))}
-        ${field(t("fld_support"), esc(support_obj.channel))}
-        ${field(t("fld_sla"), esc(support_obj.sla))}
-        ${field(t("fld_cert"), a.certified ? `<span class="ok">${t("fld_cert_y")}</span>` : t("fld_cert_n"))}
-      </dl>`;
-
-    const tabs = [
-      [t("tab_overview"), overview],
-      [t("tab_effect"), effect],
-      [t("tab_tech"), tech],
-      [t("tab_sec"), sec],
-    ];
+    const termsHTML = a.termsUrl
+      ? `<a class="dtl-terms" href="${safeUrl(a.termsUrl)}" target="_blank" rel="noopener">
+           ${esc(a.termsTitle || "利用規約を見る")} →
+         </a>`
+      : "";
 
     root.innerHTML = `
       <a class="detail-back" href="agents.html">${t("detail_back")}</a>
-      ${detailSliderHTML(a.images)}
-      <div class="detail-head">
-        <div class="detail-eyebrow"><span class="gl">${catGlyph(a.category)}</span> ${esc(catName(a.category))} · №${a.id}${a.pick?` · ${t("pick_badge")}`:""}</div>
-        <h1 class="detail-title">${esc(a.title)}</h1>
-        <div class="detail-badges">
-          <span class="bdg bdg-rate">★ ${(a.rating ?? 0).toFixed(1)} <small>(${fmt(a.ratingCount)})</small></span>
-          <span class="bdg bdg-diff diff-${a.difficulty}">${t("diff_pre")} ${esc(a.difficulty)}</span>
-          ${a.certified ? `<span class="bdg bdg-cert">${_lang==="en"?"Cert.":"認定"}</span>` : ""}
-          ${api_obj.available ? '<span class="bdg bdg-api">API</span>' : ""}
-          <span class="bdg bdg-dept">${esc(a.department||"—")}</span>
-        </div>
-        <div class="detail-cta">
-          <button class="btn try-cta">${t("detail_try")} <span class="arr">→</span></button>
-          <span class="detail-demo">${t("detail_demo")}</span>
+
+      <div class="dtl-hero">
+        <div class="dtl-img">${imgHTML}</div>
+        <div class="dtl-info">
+          <div class="dtl-eyebrow">
+            <span class="gl">${catGlyph(a.category)}</span>
+            ${esc(catName(a.category))}
+            <span>·</span><span>№${a.id}</span>
+            ${a.pick ? `<span class="dtl-pick">· ${t("pick_badge")}</span>` : ""}
+          </div>
+          <h1 class="dtl-title">${esc(a.title)}</h1>
+
+          ${badgesHTML ? `<div class="dtl-status-row">${badgesHTML}</div>` : ""}
+          ${capsHTML}
+
+          <div class="dtl-stats">
+            <div class="dtl-stat"><span class="dtl-stat-n">${fmt(a.views)}</span><span class="dtl-stat-l">${t("dtl_reuse")}</span></div>
+            <div class="dtl-stat"><span class="dtl-stat-n">${fmt(a.uniqueViews)}</span><span class="dtl-stat-l">${t("dtl_uniq")}</span></div>
+            <div class="dtl-stat"><span class="dtl-stat-n">${fmt(a.downloads)}</span><span class="dtl-stat-l">${t("dtl_dl")}</span></div>
+            <div class="dtl-stat"><span class="dtl-stat-n">${fmt(a.likes)}</span><span class="dtl-stat-l">${t("dtl_likes")}</span></div>
+            <div class="dtl-stat"><span class="dtl-stat-n">${fmt(a.comments)}</span><span class="dtl-stat-l">コメント</span></div>
+          </div>
+
+          <div class="dtl-cta">
+            <button class="btn try-cta">${t("detail_try")} <span class="arr">→</span></button>
+            <span class="detail-demo">${t("detail_demo")}</span>
+          </div>
+
+          <dl class="dtl-meta">
+            <div>
+              <dt>${t("fld_owner")}</dt>
+              <dd>${esc(a.owner||"—")}${a.ownerRole ? `<span class="dtl-role">${esc(a.ownerRole)}</span>` : ""}</dd>
+            </div>
+            ${a.ownerEmail ? `<div><dt>連絡先</dt><dd><a class="dtl-email" href="mailto:${esc(a.ownerEmail)}">${esc(a.ownerEmail)}</a></dd></div>` : ""}
+            <div><dt>${t("fld_pubdate")}</dt><dd>${fmtDate(a.published)}</dd></div>
+            <div><dt>${t("fld_assetid")}</dt><dd>#${a.id}</dd></div>
+          </dl>
+
+          ${termsHTML}
         </div>
       </div>
-      <nav class="tabs" role="tablist">
-        ${tabs.map((v,i) => `<button class="tab${i===0?" active":""}" data-tab="${i}" role="tab">${esc(v[0])}</button>`).join("")}
-      </nav>
-      <div class="tab-panels">
-        ${tabs.map((v,i) => `<section class="panel${i===0?" active":""}" data-panel="${i}">${v[1]}</section>`).join("")}
-      </div>`;
+
+      <section class="dtl-body">
+        <h2 class="dtl-section-label">概要</h2>
+        <div class="dtl-overview">${a.overview || `<p style="color:var(--muted)">—</p>`}</div>
+        ${modsHTML}
+      </section>`;
 
     bindDetailSlider(root);
 
-    root.querySelector(".tabs").addEventListener("click", e => {
-      const b = e.target.closest(".tab"); if (!b) return;
-      root.querySelectorAll(".tab").forEach(x => x.classList.toggle("active", x===b));
-      root.querySelectorAll(".panel").forEach(p => p.classList.toggle("active", p.dataset.panel===b.dataset.tab));
-    });
     root.querySelector(".try-cta").addEventListener("click", function() {
       this.innerHTML = t("detail_try_done"); this.classList.add("tried");
     });
@@ -770,9 +739,9 @@
       </div>`;
     document.body.append(btn, ov, panel);
 
-    const msgs   = document.getElementById("chat-msgs");
-    const input  = document.getElementById("chat-input");
-    const sendBtn= document.getElementById("chat-send");
+    const msgs    = document.getElementById("chat-msgs");
+    const input   = document.getElementById("chat-input");
+    const sendBtn = document.getElementById("chat-send");
     const openPanel  = () => { ov.classList.add("open"); panel.classList.add("open"); input.focus(); };
     const closePanel = () => { ov.classList.remove("open"); panel.classList.remove("open"); };
     btn.addEventListener("click", openPanel);
@@ -791,17 +760,6 @@
       msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight; return div;
     }
 
-    const catKw = {
-      doc:      ["資料","文書","ドキュメント","スライド","レポート","メール","議事録","提案書","カタログ"],
-      dev:      ["開発","コード","プログラム","実装","python","api","バグ","データベース"],
-      test:     ["テスト","品質","qa","検証","バグ"],
-      analysis: ["分析","データ","診断","売上","財務","顧客行動","プロセス"],
-      research: ["調査","リサーチ","市場","競合","法令","技術情報"],
-      sales:    ["営業","顧客","提案","商談","セールス"],
-      review:   ["レビュー","チェック","契約書","セキュリティ","コンプライアンス"],
-      service:  ["ヘルプデスク","サポート","問い合わせ"],
-      knowledge:["ナレッジ","検索","社内","マニュアル"],
-    };
     function searchAgents(query) {
       const q = query.toLowerCase().trim();
       const tokens = q.split(/[\s　]+/).filter(Boolean);
@@ -810,15 +768,13 @@
         let score = 0;
         const ti = a.title.toLowerCase();
         const d  = (a.description||"").toLowerCase();
+        const catTitle = catName(a.category).toLowerCase();
         tokens.forEach(tok => {
           if (ti.includes(tok)) score += 4;
           if (d.includes(tok))  score += 1.5;
-          Object.entries(catKw).forEach(([id,keys]) => {
-            if (keys.some(k => tok.includes(k)||k.includes(tok)) && a.category===id) score += 2;
-          });
+          if (catTitle.includes(tok)) score += 2;
         });
         if (a.pick) score *= 1.2;
-        if (a.rating > 4.5) score *= 1.08;
         return {a, score};
       }).filter(({score}) => score > 0)
         .sort((x,y) => y.score - x.score).slice(0,3).map(({a}) => a);
@@ -830,7 +786,6 @@
           <div class="chat-result-cat">${catGlyph(a.category)} ${esc(catName(a.category))}</div>
           <div class="chat-result-title">${esc(a.title)}</div>
           <div class="chat-result-meta">
-            <span>★ ${a.rating?a.rating.toFixed(1):"—"}</span>
             <span>${fmt(a.views)} ${t("chat_reuse")}</span>
             <a class="chat-result-link" href="agent.html?id=${a.id}">${t("chat_detail_link")}</a>
           </div>
@@ -883,12 +838,16 @@
     });
   }
 
-  // boot
+  // ---- boot: read window.ASSETS_DATA (loaded via data/test.js script tag) ----
   document.addEventListener("DOMContentLoaded", () => {
     applyI18n();
-    if (document.body.dataset.page==="home")   renderHome();
-    if (document.body.dataset.page==="list")   renderList();
-    if (document.body.dataset.page==="detail") renderDetail();
+    if (!window.ASSETS_DATA) { console.error("ASSETS_DATA not loaded"); return; }
+    DATA = transformData(window.ASSETS_DATA);
+    CATS = DATA.categories;
+    CAT_BY_ID = Object.fromEntries(CATS.map(c => [c.id, c]));
+    if (document.body.dataset.page === "home")   renderHome();
+    if (document.body.dataset.page === "list")   renderList();
+    if (document.body.dataset.page === "detail") renderDetail();
     initChatPod();
     initLangSwitch();
   });

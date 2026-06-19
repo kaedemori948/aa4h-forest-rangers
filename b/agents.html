@@ -66,7 +66,6 @@
     <label for="sort" data-i18n="sort_label">並び順</label>
     <select id="sort">
       <option value="views" data-i18n="sort_views">人気順（ビュー）</option>
-      <option value="rating" data-i18n="sort_rating">評価順（★）</option>
       <option value="newest" data-i18n="sort_newest">新着順</option>
       <option value="likes" data-i18n="sort_likes">いいね順</option>
       <option value="title" data-i18n="sort_title">名前順</option>
@@ -117,7 +116,7 @@
   <div class="foot-meta">© 2026 Hitachi Group AI Center of Excellence<br>Data exported 2026.06.09 · 781 agents indexed<br><span class="demo-note">※ 評価・実装難度・効果・技術仕様・セキュリティ等の一部はデモ用サンプルデータです</span></div>
 </div></footer>
 
-<script src="../agents.js"></script>
+<script src="../data/test.js"></script>
 <script src="../assets/app.js"></script>
 <script>
 (function(){ var s=new URLSearchParams(location.search).get('sort'); if(s){var el=document.getElementById('sort'); if(el) el.value=s;} })();
