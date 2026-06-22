@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アセット要望フォーム — AI Assets for AI Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/theme-b.css">
+<style>
+.fb-wrap { max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }
+
+.fb-head { margin-bottom: 36px; }
+.fb-head h1 { font-size: 24px; font-weight: 700; }
+.fb-head p { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.7; }
+
+/* step nav */
+.step-nav { display: flex; gap: 0; margin-bottom: 36px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.step-item { flex: 1; display: flex; align-items: center; gap: 10px; padding: 14px 16px;
+  font-size: 13px; color: var(--muted); background: var(--surface); border-right: 1px solid var(--line);
+  cursor: pointer; transition: background .15s; }
+.step-item:last-child { border-right: none; }
+.step-item.active { background: var(--ink); color: #fff; }
+.step-item.done { background: #f0faf5; color: #15803d; }
+.step-num { font-family: var(--mono); font-size: 11px; font-weight: 700;
+  width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; background: rgba(0,0,0,.08); }
+.step-item.active .step-num { background: rgba(255,255,255,.25); }
+.step-item.done .step-num { background: #22c55e; color: #fff; }
+.step-label { font-size: 12px; font-weight: 500; line-height: 1.3; }
+
+/* section */
+.fb-section { background: #fff; border: 1px solid var(--line); border-radius: 14px; margin-bottom: 20px; overflow: hidden; }
+.fb-section-head { display: flex; align-items: center; gap: 12px; padding: 18px 22px;
+  border-bottom: 1px solid var(--line); background: var(--surface); }
+.fb-section-num { font-family: var(--mono); font-size: 11px; font-weight: 700; color: #fff;
+  background: var(--ink); width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.fb-section-title { font-size: 15px; font-weight: 700; }
+.fb-section-desc { font-size: 12px; color: var(--muted); margin-left: auto; }
+.fb-section-body { padding: 22px; display: flex; flex-direction: column; gap: 18px; }
+
+/* field */
+.fb-field { display: flex; flex-direction: column; gap: 7px; }
+.fb-label { font-size: 12px; font-weight: 600; color: var(--muted); }
+.fb-label span { font-weight: 400; color: var(--red); margin-left: 3px; }
+.fb-input { font-family: var(--sans); font-size: 14px; color: var(--ink);
+  background: #fff; border: 1px solid var(--line-2); border-radius: 9px;
+  padding: 10px 13px; outline: none; transition: border-color .15s; }
+.fb-input:focus { border-color: var(--focus); }
+textarea.fb-input { resize: vertical; min-height: 80px; line-height: 1.7; }
+select.fb-input { appearance: none; padding-right: 30px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2364748b' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center; cursor: pointer; }
+
+/* checkbox group */
+.check-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.check-pill { display: flex; align-items: center; gap: 7px; padding: 8px 13px;
+  border: 1px solid var(--line-2); border-radius: 100px; cursor: pointer;
+  font-size: 13px; color: var(--ink-2); transition: all .15s; user-select: none; }
+.check-pill input { display: none; }
+.check-pill:has(input:checked) { background: var(--ink); color: #fff; border-color: var(--ink); }
+.check-pill .tick { font-size: 11px; opacity: 0; transition: opacity .1s; }
+.check-pill:has(input:checked) .tick { opacity: 1; }
+
+/* tag input */
+.tag-field { display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+  border: 1px solid var(--line-2); border-radius: 9px; padding: 8px 10px; min-height: 44px; cursor: text; }
+.tag-field:focus-within { border-color: var(--focus); }
+.tag-chip { display: flex; align-items: center; gap: 5px; font-size: 12px;
+  background: var(--ink); color: #fff; border-radius: 100px; padding: 3px 10px; }
+.tag-chip button { background: none; border: none; color: rgba(255,255,255,.7);
+  cursor: pointer; font-size: 13px; padding: 0; line-height: 1; }
+.tag-field input { border: none; outline: none; font-family: var(--sans); font-size: 14px;
+  color: var(--ink); background: transparent; min-width: 120px; flex: 1; }
+
+/* priority */
+.priority-row { display: flex; gap: 8px; }
+.prio-btn { flex: 1; padding: 11px 8px; border-radius: 10px; border: 1px solid var(--line-2);
+  background: #fff; font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--muted);
+  cursor: pointer; text-align: center; transition: all .15s; line-height: 1.3; }
+.prio-btn:hover { border-color: var(--red); }
+.prio-btn.sel-low    { background: #f0fdf4; border-color: #22c55e; color: #15803d; }
+.prio-btn.sel-mid    { background: #fffbeb; border-color: #f59e0b; color: #92400e; }
+.prio-btn.sel-high   { background: #fef2f2; border-color: var(--red); color: var(--red-deep); }
+.prio-label { font-size: 11px; font-weight: 400; display: block; margin-top: 2px; }
+
+/* preview */
+.preview-card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.preview-bar { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.preview-dot { width: 10px; height: 10px; border-radius: 50%; }
+.preview-title-line { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.preview-body { padding: 20px; font-family: var(--mono); font-size: 13px; line-height: 1.8;
+  color: var(--ink); white-space: pre-wrap; word-break: break-all; max-height: 400px; overflow-y: auto; }
+.preview-body::-webkit-scrollbar { width: 6px; }
+.preview-body::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 3px; }
+
+/* actions */
+.fb-actions { display: flex; gap: 10px; margin-top: 28px; }
+.btn-primary { font-family: var(--sans); font-size: 14px; font-weight: 600; padding: 12px 28px;
+  background: var(--ink); color: #fff; border: none; border-radius: 10px; cursor: pointer; transition: opacity .15s; }
+.btn-primary:hover { opacity: .85; }
+.btn-copy { font-family: var(--sans); font-size: 14px; font-weight: 600; padding: 12px 24px;
+  background: #fff; color: var(--ink); border: 1.5px solid var(--line-2); border-radius: 10px; cursor: pointer; transition: border-color .15s; }
+.btn-copy:hover { border-color: var(--ink); }
+.copy-msg { font-size: 13px; color: #15803d; align-self: center; display: none; }
+
+/* sent state */
+.sent-banner { display: none; background: #f0faf5; border: 1px solid #22c55e;
+  border-radius: 12px; padding: 20px 24px; margin-top: 24px; }
+.sent-banner h2 { font-size: 16px; font-weight: 700; color: #15803d; }
+.sent-banner p { font-size: 13px; color: #166534; margin-top: 6px; line-height: 1.6; }
+
+.char-count { font-size: 11px; color: var(--muted); text-align: right; margin-top: 2px; }
+.required-note { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+</style>
+</head>
+<body data-page="feedback">
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-logo">AI</span>
+      <span class="brand-name">Assets <b>for</b> AI Agent</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">ホーム</a>
+      <a href="agents.html">エージェント一覧</a>
+      <a href="feedback.html" aria-current="page">要望を送る</a>
+    </nav>
+  </div>
+</header>
+
+<div class="fb-wrap">
+
+  <div class="fb-head">
+    <h1>アセット要望フォーム</h1>
+    <p>探していたアセットが見つからなかった場合、このフォームで状況を教えてください。<br>
+       入力内容を整理して GitHub Issue として送信できる形式に自動変換します。</p>
+  </div>
+
+  <p class="required-note"><span style="color:var(--red)">*</span> は必須項目です</p>
+
+  <!-- セクション1 -->
+  <div class="fb-section">
+    <div class="fb-section-head">
+      <div class="fb-section-num">1</div>
+      <div class="fb-section-title">あなたの業務・ニーズ</div>
+      <div class="fb-section-desc">何をしたかったのかを教えてください</div>
+    </div>
+    <div class="fb-section-body">
+      <div class="fb-field">
+        <label class="fb-label" for="goal">達成したかったこと<span>*</span></label>
+        <textarea class="fb-input" id="goal" rows="3"
+          placeholder="例：営業提案書の下書きを自動生成したかった。毎週の市場レポートをAIにまとめてほしかった。"></textarea>
+        <div class="char-count"><span id="goal-count">0</span> 文字</div>
+      </div>
+      <div class="fb-field">
+        <label class="fb-label" for="scene">利用シーン・頻度</label>
+        <select class="fb-input" id="scene">
+          <option value="">選択してください</option>
+          <option value="daily">毎日使いたい</option>
+          <option value="weekly">週1〜2回</option>
+          <option value="monthly">月数回</option>
+          <option value="onetime">今回限り（スポット）</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- セクション2 -->
+  <div class="fb-section">
+    <div class="fb-section-head">
+      <div class="fb-section-num">2</div>
+      <div class="fb-section-title">試した操作</div>
+      <div class="fb-section-desc">どのように探しましたか？（複数選択可）</div>
+    </div>
+    <div class="fb-section-body">
+      <div class="fb-field">
+        <label class="fb-label">試した検索・絞り込み方法</label>
+        <div class="check-grid" id="tried-methods">
+          <label class="check-pill"><input type="checkbox" value="keyword"><span class="tick">✓</span>キーワード検索</label>
+          <label class="check-pill"><input type="checkbox" value="category"><span class="tick">✓</span>カテゴリ絞り込み</label>
+          <label class="check-pill"><input type="checkbox" value="tag"><span class="tick">✓</span>タグフィルタ</label>
+          <label class="check-pill"><input type="checkbox" value="dl"><span class="tick">✓</span>DL実績フィルタ</label>
+          <label class="check-pill"><input type="checkbox" value="date"><span class="tick">✓</span>更新日フィルタ</label>
+          <label class="check-pill"><input type="checkbox" value="sort"><span class="tick">✓</span>並び順変更</label>
+          <label class="check-pill"><input type="checkbox" value="browse"><span class="tick">✓</span>一覧を眺めた</label>
+        </div>
+      </div>
+      <div class="fb-field">
+        <label class="fb-label" for="keywords-input">使ったキーワード（Enter で追加）</label>
+        <div class="tag-field" id="keywords-wrap">
+          <input type="text" id="keywords-input" placeholder="例: 提案書 → Enter">
+        </div>
+      </div>
+      <div class="fb-field">
+        <label class="fb-label" for="result">検索結果の状況<span>*</span></label>
+        <select class="fb-input" id="result">
+          <option value="">選択してください</option>
+          <option value="zero">件数0件だった</option>
+          <option value="many">件数は多かったが目的のものがなかった</option>
+          <option value="close">近いものはあったが機能が足りなかった</option>
+          <option value="lost">何を選べばよいか分からなかった</option>
+          <option value="other">その他</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- セクション3 -->
+  <div class="fb-section">
+    <div class="fb-section-head">
+      <div class="fb-section-num">3</div>
+      <div class="fb-section-title">求めているアセットのイメージ</div>
+      <div class="fb-section-desc">あればあるほど精度が上がります</div>
+    </div>
+    <div class="fb-section-body">
+      <div class="fb-field">
+        <label class="fb-label" for="asset-name">アセットに付けたい名前（仮称）</label>
+        <input type="text" class="fb-input" id="asset-name" placeholder="例：営業提案書ドラフト生成AI">
+      </div>
+      <div class="fb-field">
+        <label class="fb-label" for="asset-desc">どんな処理・機能をしてほしいか<span>*</span></label>
+        <textarea class="fb-input" id="asset-desc" rows="4"
+          placeholder="例：顧客名・商材名・金額を入力すると、社内フォーマットに沿った提案書のドラフトをWord形式で出力してほしい。"></textarea>
+        <div class="char-count"><span id="desc-count">0</span> 文字</div>
+      </div>
+      <div class="fb-field">
+        <label class="fb-label">連携・対応してほしいツール（複数選択可）</label>
+        <div class="check-grid" id="tools">
+          <label class="check-pill"><input type="checkbox" value="Excel"><span class="tick">✓</span>Excel</label>
+          <label class="check-pill"><input type="checkbox" value="Word"><span class="tick">✓</span>Word</label>
+          <label class="check-pill"><input type="checkbox" value="PowerPoint"><span class="tick">✓</span>PowerPoint</label>
+          <label class="check-pill"><input type="checkbox" value="Outlook"><span class="tick">✓</span>Outlook</label>
+          <label class="check-pill"><input type="checkbox" value="Teams"><span class="tick">✓</span>Teams</label>
+          <label class="check-pill"><input type="checkbox" value="Salesforce"><span class="tick">✓</span>Salesforce</label>
+          <label class="check-pill"><input type="checkbox" value="API"><span class="tick">✓</span>API連携</label>
+          <label class="check-pill"><input type="checkbox" value="nocode"><span class="tick">✓</span>ノーコード</label>
+        </div>
+      </div>
+      <div class="fb-field">
+        <label class="fb-label" for="ref">参考にしたい既存アセット・類似ツール</label>
+        <input type="text" class="fb-input" id="ref" placeholder="例：売上トレンド分析AI、ChatGPT、Copilot など">
+      </div>
+    </div>
+  </div>
+
+  <!-- セクション4 -->
+  <div class="fb-section">
+    <div class="fb-section-head">
+      <div class="fb-section-num">4</div>
+      <div class="fb-section-title">優先度・背景</div>
+    </div>
+    <div class="fb-section-body">
+      <div class="fb-field">
+        <label class="fb-label">このニーズの緊急度</label>
+        <div class="priority-row">
+          <button class="prio-btn" data-prio="low" type="button">
+            低
+            <span class="prio-label">あれば嬉しい</span>
+          </button>
+          <button class="prio-btn" data-prio="mid" type="button">
+            中
+            <span class="prio-label">業務で困っている</span>
+          </button>
+          <button class="prio-btn" data-prio="high" type="button">
+            高
+            <span class="prio-label">今すぐ必要</span>
+          </button>
+        </div>
+      </div>
+      <div class="fb-field">
+        <label class="fb-label" for="impact">このアセットがあると何が変わるか</label>
+        <textarea class="fb-input" id="impact" rows="3"
+          placeholder="例：週4時間かかる資料作成が1時間以下になる。属人化していたナレッジを全員が使えるようになる。"></textarea>
+      </div>
+      <div class="fb-field">
+        <label class="fb-label" for="dept">部署・チーム名（任意）</label>
+        <input type="text" class="fb-input" id="dept" placeholder="例：営業推進部 第二グループ">
+      </div>
+    </div>
+  </div>
+
+  <!-- プレビュー -->
+  <div class="fb-section">
+    <div class="fb-section-head">
+      <div class="fb-section-num">5</div>
+      <div class="fb-section-title">GitHub Issue プレビュー</div>
+      <div class="fb-section-desc">送信される内容の確認</div>
+    </div>
+    <div class="fb-section-body">
+      <div class="preview-card">
+        <div class="preview-bar">
+          <div class="preview-dot" style="background:#22c55e"></div>
+          <div class="preview-dot" style="background:#f59e0b"></div>
+          <div class="preview-dot" style="background:var(--red)"></div>
+          <div class="preview-title-line" id="preview-issue-title">タイトルがここに表示されます</div>
+        </div>
+        <div class="preview-body" id="preview-body">フォームに入力するとプレビューが生成されます。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fb-actions">
+    <button class="btn-primary" id="submit-btn" type="button">Issue として送信する（デモ）</button>
+    <button class="btn-copy" id="copy-btn" type="button">Markdown をコピー</button>
+    <span class="copy-msg" id="copy-msg">コピーしました</span>
+  </div>
+
+  <div class="sent-banner" id="sent-banner">
+    <h2>送信しました（デモ）</h2>
+    <p>実際の送信機能は未実装です。上記の Markdown をコピーして GitHub Issues へ貼り付けてください。<br>
+       ご要望はAI CoEチームが確認し、アセット開発の優先度検討に活用します。</p>
+  </div>
+
+</div>
+
+<footer class="site-foot"><div class="wrap">
+  <div class="foot-brand">AI Assets <b>for</b> AI Agent</div>
+  <div class="foot-meta">© 2026 ABC Group AI Center of Excellence<br><span class="demo-note">※ このフォームはデモ版です。実際のGitHub送信は未実装</span></div>
+</div></footer>
+
+<script src="../data/test.js"></script>
+<script src="../assets/app.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  const PRIORITY_LABEL = { low: "低（あれば嬉しい）", mid: "中（業務で困っている）", high: "高（今すぐ必要）" };
+  const RESULT_LABEL = {
+    zero: "検索結果が0件だった",
+    many: "件数は多かったが目的のものがなかった",
+    close: "近いものはあったが機能が不足していた",
+    lost: "何を選べばよいか分からなかった",
+    other: "その他",
+  };
+  const SCENE_LABEL = {
+    daily: "毎日", weekly: "週1〜2回", monthly: "月数回", onetime: "今回限り（スポット）",
+  };
+  const METHOD_LABEL = {
+    keyword: "キーワード検索", category: "カテゴリ絞り込み", tag: "タグフィルタ",
+    dl: "DL実績フィルタ", date: "更新日フィルタ", sort: "並び順変更", browse: "一覧を眺めた",
+  };
+
+  let priority = "";
+  let keywords = [];
+
+  // ── keyword tag input ──
+  const kwInput = document.getElementById("keywords-input");
+  const kwWrap  = document.getElementById("keywords-wrap");
+
+  function addKeyword(val) {
+    val = val.trim();
+    if (!val || keywords.includes(val)) return;
+    keywords.push(val);
+    renderKeywords();
+    updatePreview();
+  }
+
+  function removeKeyword(val) {
+    keywords = keywords.filter(k => k !== val);
+    renderKeywords();
+    updatePreview();
+  }
+
+  function renderKeywords() {
+    kwWrap.querySelectorAll(".tag-chip").forEach(c => c.remove());
+    keywords.forEach(k => {
+      const chip = document.createElement("div");
+      chip.className = "tag-chip";
+      chip.innerHTML = `${esc(k)}<button type="button" aria-label="${esc(k)}を削除">×</button>`;
+      chip.querySelector("button").addEventListener("click", () => removeKeyword(k));
+      kwWrap.insertBefore(chip, kwInput);
+    });
+  }
+
+  kwInput.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === "，" || e.key === ",") {
+      e.preventDefault();
+      addKeyword(kwInput.value);
+      kwInput.value = "";
+    }
+    if (e.key === "Backspace" && kwInput.value === "" && keywords.length > 0) {
+      removeKeyword(keywords[keywords.length - 1]);
+    }
+  });
+  kwWrap.addEventListener("click", () => kwInput.focus());
+
+  // ── priority buttons ──
+  document.querySelectorAll(".prio-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      priority = btn.dataset.prio;
+      document.querySelectorAll(".prio-btn").forEach(b => b.className = "prio-btn");
+      btn.classList.add("sel-" + priority);
+      updatePreview();
+    });
+  });
+
+  // ── char counters ──
+  function attachCounter(id, countId) {
+    const el = document.getElementById(id);
+    const ct = document.getElementById(countId);
+    if (!el || !ct) return;
+    el.addEventListener("input", () => { ct.textContent = el.value.length; updatePreview(); });
+  }
+  attachCounter("goal", "goal-count");
+  attachCounter("asset-desc", "desc-count");
+
+  // all fields → live preview
+  ["goal","scene","result","asset-name","asset-desc","ref","impact","dept"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener("input", updatePreview);
+  });
+  document.querySelectorAll("#tried-methods input, #tools input").forEach(cb => {
+    cb.addEventListener("change", updatePreview);
+  });
+
+  function esc(s) { return (s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+  function getChecked(groupId) {
+    return [...document.querySelectorAll(`#${groupId} input:checked`)].map(c => c.value);
+  }
+
+  function buildIssue() {
+    const goal      = document.getElementById("goal").value.trim();
+    const scene     = document.getElementById("scene").value;
+    const result    = document.getElementById("result").value;
+    const assetName = document.getElementById("asset-name").value.trim();
+    const assetDesc = document.getElementById("asset-desc").value.trim();
+    const ref       = document.getElementById("ref").value.trim();
+    const impact    = document.getElementById("impact").value.trim();
+    const dept      = document.getElementById("dept").value.trim();
+    const methods   = getChecked("tried-methods").map(v => METHOD_LABEL[v] || v);
+    const tools     = getChecked("tools");
+
+    const title = assetName
+      ? `[アセット要望] ${assetName}`
+      : goal ? `[アセット要望] ${goal.slice(0, 40)}${goal.length > 40 ? "…" : ""}`
+      : "[アセット要望] （タイトル未入力）";
+
+    const lines = [];
+    lines.push("## 📌 概要");
+    lines.push(goal || "（未入力）");
+    lines.push("");
+
+    lines.push("## 🔍 検索状況");
+    lines.push("**試した操作:**");
+    if (methods.length > 0) methods.forEach(m => lines.push(`- ${m}`));
+    else lines.push("- （未選択）");
+    if (keywords.length > 0) lines.push(`\n**使用キーワード:** ${keywords.map(k => `\`${k}\``).join(", ")}`);
+    lines.push(`\n**結果の状況:** ${RESULT_LABEL[result] || "（未選択）"}`);
+    lines.push("");
+
+    lines.push("## 💡 求めているアセット");
+    lines.push(`**仮称:** ${assetName || "（未入力）"}`);
+    lines.push(`\n**求める機能・処理:**`);
+    lines.push(assetDesc || "（未入力）");
+    if (tools.length > 0) lines.push(`\n**連携ツール:** ${tools.join(", ")}`);
+    if (ref) lines.push(`\n**参考:** ${ref}`);
+    lines.push("");
+
+    lines.push("## 📊 優先度・影響");
+    lines.push(`**緊急度:** ${PRIORITY_LABEL[priority] || "（未選択）"}`);
+    if (scene) lines.push(`**利用頻度:** ${SCENE_LABEL[scene] || scene}`);
+    if (impact) { lines.push(`\n**期待効果:**`); lines.push(impact); }
+    if (dept) lines.push(`\n**部署:** ${dept}`);
+    lines.push("");
+
+    lines.push("## 🏷️ Labels");
+    lines.push("`asset-request` `needs-triage`" + (priority === "high" ? " `priority-high`" : ""));
+
+    return { title, body: lines.join("\n") };
+  }
+
+  function updatePreview() {
+    const { title, body } = buildIssue();
+    document.getElementById("preview-issue-title").textContent = title;
+    document.getElementById("preview-body").textContent = body;
+  }
+
+  // ── copy ──
+  document.getElementById("copy-btn").addEventListener("click", () => {
+    const { title, body } = buildIssue();
+    const text = `# ${title}\n\n${body}`;
+    navigator.clipboard.writeText(text).then(() => {
+      const msg = document.getElementById("copy-msg");
+      msg.style.display = "inline";
+      setTimeout(() => { msg.style.display = "none"; }, 2500);
+    });
+  });
+
+  // ── submit (demo) ──
+  document.getElementById("submit-btn").addEventListener("click", () => {
+    const goal   = document.getElementById("goal").value.trim();
+    const result = document.getElementById("result").value;
+    const desc   = document.getElementById("asset-desc").value.trim();
+    if (!goal || !result || !desc) {
+      alert("必須項目（達成したかったこと・検索結果の状況・求める機能）を入力してください。");
+      return;
+    }
+    document.getElementById("sent-banner").style.display = "block";
+    document.getElementById("submit-btn").disabled = true;
+    document.getElementById("submit-btn").textContent = "送信済み";
+    document.getElementById("sent-banner").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+
+  updatePreview();
+})();
+</script>
+</body>
+</html>
