@@ -249,51 +249,105 @@
 <!-- ── SLIDE 6: 開発フロー ── -->
 <div class="slide" data-act="Flow">
   <div class="h-1.5 bg-[#E60012]"></div>
-  <div class="flex-1 bg-white px-16 py-10 flex flex-col">
-    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-3">Flow — 01 / 01</p>
-    <h2 class="text-3xl font-bold text-gray-900 mb-8">開発フロー</h2>
-    <div class="grid grid-cols-5 gap-0 border border-gray-200 rounded-xl overflow-hidden mb-6">
-      <div class="bg-gray-50 p-5 border-r border-gray-200">
-        <div class="text-xs text-gray-400 mb-2">STEP 01</div>
-        <div class="font-semibold text-gray-900 mb-2">Issue作成</div>
-        <div class="text-xs text-gray-600 leading-relaxed">GitHubに要件をIssueとして起票する</div>
+  <div class="flex-1 bg-white px-16 py-8 flex flex-col">
+
+    <!-- ヘッダー -->
+    <div class="flex items-baseline justify-between mb-6">
+      <div>
+        <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-1">Flow — 01 / 01</p>
+        <h2 class="text-3xl font-bold text-gray-900">開発フロー</h2>
       </div>
-      <div class="bg-gray-50 p-5 border-r border-gray-200">
-        <div class="text-xs text-gray-400 mb-2">STEP 02</div>
-        <div class="font-semibold text-gray-900 mb-2">ClaudeCodeが実装</div>
-        <div class="text-xs text-gray-600 leading-relaxed">Issueを読んでフロントエンドを実装</div>
-      </div>
-      <div class="bg-gray-50 p-5 border-r border-gray-200">
-        <div class="text-xs text-[#E60012] mb-2">STEP 03</div>
-        <div class="font-semibold text-gray-900 mb-2">自動テスト</div>
-        <div class="text-xs text-gray-600 leading-relaxed">GitHub Actionsが自動テストを実行</div>
-      </div>
-      <div class="bg-gray-50 p-5 border-r border-gray-200">
-        <div class="text-xs text-gray-400 mb-2">STEP 04</div>
-        <div class="font-semibold text-gray-900 mb-2">PR作成</div>
-        <div class="text-xs text-gray-600 leading-relaxed">テストパスしたものだけPR可能</div>
-      </div>
-      <div class="bg-gray-50 p-5">
-        <div class="text-xs text-gray-400 mb-2">STEP 05</div>
-        <div class="font-semibold text-gray-900 mb-2">確認・マージ</div>
-        <div class="text-xs text-gray-600 leading-relaxed">VSCodeでコード確認しマージ</div>
+      <div class="flex items-center gap-5 text-xs text-gray-500">
+        <span class="flex items-center gap-2"><span class="border-2 border-gray-400 rounded px-2 py-0.5 font-semibold text-gray-600">人間</span>テスター・開発者チームが担当</span>
+        <span class="flex items-center gap-2"><span class="bg-red-50 border-2 border-[#E60012] text-[#E60012] rounded px-2 py-0.5 font-semibold">ClaudeCode</span>AIが自動で担当</span>
       </div>
     </div>
-    <p class="text-xs text-gray-400 uppercase tracking-widest mb-3">ポイント</p>
-    <div class="flex flex-col gap-3">
-      <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 flex gap-4 items-start">
-        <span class="text-[#E60012] font-bold text-lg mt-0.5 shrink-0">→</span>
-        <div class="text-sm text-gray-600 leading-relaxed">実装のトリガーはGitHub Issue。要件をIssueに書けばClaudeCodeが自動で実装を開始する</div>
+
+    <!-- ステップ＋ループ全体（残りスペースに縦中央） -->
+    <div class="flex-1 flex flex-col justify-center">
+
+      <!-- ステップ行 -->
+      <div class="flex items-stretch gap-2">
+
+        <!-- STEP 01 -->
+        <div class="flex-1 border-2 border-gray-300 rounded-xl p-5 flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-gray-400 tracking-widest">STEP 01</span>
+            <span class="border-2 border-gray-400 rounded px-2 py-0.5 text-xs font-semibold text-gray-600">人間</span>
+          </div>
+          <div class="font-bold text-gray-900 mb-2">ユーザーテスト実施</div>
+          <div class="text-sm text-gray-500 leading-relaxed">テスト指示文に従い、特定アセットへ素早くたどり着けるか検証する</div>
+        </div>
+
+        <div class="flex items-center text-gray-300 text-2xl shrink-0">→</div>
+
+        <!-- STEP 02 -->
+        <div class="flex-1 bg-red-50 border-2 border-[#E60012] rounded-xl p-5 flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-[#E60012] tracking-widest">STEP 02</span>
+            <span class="bg-red-50 border-2 border-[#E60012] text-[#E60012] rounded px-2 py-0.5 text-xs font-semibold">ClaudeCode</span>
+          </div>
+          <div class="font-bold text-gray-900 mb-2">修正案を作成</div>
+          <div class="text-sm text-gray-600 leading-relaxed">テスト結果を受けて、UI改善の修正案をまとめる</div>
+        </div>
+
+        <div class="flex items-center text-gray-300 text-2xl shrink-0">→</div>
+
+        <!-- STEP 03 -->
+        <div class="flex-1 bg-red-50 border-2 border-[#E60012] rounded-xl p-5 flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-[#E60012] tracking-widest">STEP 03</span>
+            <span class="bg-red-50 border-2 border-[#E60012] text-[#E60012] rounded px-2 py-0.5 text-xs font-semibold">ClaudeCode</span>
+          </div>
+          <div class="font-bold text-gray-900 mb-1">コード修正</div>
+          <div class="text-sm text-gray-600 leading-relaxed mb-3">新ブランチを切り、修正案をもとにフロントのコードを修正する</div>
+          <div class="border-t border-red-200 pt-3">
+            <div class="font-bold text-gray-900 mb-1">次回テスト指示文を作成</div>
+            <div class="text-sm text-gray-600 leading-relaxed">次のサイクルで使うテスト指示文を複数パターン生成する</div>
+          </div>
+        </div>
+
+        <div class="flex items-center text-gray-300 text-2xl shrink-0">→</div>
+
+        <!-- STEP 04 -->
+        <div class="flex-1 bg-red-50 border-2 border-[#E60012] rounded-xl p-5 flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-[#E60012] tracking-widest">STEP 04</span>
+            <span class="bg-red-50 border-2 border-[#E60012] text-[#E60012] rounded px-2 py-0.5 text-xs font-semibold">ClaudeCode</span>
+          </div>
+          <div class="font-bold text-gray-900 mb-2">自動テスト ＋ PR作成</div>
+          <div class="text-sm text-gray-600 leading-relaxed">GitHub Actionsで自動テストを実行。パスしたものだけmainへPRを作成する</div>
+        </div>
+
+        <div class="flex items-center text-gray-300 text-2xl shrink-0">→</div>
+
+        <!-- STEP 05 -->
+        <div class="flex-1 border-2 border-gray-300 rounded-xl p-5 flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-gray-400 tracking-widest">STEP 05</span>
+            <span class="border-2 border-gray-400 rounded px-2 py-0.5 text-xs font-semibold text-gray-600">人間</span>
+          </div>
+          <div class="font-bold text-gray-900 mb-2">レビュー ＆ マージ</div>
+          <div class="text-sm text-gray-500 leading-relaxed">開発者チームがPRを確認し、mainにマージする</div>
+        </div>
+
       </div>
-      <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 flex gap-4 items-start">
-        <span class="text-[#E60012] font-bold text-lg mt-0.5 shrink-0">→</span>
-        <div class="text-sm text-gray-600 leading-relaxed">GitHub Actionsでテスト・Lint・セキュリティチェックを自動実行。すべてパスしないとPR不可</div>
+
+      <!-- ループ U字（SVG） -->
+      <div class="w-full" style="height:44px;">
+        <svg viewBox="0 0 1000 44" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+          <path d="M 960 4 L 960 28 Q 960 40 944 40 L 56 40 Q 40 40 40 28 L 40 4"
+                fill="none" stroke="#E60012" stroke-width="3" stroke-linecap="round"/>
+          <polygon points="40,0 34,14 46,14" fill="#E60012"/>
+          <polygon points="960,8 954,0 966,0" fill="#E60012"/>
+        </svg>
       </div>
-      <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 flex gap-4 items-start">
-        <span class="text-[#E60012] font-bold text-lg mt-0.5 shrink-0">→</span>
-        <div class="text-sm text-gray-600 leading-relaxed">人間の作業はIssue起票・コードレビュー・マージのみ。実装・テストはAIと自動化が担う</div>
+      <div class="flex justify-center mt-1">
+        <span class="text-xs font-semibold text-[#E60012]">↺　STEP05完了後、STEP03で生成した新しいテスト指示文でSTEP01に戻り、何周もくり返す</span>
       </div>
+
     </div>
+
   </div>
 </div>
 
