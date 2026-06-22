@@ -4,506 +4,339 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>開発環境ドキュメント</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { font-family: 'Noto Sans JP', sans-serif; }
+    body { overflow: hidden; background: #f1f5f9; }
 
-    body {
-      font-family: "Hiragino Sans", "Yu Gothic UI", sans-serif;
-      background: #fafafa;
-      height: 100vh;
-      overflow: hidden;
-      color: #111;
-    }
-
-    /* ===== スライドコンテナ ===== */
-    .slides-wrapper {
-      display: flex;
-      width: 600vw;
-      height: 100vh;
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    section.slide {
+    .slide {
       width: 100vw;
       height: 100vh;
-      padding: 36px 72px;
-      display: flex;
+      page-break-after: always;
+      break-after: page;
+      display: none;
       flex-direction: column;
-      justify-content: center;
-      background: #fff;
+      overflow: hidden;
     }
-
-    /* ===== タイトルスライド ===== */
-    .slide-cover {
-      background: #fff;
-      align-items: flex-start;
-      justify-content: center;
-      border-right: 1px solid #e5e5e5;
-    }
-    .slide-cover .cover-eyebrow {
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      color: #999;
-      text-transform: uppercase;
-      margin-bottom: 1.2rem;
-    }
-    .slide-cover h1 {
-      font-size: 2.6rem;
-      font-weight: 500;
-      line-height: 1.25;
-      letter-spacing: -0.01em;
-      color: #111;
-      margin-bottom: 1rem;
-    }
-    .slide-cover .cover-sub {
-      font-size: 1rem;
-      color: #666;
-      line-height: 1.7;
-    }
-    .cover-rule {
-      width: 40px;
-      height: 3px;
-      background: #111;
-      margin-bottom: 1.8rem;
-    }
-
-    /* ===== 通常スライド ===== */
-    .slide-header {
+    .slide.active {
       display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      margin-bottom: 1.4rem;
+      animation: fadeIn 0.3s ease;
     }
-    .slide-number {
-      font-size: 0.75rem;
-      color: #bbb;
-      letter-spacing: 0.08em;
-      padding-top: 6px;
-      min-width: 28px;
-    }
-    .slide h2 {
-      font-size: 1.7rem;
-      font-weight: 500;
-      color: #111;
-      line-height: 1.25;
-    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    .slide h3 {
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: #999;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 0.4rem;
-      margin-top: 1.1rem;
-    }
-    .slide h3:first-of-type { margin-top: 0; }
-
-    .slide p, .slide li {
-      font-size: 0.93rem;
-      line-height: 1.75;
-      color: #333;
-    }
-    .slide ul { padding-left: 1.2rem; }
-    .slide li { margin-bottom: 0.15rem; }
-    .slide code {
-      font-family: "SFMono-Regular", "Consolas", monospace;
-      font-size: 0.82rem;
-      background: #f5f5f5;
-      border: 1px solid #e8e8e8;
-      padding: 1px 6px;
-      border-radius: 3px;
-      color: #333;
-    }
-
-    /* ===== ツール一覧テーブル ===== */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-      margin-top: 0.4rem;
-    }
-    th {
-      text-align: left;
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: #999;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0 12px 10px 0;
-      border-bottom: 1.5px solid #111;
-    }
-    td {
-      padding: 9px 12px 9px 0;
-      border-bottom: 1px solid #eee;
-      color: #333;
-      vertical-align: top;
-    }
-    td:first-child { font-weight: 500; color: #111; white-space: nowrap; }
-    tr:last-child td { border-bottom: none; }
-
-    /* ===== エージェントカード ===== */
-    .agent-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: #e8e8e8;
-      border: 1px solid #e8e8e8;
-      margin-top: 0.4rem;
-    }
-    .agent-card {
-      background: #fff;
-      padding: 1.2rem 1.4rem;
-    }
-    .agent-label {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #999;
-      margin-bottom: 0.7rem;
-    }
-    .agent-card h3 {
-      font-size: 1rem;
-      font-weight: 500;
-      color: #111;
-      margin-bottom: 0.7rem;
-      margin-top: 0;
-      text-transform: none;
-      letter-spacing: 0;
-    }
-    .agent-card ul { padding-left: 1rem; }
-    .agent-card li { font-size: 0.85rem; color: #555; line-height: 1.7; }
-    .agent-card .output {
-      margin-top: 0.8rem;
-      font-size: 0.78rem;
-      color: #aaa;
-    }
-
-    /* ===== 開発フロー ===== */
-    .flow {
-      display: flex;
-      align-items: stretch;
-      gap: 0;
-      margin-top: 0.6rem;
-      border: 1px solid #e8e8e8;
-    }
-    .flow-step {
-      flex: 1;
-      padding: 1rem 1.1rem;
-      border-right: 1px solid #e8e8e8;
-      position: relative;
-    }
-    .flow-step:last-child { border-right: none; }
-    .flow-num {
-      font-size: 0.7rem;
-      color: #bbb;
-      letter-spacing: 0.06em;
-      margin-bottom: 0.4rem;
-    }
-    .flow-label {
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: #111;
-      line-height: 1.4;
-    }
-    .flow-detail {
-      font-size: 0.78rem;
-      color: #888;
-      margin-top: 0.4rem;
-      line-height: 1.5;
-    }
-
-    /* ===== Skills タグ ===== */
-    .tag-list { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 0.4rem; }
-    .tag {
-      font-size: 0.8rem;
-      padding: 4px 12px;
-      border: 1px solid #ddd;
-      border-radius: 2px;
-      color: #333;
-    }
-
-    /* ===== ナビゲーション ===== */
-    nav {
-      position: fixed;
-      bottom: 2rem;
-      right: 2.5rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    nav button {
-      background: #fff;
-      color: #111;
-      border: 1px solid #ddd;
-      border-radius: 2px;
-      width: 32px;
-      height: 32px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.15s, border-color 0.15s;
-    }
-    nav button:hover:not(:disabled) {
-      background: #111;
-      color: #fff;
-      border-color: #111;
-    }
-    nav button:disabled { opacity: 0.3; cursor: default; }
-    #slide-counter {
-      font-size: 0.78rem;
-      color: #aaa;
-      letter-spacing: 0.06em;
-      min-width: 36px;
-      text-align: center;
-    }
-
-    /* ===== 進捗バー ===== */
-    .progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 2px;
-      background: #111;
-      transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    @media print {
+      body { overflow: visible; background: white; }
+      .slide { display: flex !important; }
+      .no-print { display: none !important; }
+      @page { size: landscape; margin: 0; }
     }
   </style>
 </head>
 <body>
 
-<div class="progress" id="progress"></div>
+<!-- Navigation -->
+<div class="no-print fixed bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-3 z-50 bg-white/95 backdrop-blur rounded-full px-5 py-2.5 shadow-lg border border-gray-200">
+  <button id="prev" class="w-7 h-7 flex items-center justify-center text-gray-400 hover:text-[#E60012] transition-colors text-sm font-medium">←</button>
+  <div id="dots" class="flex gap-2 items-center"></div>
+  <button id="next" class="w-7 h-7 flex items-center justify-center text-gray-400 hover:text-[#E60012] transition-colors text-sm font-medium">→</button>
+</div>
+<div class="no-print fixed top-4 right-6 text-xs text-gray-400 z-50" id="counter"></div>
+<div class="no-print fixed top-4 left-6 text-xs text-gray-400 tracking-widest uppercase z-50" id="act-label"></div>
 
-<div class="slides-wrapper" id="slides">
+<!-- ── SLIDE 1: カバー ── -->
+<div class="slide active" data-act="">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 flex flex-col justify-center items-center bg-white px-20">
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-6">Development Environment</p>
+    <h1 class="text-6xl font-black text-gray-900 text-center leading-tight mb-4">開発環境<br>ドキュメント</h1>
+    <div class="w-16 h-1 bg-[#E60012] my-5"></div>
+    <p class="text-xl text-gray-400 font-light mb-14">クライアント社内システム UI/UX刷新プロジェクト</p>
+    <p class="text-sm text-gray-500 text-center">このドキュメントを読めば、同じ環境で開発を始められます。</p>
+  </div>
+  <div class="h-px bg-gray-100"></div>
+</div>
 
-  <!-- Slide 1: カバー -->
-  <section class="slide slide-cover">
-    <div class="cover-rule"></div>
-    <p class="cover-eyebrow">Development Environment</p>
-    <h1>開発環境<br>ドキュメント</h1>
-    <p class="cover-sub">
-      クライアント社内システム UI/UX刷新プロジェクト<br>
-      このドキュメントを読めば、同じ環境で開発を始められます。
-    </p>
-  </section>
-
-  <!-- Slide 2: プロジェクト概要 -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-number">02</span>
-      <h2>プロジェクト概要</h2>
+<!-- ── SLIDE 2: プロジェクト概要 ── -->
+<div class="slide" data-act="Overview">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-10 flex flex-col">
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-4">Overview — 01 / 01</p>
+    <div class="flex gap-14 flex-1 items-start">
+      <div class="w-64 shrink-0">
+        <h2 class="text-3xl font-bold text-gray-900 leading-snug">プロジェクト<br>概要</h2>
+        <div class="w-10 h-0.5 bg-[#E60012] my-5"></div>
+        <p class="text-sm text-gray-600 leading-loose">既存システムの機能はそのままに、操作性・視認性を改善し、業務効率の向上を目指す</p>
+      </div>
+      <div class="flex-1 flex flex-col gap-4">
+        <div class="bg-red-50 border border-red-200 rounded-xl p-6">
+          <div class="text-xs text-gray-400 mb-2 font-semibold uppercase tracking-widest">目的</div>
+          <p class="text-sm text-gray-700 leading-relaxed">クライアント社内システムのUI/UXを刷新する。既存システムの機能はそのままに、操作性・視認性を改善し、業務効率の向上を目指す。</p>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
+          <div class="text-xs text-gray-400 mb-3 font-semibold uppercase tracking-widest">アーキテクチャ</div>
+          <ul class="flex flex-col gap-2">
+            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>フロントエンドのみを実装し、クライアントの既存APIを呼び出して画面を表示する</li>
+            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>バックエンド・APIはクライアント側が管理（本プロジェクトでは触らない）</li>
+            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>モックデータと本番API呼び出しを差し替えやすい構造にし、開発中はモックで動作確認する</li>
+          </ul>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
+          <div class="text-xs text-gray-400 mb-3 font-semibold uppercase tracking-widest">技術スタック</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white border border-gray-300 rounded-full px-3 py-1 text-xs text-gray-600">HTML</span>
+            <span class="bg-white border border-gray-300 rounded-full px-3 py-1 text-xs text-gray-600">CSS</span>
+            <span class="bg-white border border-gray-300 rounded-full px-3 py-1 text-xs text-gray-600">バニラJS</span>
+            <span class="bg-white border border-gray-300 rounded-full px-3 py-1 text-xs text-gray-600">CSS変数（--プレフィックス）</span>
+            <span class="bg-white border border-gray-300 rounded-full px-3 py-1 text-xs text-gray-600">セマンティックタグ</span>
+            <span class="bg-white border border-gray-300 rounded-full px-3 py-1 text-xs text-gray-600">フレームワーク不使用</span>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
 
-    <h3>目的</h3>
-    <p>クライアント社内システムのUI/UXを刷新する。既存システムの機能はそのままに、操作性・視認性を改善し、業務効率の向上を目指す。</p>
-
-    <h3>アーキテクチャ</h3>
-    <ul>
-      <li>フロントエンドのみを実装し、クライアントの既存APIを呼び出して画面を表示する</li>
-      <li>バックエンド・APIはクライアント側が管理（本プロジェクトでは触らない）</li>
-      <li>モックデータと本番API呼び出しを差し替えやすい構造にし、開発中はモックで動作確認する</li>
-    </ul>
-
-    <h3>技術スタック</h3>
-    <ul>
-      <li><strong>HTML / CSS / バニラJS</strong>：フレームワーク不使用。依存関係をゼロに保ち、長期メンテナンス性を優先</li>
-      <li>CSSテーマ値は <code>--</code> プレフィックスのCSS変数で管理。レイアウトと色は分離して定義する</li>
-      <li>セマンティックタグを使用し、アクセシビリティ・SEOを考慮した構造にする</li>
-      <li>コメントは「なぜそうしているか」のみ記載。何をしているかは書かない</li>
-    </ul>
-  </section>
-
-  <!-- Slide 3: 開発ツール構成 -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-number">03</span>
-      <h2>開発ツール構成</h2>
-    </div>
-
-    <table>
+<!-- ── SLIDE 3: 開発ツール構成 ── -->
+<div class="slide" data-act="Tools">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-10 flex flex-col">
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-3">Tools — 01 / 01</p>
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">開発ツール構成</h2>
+    <p class="text-sm text-gray-500 mb-6">各ツールの役割と使い方の方針</p>
+    <table class="w-full border-collapse flex-1">
       <thead>
-        <tr>
-          <th style="width:20%">ツール</th>
-          <th style="width:30%">役割</th>
-          <th>備考</th>
+        <tr class="border-b border-gray-200">
+          <th class="text-left py-3 px-4 text-xs text-gray-400 uppercase tracking-widest font-medium w-36">ツール</th>
+          <th class="text-left py-3 px-4 text-xs text-gray-400 uppercase tracking-widest font-medium w-52">役割</th>
+          <th class="text-left py-3 px-4 text-xs text-gray-400 uppercase tracking-widest font-medium">備考</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Claude Code</td>
-          <td>AIによるフロントエンド実装</td>
-          <td>CLAUDE.md・Skills・Agentsを設定して使用。GitHubのIssueを読んでコードを自動生成する</td>
+        <tr class="border-b border-gray-100">
+          <td class="py-5 px-4">
+            <div class="text-xs text-[#E60012] mb-1">01</div>
+            <div class="font-semibold text-gray-900">Claude Code</div>
+          </td>
+          <td class="py-5 px-4 text-sm text-gray-600">AIによるフロントエンド実装</td>
+          <td class="py-5 px-4 text-sm text-gray-600">CLAUDE.md・Skills・Agentsを設定して使用。GitHubのIssueを読んでコードを自動生成する</td>
+        </tr>
+        <tr class="border-b border-gray-100">
+          <td class="py-5 px-4">
+            <div class="text-xs text-[#E60012] mb-1">02</div>
+            <div class="font-semibold text-gray-900">VSCode</div>
+          </td>
+          <td class="py-5 px-4 text-sm text-gray-600">コード確認・Git操作</td>
+          <td class="py-5 px-4 text-sm text-gray-600">実装はClaudeCodeに任せ、人間はコードの確認・レビュー・マージに集中する</td>
+        </tr>
+        <tr class="border-b border-gray-100">
+          <td class="py-5 px-4">
+            <div class="text-xs text-[#E60012] mb-1">03</div>
+            <div class="font-semibold text-gray-900">GitHub</div>
+          </td>
+          <td class="py-5 px-4 text-sm text-gray-600">ソースコード管理</td>
+          <td class="py-5 px-4 text-sm text-gray-600">Issueを起票して要件を管理。ブランチ・PRベースのレビューフローを採用</td>
         </tr>
         <tr>
-          <td>VSCode</td>
-          <td>コード確認・Git操作</td>
-          <td>実装はClaudeCodeに任せ、人間はコードの確認・レビュー・マージに集中する</td>
-        </tr>
-        <tr>
-          <td>GitHub</td>
-          <td>ソースコード管理</td>
-          <td>Issueを起票して要件を管理。ブランチ・PRベースのレビューフローを採用</td>
-        </tr>
-        <tr>
-          <td>GitHub Actions</td>
-          <td>自動テスト・PR制御</td>
-          <td>テスト・Lint・セキュリティチェックを自動実行。すべてパスしたものだけPR可能にする</td>
+          <td class="py-5 px-4">
+            <div class="text-xs text-[#E60012] mb-1">04</div>
+            <div class="font-semibold text-gray-900">GitHub Actions</div>
+          </td>
+          <td class="py-5 px-4 text-sm text-gray-600">自動テスト・PR制御</td>
+          <td class="py-5 px-4 text-sm text-gray-600">テスト・Lint・セキュリティチェックを自動実行。すべてパスしたものだけPR可能にする</td>
         </tr>
       </tbody>
     </table>
-  </section>
-
-  <!-- Slide 4: Claude Code 設定 -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-number">04</span>
-      <h2>Claude Code 設定</h2>
-    </div>
-
-    <h3>CLAUDE.md（コーディング規約・プロジェクト情報）</h3>
-    <ul>
-      <li>クライアントからもらったモックを元に、ClaudeCodeでWEBサイトの叩き台を作成</li>
-      <li>叩き台をClaudeCodeに読み込ませてCLAUDE.md案を生成 → 手で修正して完成</li>
-      <li>記載内容：プロジェクト概要・技術スタック・CSSルール・JSルール・コメント規約・自動化パイプラインの説明</li>
-      <li>CLAUDE.mdはリポジトリのルートに配置。ClaudeCodeが毎回参照するため、規約変更時はここを更新する</li>
-    </ul>
-
-    <h3>Skills（ClaudeCodeの追加機能）</h3>
-    <ul>
-      <li><strong>superpowers</strong>：ClaudeCodeの標準機能を拡張するスキルセット</li>
-      <li><strong>frontend-design</strong>：UI/UX実装に特化した指示パターンを提供</li>
-      <li><strong>prototype</strong>：デフォルト組み込みのプロトタイピング支援スキルを使用</li>
-    </ul>
-
-    <h3>Agents定義ファイルの置き場所</h3>
-    <ul>
-      <li>各Agentの定義は <code>.claude/agents/</code> 配下にMarkdownファイルとして配置</li>
-      <li>Skillsの定義は <code>.claude/commands/</code> 配下に配置</li>
-    </ul>
-  </section>
-
-  <!-- Slide 5: AIエージェント -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-number">05</span>
-      <h2>AIエージェント</h2>
-    </div>
-
-    <div class="agent-grid">
-      <div class="agent-card">
-        <div class="agent-label">QA Agent</div>
-        <h3>品質検査</h3>
-        <ul>
-          <li>UI操作</li>
-          <li>入力処理</li>
-          <li>JSイベント</li>
-          <li>レスポンシブ</li>
-          <li>エラー処理</li>
-        </ul>
-        <div class="output">出力先 <code>.claude/reports/qa/</code></div>
-      </div>
-      <div class="agent-card">
-        <div class="agent-label">Fixer Agent</div>
-        <h3>修正担当</h3>
-        <ul>
-          <li>問題一覧を入力として受け取る</li>
-          <li>原因確認</li>
-          <li>コード修正</li>
-          <li>git diff で説明</li>
-        </ul>
-        <div class="output">入力元 <code>.claude/reports/</code></div>
-      </div>
-      <div class="agent-card">
-        <div class="agent-label">Security Agent</div>
-        <h3>セキュリティ監査</h3>
-        <ul>
-          <li>XSS</li>
-          <li>innerHTML</li>
-          <li>APIキー漏洩</li>
-          <li>localStorage</li>
-          <li>外部通信</li>
-        </ul>
-        <div class="output">出力先 <code>.claude/reports/security/</code></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Slide 6: 開発フロー -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-number">06</span>
-      <h2>開発フロー</h2>
-    </div>
-
-    <div class="flow">
-      <div class="flow-step">
-        <div class="flow-num">STEP 01</div>
-        <div class="flow-label">Issue作成</div>
-        <div class="flow-detail">GitHubに要件をIssueとして起票する</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-num">STEP 02</div>
-        <div class="flow-label">ClaudeCodeが実装</div>
-        <div class="flow-detail">Issueを読んでフロントエンドを実装</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-num">STEP 03</div>
-        <div class="flow-label">自動テスト</div>
-        <div class="flow-detail">GitHub Actionsが自動テストを実行</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-num">STEP 04</div>
-        <div class="flow-label">PR作成</div>
-        <div class="flow-detail">テストパスしたものだけPR可能</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-num">STEP 05</div>
-        <div class="flow-label">確認・マージ</div>
-        <div class="flow-detail">VSCodeでコード確認しマージ</div>
-      </div>
-    </div>
-
-    <h3 style="margin-top: 1.2rem;">ポイント</h3>
-    <ul>
-      <li>実装のトリガーはGitHub Issue。要件をIssueに書けばClaudeCodeが自動で実装を開始する</li>
-      <li>GitHub Actionsでテスト・Lint・セキュリティチェックを自動実行。すべてパスしないとPR不可</li>
-      <li>人間の作業はIssue起票・コードレビュー・マージのみ。実装・テストはAIと自動化が担う</li>
-      <li>Agentsが並列で品質検査（QA）・修正（Fixer）・セキュリティ監査（Security）を実施</li>
-    </ul>
-  </section>
-
+  </div>
 </div>
 
-<!-- ナビゲーション -->
-<nav>
-  <button id="prev" onclick="changeSlide(-1)" disabled>←</button>
-  <span id="slide-counter">1 / 6</span>
-  <button id="next" onclick="changeSlide(1)">→</button>
-</nav>
+<!-- ── SLIDE 4: Claude Code 設定 ── -->
+<div class="slide" data-act="Claude Code">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-10 flex flex-col">
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-4">Claude Code — 01 / 01</p>
+    <div class="flex gap-14 flex-1 items-start">
+      <div class="w-64 shrink-0">
+        <h2 class="text-3xl font-bold text-gray-900 leading-snug">Claude Code<br>設定</h2>
+        <div class="w-10 h-0.5 bg-[#E60012] my-5"></div>
+        <p class="text-sm text-gray-600 leading-loose">CLAUDE.md・Skills・Agentsの3層構造でClaudeCodeの挙動を制御する</p>
+      </div>
+      <div class="flex-1 flex flex-col gap-4">
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
+          <div class="text-xs text-[#E60012] font-semibold mb-2">CLAUDE.md（コーディング規約・プロジェクト情報）</div>
+          <ul class="flex flex-col gap-1.5">
+            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>クライアントからもらったモックを元に、ClaudeCodeでWEBサイトの叩き台を作成</li>
+            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>叩き台をClaudeCodeに読み込ませてCLAUDE.md案を生成 → 手で修正して完成</li>
+            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>記載内容：プロジェクト概要・技術スタック・CSSルール・JSルール・コメント規約・自動化パイプラインの説明</li>
+            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>リポジトリのルートに配置。ClaudeCodeが毎回参照するため、規約変更時はここを更新する</li>
+          </ul>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
+          <div class="text-xs text-[#E60012] font-semibold mb-2">Skills（ClaudeCodeの追加機能）</div>
+          <ul class="flex flex-col gap-1.5">
+            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span><strong>superpowers</strong>：ClaudeCodeの標準機能を拡張するスキルセット</li>
+            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span><strong>frontend-design</strong>：UI/UX実装に特化した指示パターンを提供</li>
+          </ul>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
+          <div class="text-xs text-[#E60012] font-semibold mb-2">Agents定義ファイルの置き場所</div>
+          <ul class="flex flex-col gap-1.5">
+            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>各Agentの定義は <code class="bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded text-xs">.claude/agents/</code> 配下にMarkdownファイルとして配置</li>
+            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>Skillsの定義は <code class="bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded text-xs">.claude/commands/</code> 配下に配置</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SLIDE 5: AIエージェント ── -->
+<div class="slide" data-act="Agents">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-10 flex flex-col">
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-3">Agents — 01 / 01</p>
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">AIエージェント</h2>
+    <p class="text-sm text-gray-500 mb-6">品質・修正・セキュリティを専門エージェントが並列で担当する</p>
+    <div class="grid grid-cols-3 gap-4 flex-1">
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 flex flex-col">
+        <div class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-4">QA Agent</div>
+        <div class="font-bold text-gray-900 text-lg mb-3">品質検査</div>
+        <ul class="flex flex-col gap-1.5 flex-1">
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>UI操作</li>
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>入力処理</li>
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>JSイベント</li>
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>レスポンシブ</li>
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>エラー処理</li>
+        </ul>
+        <div class="mt-4 pt-4 border-t border-gray-200">
+          <div class="text-xs text-gray-400">出力先</div>
+          <code class="text-xs bg-gray-100 border border-gray-200 px-2 py-1 rounded mt-1 block">.claude/reports/qa/</code>
+        </div>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 flex flex-col">
+        <div class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-4">Fixer Agent</div>
+        <div class="font-bold text-gray-900 text-lg mb-3">修正担当</div>
+        <ul class="flex flex-col gap-1.5 flex-1">
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>問題一覧を入力として受け取る</li>
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>原因確認</li>
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>コード修正</li>
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>git diff で説明</li>
+        </ul>
+        <div class="mt-4 pt-4 border-t border-gray-200">
+          <div class="text-xs text-gray-400">入力元</div>
+          <code class="text-xs bg-gray-100 border border-gray-200 px-2 py-1 rounded mt-1 block">.claude/reports/</code>
+        </div>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 flex flex-col">
+        <div class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-4">Security Agent</div>
+        <div class="font-bold text-gray-900 text-lg mb-3">セキュリティ監査</div>
+        <ul class="flex flex-col gap-1.5 flex-1">
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>XSS</li>
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>innerHTML</li>
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>APIキー漏洩</li>
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>localStorage</li>
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>外部通信</li>
+        </ul>
+        <div class="mt-4 pt-4 border-t border-gray-200">
+          <div class="text-xs text-gray-400">出力先</div>
+          <code class="text-xs bg-gray-100 border border-gray-200 px-2 py-1 rounded mt-1 block">.claude/reports/security/</code>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SLIDE 6: 開発フロー ── -->
+<div class="slide" data-act="Flow">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-10 flex flex-col">
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-3">Flow — 01 / 01</p>
+    <h2 class="text-3xl font-bold text-gray-900 mb-8">開発フロー</h2>
+    <div class="grid grid-cols-5 gap-0 border border-gray-200 rounded-xl overflow-hidden mb-6">
+      <div class="bg-gray-50 p-5 border-r border-gray-200">
+        <div class="text-xs text-gray-400 mb-2">STEP 01</div>
+        <div class="font-semibold text-gray-900 mb-2">Issue作成</div>
+        <div class="text-xs text-gray-600 leading-relaxed">GitHubに要件をIssueとして起票する</div>
+      </div>
+      <div class="bg-gray-50 p-5 border-r border-gray-200">
+        <div class="text-xs text-gray-400 mb-2">STEP 02</div>
+        <div class="font-semibold text-gray-900 mb-2">ClaudeCodeが実装</div>
+        <div class="text-xs text-gray-600 leading-relaxed">Issueを読んでフロントエンドを実装</div>
+      </div>
+      <div class="bg-gray-50 p-5 border-r border-gray-200">
+        <div class="text-xs text-[#E60012] mb-2">STEP 03</div>
+        <div class="font-semibold text-gray-900 mb-2">自動テスト</div>
+        <div class="text-xs text-gray-600 leading-relaxed">GitHub Actionsが自動テストを実行</div>
+      </div>
+      <div class="bg-gray-50 p-5 border-r border-gray-200">
+        <div class="text-xs text-gray-400 mb-2">STEP 04</div>
+        <div class="font-semibold text-gray-900 mb-2">PR作成</div>
+        <div class="text-xs text-gray-600 leading-relaxed">テストパスしたものだけPR可能</div>
+      </div>
+      <div class="bg-gray-50 p-5">
+        <div class="text-xs text-gray-400 mb-2">STEP 05</div>
+        <div class="font-semibold text-gray-900 mb-2">確認・マージ</div>
+        <div class="text-xs text-gray-600 leading-relaxed">VSCodeでコード確認しマージ</div>
+      </div>
+    </div>
+    <p class="text-xs text-gray-400 uppercase tracking-widest mb-3">ポイント</p>
+    <div class="flex flex-col gap-3">
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 flex gap-4 items-start">
+        <span class="text-[#E60012] font-bold text-lg mt-0.5 shrink-0">→</span>
+        <div class="text-sm text-gray-600 leading-relaxed">実装のトリガーはGitHub Issue。要件をIssueに書けばClaudeCodeが自動で実装を開始する</div>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 flex gap-4 items-start">
+        <span class="text-[#E60012] font-bold text-lg mt-0.5 shrink-0">→</span>
+        <div class="text-sm text-gray-600 leading-relaxed">GitHub Actionsでテスト・Lint・セキュリティチェックを自動実行。すべてパスしないとPR不可</div>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 flex gap-4 items-start">
+        <span class="text-[#E60012] font-bold text-lg mt-0.5 shrink-0">→</span>
+        <div class="text-sm text-gray-600 leading-relaxed">人間の作業はIssue起票・コードレビュー・マージのみ。実装・テストはAIと自動化が担う</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
-  const total = 6;
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const dotsEl = document.getElementById('dots');
+  const counterEl = document.getElementById('counter');
+  const actEl = document.getElementById('act-label');
   let current = 0;
 
-  function changeSlide(dir) {
-    current = Math.max(0, Math.min(total - 1, current + dir));
-    document.getElementById('slides').style.transform = `translateX(-${current * 100}vw)`;
-    document.getElementById('slide-counter').textContent = `${current + 1} / ${total}`;
-    document.getElementById('prev').disabled = current === 0;
-    document.getElementById('next').disabled = current === total - 1;
-    document.getElementById('progress').style.width = `${((current + 1) / total) * 100}%`;
-  }
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') changeSlide(1);
-    if (e.key === 'ArrowLeft')  changeSlide(-1);
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.style.cssText = 'height:6px;border-radius:3px;cursor:pointer;transition:all 0.25s;background:#D1D5DB;' + (i === 0 ? 'width:18px;background:#E60012;' : 'width:6px;');
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
   });
 
-  changeSlide(0);
-</script>
+  function goTo(n) {
+    const prev = current;
+    current = ((n % slides.length) + slides.length) % slides.length;
+    if (prev === current) return;
+    slides[prev].classList.remove('active');
+    slides[current].classList.add('active');
+    updateUI();
+  }
 
+  function updateUI() {
+    counterEl.textContent = (current + 1) + ' / ' + slides.length;
+    actEl.textContent = slides[current].dataset.act || '';
+    Array.from(dotsEl.children).forEach((d, i) => {
+      d.style.cssText = 'height:6px;border-radius:3px;cursor:pointer;transition:all 0.25s;' +
+        (i === current ? 'width:18px;background:#E60012;' : 'width:6px;background:#D1D5DB;');
+    });
+  }
+
+  document.getElementById('prev').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('next').addEventListener('click', () => goTo(current + 1));
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight', 'ArrowDown', ' '].includes(e.key)) { e.preventDefault(); goTo(current + 1); }
+    if (['ArrowLeft', 'ArrowUp'].includes(e.key)) { e.preventDefault(); goTo(current - 1); }
+  });
+
+  updateUI();
+</script>
 </body>
 </html>
