@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ユーザーテスト記録フォーム — AI Assets for AI Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/theme-b.css">
+<style>
+/* ── layout ── */
+.form-wrap { max-width:860px; margin:0 auto; padding:32px 24px 80px; }
+.page-head { margin-bottom:28px; }
+.page-head h1 { font-size:22px; font-weight:700; }
+.page-head p  { font-size:13.5px; color:var(--muted); margin-top:4px; }
+
+/* ── participant bar ── */
+.participant-bar {
+  display:flex; gap:14px; align-items:flex-end;
+  background:var(--surface); border:1px solid var(--line);
+  border-radius:12px; padding:16px 20px; margin-bottom:28px;
+}
+.p-field { display:flex; flex-direction:column; gap:5px; font-size:12px; color:var(--muted); }
+.p-field input { font-family:var(--sans); font-size:14px; color:var(--ink); background:#fff;
+  border:1px solid var(--line-2); border-radius:8px; padding:7px 12px; outline:none; width:140px; }
+.p-field input:focus { border-color:var(--focus); }
+.p-field.wide input { width:200px; }
+.participant-bar .note { font-size:12px; color:var(--muted); margin-left:auto; align-self:center; }
+
+/* ── TC nav ── */
+.tc-nav { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:24px; }
+.tc-btn {
+  font-family:var(--mono); font-size:11.5px; font-weight:600;
+  padding:6px 12px; border-radius:8px; border:1.5px solid var(--line-2);
+  background:#fff; color:var(--muted); cursor:pointer;
+  transition:border-color .15s, color .15s, background .15s;
+  position:relative;
+}
+.tc-btn:hover { border-color:var(--red); color:var(--red); }
+.tc-btn.active { border-color:var(--ink); background:var(--ink); color:#fff; }
+.tc-btn.done::after {
+  content:'✓'; position:absolute; top:-5px; right:-5px;
+  width:14px; height:14px; border-radius:50%; font-size:9px;
+  background:#22c55e; color:#fff; display:flex; align-items:center; justify-content:center;
+  line-height:14px; text-align:center;
+}
+.tc-btn.incomplete::after {
+  content:'!'; position:absolute; top:-5px; right:-5px;
+  width:14px; height:14px; border-radius:50%; font-size:9px;
+  background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center;
+  line-height:14px; text-align:center;
+}
+
+/* ── TC card ── */
+.tc-card { background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; margin-bottom:20px; }
+.tc-card-head { display:flex; align-items:center; gap:12px; padding:16px 20px; border-bottom:1px solid var(--line); background:var(--surface); }
+.tc-id-badge { font-family:var(--mono); font-size:12px; font-weight:700; background:var(--ink); color:#fff; padding:4px 10px; border-radius:6px; }
+.tc-title { font-size:15px; font-weight:700; }
+.tc-diff { font-size:12px; color:var(--muted); margin-left:auto; }
+
+.tc-ref { padding:14px 20px; background:#fafbfc; border-bottom:1px solid var(--line); display:flex; flex-direction:column; gap:10px; }
+.tc-ref-row { display:flex; gap:10px; }
+.tc-ref-label { font-size:11.5px; font-weight:600; color:var(--muted); white-space:nowrap; min-width:72px; padding-top:1px; }
+.tc-ref-val { font-size:13px; color:var(--ink); line-height:1.6; }
+.tc-ref-val.task { font-style:italic; }
+.tc-ref-val.answer { font-weight:500; color:var(--red-deep); }
+.tc-ref-val.path { color:var(--muted); font-size:12.5px; }
+
+/* ── form fields ── */
+.form-body { padding:20px; display:flex; flex-direction:column; gap:20px; }
+
+.form-row { display:flex; gap:16px; flex-wrap:wrap; }
+.form-group { display:flex; flex-direction:column; gap:6px; }
+.form-group label { font-size:12px; font-weight:600; color:var(--muted); }
+.form-group.grow { flex:1; }
+
+.form-input {
+  font-family:var(--sans); font-size:13.5px; color:var(--ink);
+  background:#fff; border:1px solid var(--line-2); border-radius:9px;
+  padding:9px 12px; outline:none;
+  transition:border-color .15s;
+}
+.form-input:focus { border-color:var(--focus); }
+.form-input.num { width:88px; }
+select.form-input { appearance:none; padding-right:28px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2364748b' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 10px center; cursor:pointer; }
+textarea.form-input { resize:vertical; min-height:72px; line-height:1.6; }
+
+/* SEQ */
+.seq-group { display:flex; gap:6px; }
+.seq-btn {
+  width:38px; height:38px; border-radius:8px; border:1.5px solid var(--line-2);
+  background:#fff; font-family:var(--mono); font-size:13px; font-weight:700; color:var(--muted);
+  cursor:pointer; transition:all .15s; display:flex; align-items:center; justify-content:center;
+}
+.seq-btn:hover { border-color:var(--red); color:var(--red); }
+.seq-btn.sel { background:var(--ink); border-color:var(--ink); color:#fff; }
+.seq-label-row { display:flex; justify-content:space-between; font-size:10.5px; color:var(--muted); padding:0 2px; }
+
+/* step log */
+.step-log { display:flex; flex-direction:column; gap:8px; }
+.step-row { display:flex; align-items:center; gap:8px; }
+.step-num { font-family:var(--mono); font-size:11px; font-weight:700; color:var(--muted); background:var(--surface);
+  border:1px solid var(--line-2); border-radius:6px; padding:3px 8px; white-space:nowrap; }
+
+/* completion */
+.completion-group { display:flex; gap:8px; }
+.completion-btn {
+  flex:1; padding:10px; border-radius:9px; border:1.5px solid var(--line-2);
+  background:#fff; font-family:var(--sans); font-size:13px; font-weight:600; color:var(--muted);
+  cursor:pointer; transition:all .15s;
+}
+.completion-btn:hover { border-color:var(--red); }
+.completion-btn.sel-done     { background:#e6f6ed; border-color:#22c55e; color:#15803d; }
+.completion-btn.sel-fail     { background:#fdecef; border-color:var(--red); color:var(--red-deep); }
+.completion-btn.sel-abandon  { background:#fff4e0; border-color:#f59e0b; color:#92400e; }
+
+/* actions */
+.form-actions { display:flex; gap:10px; padding:20px; border-top:1px solid var(--line); }
+.btn-save { font-family:var(--sans); font-size:14px; font-weight:600; padding:11px 24px;
+  background:var(--red); color:#fff; border:none; border-radius:10px; cursor:pointer;
+  transition:background .15s; }
+.btn-save:hover { background:var(--red-deep); }
+.btn-next { font-family:var(--sans); font-size:14px; font-weight:600; padding:11px 24px;
+  background:#fff; color:var(--ink); border:1.5px solid var(--line-2); border-radius:10px; cursor:pointer;
+  transition:border-color .15s; }
+.btn-next:hover { border-color:var(--ink); }
+.save-msg { font-size:13px; color:#15803d; align-self:center; display:none; }
+
+/* ── progress summary ── */
+.summary-bar {
+  display:flex; align-items:center; gap:14px; padding:14px 20px;
+  background:var(--surface); border:1px solid var(--line); border-radius:12px; margin-bottom:24px;
+}
+.summary-bar .s-label { font-size:12px; color:var(--muted); }
+.summary-bar .s-val { font-size:20px; font-weight:700; font-variant-numeric:tabular-nums; }
+.summary-bar .s-divider { width:1px; height:24px; background:var(--line); }
+.export-btn { margin-left:auto; font-family:var(--sans); font-size:13px; font-weight:600; padding:9px 18px;
+  background:#fff; border:1.5px solid var(--line-2); border-radius:9px; cursor:pointer; color:var(--ink);
+  transition:border-color .15s; }
+.export-btn:hover { border-color:var(--ink); }
+
+/* ── export modal ── */
+.export-overlay { display:none; position:fixed; inset:0; z-index:400; background:rgba(0,0,0,.35); }
+.export-overlay.open { display:flex; align-items:center; justify-content:center; }
+.export-modal { background:#fff; border-radius:16px; padding:28px; width:min(600px, calc(100vw - 48px));
+  max-height:80vh; overflow:hidden; display:flex; flex-direction:column; gap:16px; }
+.export-modal h2 { font-size:16px; font-weight:700; }
+.export-modal pre { background:#f8f9fb; border:1px solid var(--line); border-radius:8px; padding:14px;
+  font-size:11.5px; overflow:auto; flex:1; max-height:360px; white-space:pre-wrap; word-break:break-all; }
+.export-modal-foot { display:flex; gap:10px; }
+.copy-btn { font-family:var(--sans); font-size:13px; font-weight:600; padding:9px 18px;
+  background:var(--ink); color:#fff; border:none; border-radius:8px; cursor:pointer; }
+.copy-btn:hover { background:var(--red-deep); }
+.close-modal-btn { font-family:var(--sans); font-size:13px; padding:9px 18px;
+  background:#fff; color:var(--ink); border:1.5px solid var(--line-2); border-radius:8px; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-logo">AI</span>
+      <span class="brand-name">Assets <b>for</b> AI Agent</span>
+    </a>
+    <nav class="nav">
+      <a href="agents.html">エージェント一覧</a>
+      <a href="user-test-form.html" aria-current="page">テスト記録</a>
+    </nav>
+  </div>
+</header>
+
+<div class="form-wrap">
+  <div class="page-head">
+    <h1>ユーザーテスト 観察記録フォーム</h1>
+    <p>各テストケースの実施結果をリアルタイムで記録します。記録はブラウザのローカルストレージに保存され、最後にJSONでエクスポートできます。</p>
+  </div>
+
+  <!-- 参加者情報 -->
+  <div class="participant-bar">
+    <div class="p-field">
+      <label for="p-id">参加者ID</label>
+      <input id="p-id" type="text" placeholder="P01" maxlength="10">
+    </div>
+    <div class="p-field">
+      <label for="p-date">実施日</label>
+      <input id="p-date" type="date">
+    </div>
+    <div class="p-field wide">
+      <label for="p-profile">プロファイル</label>
+      <input id="p-profile" type="text" placeholder="例：ライトユーザー / 営業部">
+    </div>
+    <div class="note">記録はブラウザに自動保存されます</div>
+  </div>
+
+  <!-- 進捗サマリー -->
+  <div class="summary-bar">
+    <div>
+      <div class="s-label">完了TC</div>
+      <div class="s-val" id="done-count">0 / 7</div>
+    </div>
+    <div class="s-divider"></div>
+    <div>
+      <div class="s-label">平均SEQ</div>
+      <div class="s-val" id="avg-seq">—</div>
+    </div>
+    <div class="s-divider"></div>
+    <div>
+      <div class="s-label">3ステップ達成</div>
+      <div class="s-val" id="step-rate">—</div>
+    </div>
+    <button class="export-btn" id="export-btn">📋 JSONエクスポート</button>
+  </div>
+
+  <!-- TC ナビゲーション -->
+  <div class="tc-nav" id="tc-nav"></div>
+
+  <!-- TC フォーム -->
+  <div class="tc-card" id="tc-card">
+    <!-- JS で描画 -->
+  </div>
+</div>
+
+<!-- エクスポートモーダル -->
+<div class="export-overlay" id="export-overlay">
+  <div class="export-modal">
+    <h2>テスト結果 JSON</h2>
+    <pre id="export-pre"></pre>
+    <div class="export-modal-foot">
+      <button class="copy-btn" id="copy-btn">クリップボードにコピー</button>
+      <button class="close-modal-btn" id="close-modal-btn">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ── TC マスターデータ ──
+  const TCS = [
+    {
+      id: "TC-03", title: "実際によく使われているものを選びたい", type: "DL実績フィルタ型", difficulty: "中",
+      task: "社内で実際に多くの人がダウンロードして使っている、実績のある情報収集系のアセットを探してください。",
+      answer: "トレンドウォッチAI（ID:8046）",
+      answerNote: "カテゴリ「情報収集・調査」DL数1位（DL:292）。市場調査自動化AI（8001, DL:101）も可。",
+      path: "カテゴリ「情報収集・調査」選択 → DL実績フィルタ or 並び順「利用実績順」→ カード選択（3ステップ）",
+    },
+    {
+      id: "TC-04", title: "新しく追加されたものを確認したい", type: "更新日フィルタ型", difficulty: "低",
+      task: "先月以降に新しく追加されたアセットを確認したいです。",
+      answer: "更新日フィルタ「過去1ヶ月」内の37件（代表：プレゼン資料テンプレ ID:7036）",
+      answerNote: "一覧が表示された時点で完了。ナビ「新着」・並び順「新着順」・フィルタの3経路どれでも可。",
+      path: "更新日「過去1ヶ月」選択 or ナビ「新着」クリック（1ステップ）",
+    },
+    {
+      id: "TC-05", title: "名前はうろ覚えで概要だけ覚えている", type: "あいまい検索型", difficulty: "中〜高",
+      task: "以前同僚に教えてもらったアセットで、『自然言語でデータに問い合わせができる』と言っていたものを探してください。名前は覚えていません。",
+      answer: "分析テンプレートセット（ID:7004）",
+      answerNote: "概要に「自然言語でデータに問い合わせができ」と明記。検索で「自然言語」をヒットするかが確認ポイント。",
+      path: "検索ボックスに「自然言語」または「データ 問い合わせ」入力 → カード選択（2ステップ）",
+    },
+    {
+      id: "TC-06", title: "ツール連携条件で探したい", type: "タグフィルタ型", difficulty: "中",
+      task: "Excelと連携して使えるアセットを探したいのですが、どうすればいいですか？",
+      answer: "タグ「Excel対応」を持つ7件（代表：ダッシュボード分析サンプル ID:7040, DL:128）",
+      answerNote: "タグ選択 / キーワード「Excel」検索どちらでも可。タグフィルタに気づかない場合は「タグ未活用」と記録。",
+      path: "タグ「Excel対応」ピル選択 → カード選択（2ステップ）",
+    },
+    {
+      id: "TC-07", title: "複数条件を組み合わせて安全なものを探したい", type: "複合フィルタ型", difficulty: "中〜高",
+      task: "最近追加されたアセットのうち、ある程度ダウンロード実績があって信頼できそうなものを探してください。カテゴリは問いません。",
+      answer: "過去3ヶ月 × DL10件以上（代表：商談準備アシスタント ID:8002, DL:332）",
+      answerNote: "任意の1件到達で完了。複合フィルタとリセットボタンの認知が観察ポイント。",
+      path: "更新日「過去3ヶ月」→ DL実績「10件以上」→ カード選択（3ステップ）",
+    },
+    {
+      id: "TC-08", title: "カテゴリをまたいで探したい", type: "複数カテゴリ選択型", difficulty: "高",
+      task: "コード支援か品質テストに関係するアセットをまとめて見たいです。",
+      answer: "「開発・コード支援」+「テスト・品質保証」の17件（代表：API設計支援ツール ID:8026）",
+      answerNote: "複数カテゴリの同時選択（OR）に気づくかが観察ポイント。片方のカテゴリで到達しても完了とする。",
+      path: "カテゴリ「開発・コード支援」選択 → 「テスト・品質保証」追加 → カード選択（3ステップ）",
+    },
+    {
+      id: "TC-09", title: "オーナーから辿りたい", type: "人名検索型", difficulty: "低〜中",
+      task: "Yamamoto さんが作ったアセットがあると聞きました。探してください。",
+      answer: "Akiko Yamamoto 担当の10件（代表：コード支援スニペット集 ID:7002）",
+      answerNote: "検索「Yamamoto」で10件ヒットするかが確認ポイント。任意の1件到達で完了。",
+      path: "検索ボックスに「Yamamoto」入力 → カード選択（2ステップ）",
+    },
+  ];
+
+  // ── state ──
+  let current = 0;
+  let results = {};
+
+  const storageKey = () => `utm_${document.getElementById("p-id").value || "draft"}`;
+
+  function loadFromStorage() {
+    try {
+      const raw = localStorage.getItem(storageKey());
+      if (raw) results = JSON.parse(raw);
+    } catch (e) { results = {}; }
+  }
+
+  function saveToStorage() {
+    try { localStorage.setItem(storageKey(), JSON.stringify(results)); } catch (e) {}
+  }
+
+  // ── build nav ──
+  function buildNav() {
+    const nav = document.getElementById("tc-nav");
+    nav.innerHTML = TCS.map((tc, i) => {
+      const r = results[tc.id];
+      const cls = [
+        "tc-btn",
+        i === current ? "active" : "",
+        r ? (r.completed === "done" ? "done" : r.completed === "fail" ? "incomplete" : "") : "",
+      ].filter(Boolean).join(" ");
+      return `<button class="${cls}" data-idx="${i}">${tc.id}</button>`;
+    }).join("");
+    nav.querySelectorAll(".tc-btn").forEach(b => {
+      b.addEventListener("click", () => {
+        saveCurrentForm();
+        current = +b.dataset.idx;
+        buildNav();
+        renderForm();
+      });
+    });
+  }
+
+  // ── render form ──
+  function renderForm() {
+    const tc = TCS[current];
+    const r = results[tc.id] || {};
+
+    const seqBtns = [1,2,3,4,5,6,7].map(n =>
+      `<button class="seq-btn${r.seq === n ? " sel" : ""}" data-seq="${n}" type="button">${n}</button>`
+    ).join("");
+
+    const stepFields = [1,2,3,4].map(n => `
+      <div class="step-row">
+        <span class="step-num">Step ${n}</span>
+        <input class="form-input" style="flex:1" type="text" id="step-${n}"
+          placeholder="例：カテゴリ「資料・文書作成」を選択" value="${esc(r[`step${n}`] || "")}">
+      </div>`).join("");
+
+    const csel = (v) => (val) => val === v ? " sel-" + v : "";
+
+    document.getElementById("tc-card").innerHTML = `
+      <div class="tc-card-head">
+        <span class="tc-id-badge">${tc.id}</span>
+        <span class="tc-title">${tc.title}</span>
+        <span class="tc-diff">難易度：${tc.difficulty}</span>
+      </div>
+      <div class="tc-ref">
+        <div class="tc-ref-row">
+          <span class="tc-ref-label">タスク指示</span>
+          <span class="tc-ref-val task">「${tc.task}」</span>
+        </div>
+        <div class="tc-ref-row">
+          <span class="tc-ref-label">正解アセット</span>
+          <span class="tc-ref-val answer">▶ ${tc.answer}</span>
+        </div>
+        <div class="tc-ref-row">
+          <span class="tc-ref-label">補足</span>
+          <span class="tc-ref-val">${tc.answerNote}</span>
+        </div>
+        <div class="tc-ref-row">
+          <span class="tc-ref-label">想定パス</span>
+          <span class="tc-ref-val path">${tc.path}</span>
+        </div>
+      </div>
+
+      <div class="form-body">
+        <div class="form-group">
+          <label>タスク結果</label>
+          <div class="completion-group">
+            <button class="completion-btn${r.completed === "done" ? " sel-done" : ""}" data-comp="done" type="button">✓ 完了</button>
+            <button class="completion-btn${r.completed === "fail" ? " sel-fail" : ""}" data-comp="fail" type="button">✗ 未完了</button>
+            <button class="completion-btn${r.completed === "abandon" ? " sel-abandon" : ""}" data-comp="abandon" type="button">― 中断</button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="f-time">所要時間（秒）</label>
+            <input id="f-time" class="form-input num" type="number" min="0" max="600" placeholder="例：42" value="${r.time || ""}">
+          </div>
+          <div class="form-group">
+            <label for="f-steps">ステップ数</label>
+            <input id="f-steps" class="form-input num" type="number" min="1" max="10" placeholder="例：2" value="${r.steps || ""}">
+          </div>
+          <div class="form-group grow">
+            <label>SEQ（1=非常に難しい ／ 7=非常に簡単）</label>
+            <div class="seq-group" id="seq-group">${seqBtns}</div>
+            <div class="seq-label-row"><span>難しい</span><span>簡単</span></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>操作ログ</label>
+          <div class="step-log">${stepFields}</div>
+        </div>
+
+        <div class="form-group">
+          <label for="f-stuck">詰まったポイント</label>
+          <textarea id="f-stuck" class="form-input" placeholder="例：カテゴリ「テスト・品質保証」と「開発・コード支援」で迷い、どちらを先にクリックするか30秒停止した">${r.stuck || ""}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="f-insights">発話・気づきメモ</label>
+          <textarea id="f-insights" class="form-input" placeholder="例：「機能タグって何？カテゴリと何が違うの？」と発言。タグフィルタには気づかなかった">${r.insights || ""}</textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-save" id="btn-save" type="button">保存</button>
+        <button class="btn-next" id="btn-next" type="button">${current < TCS.length - 1 ? "次のTC →" : "完了"}</button>
+        <span class="save-msg" id="save-msg">✓ 保存しました</span>
+      </div>`;
+
+    // bind completion buttons
+    document.querySelectorAll(".completion-btn").forEach(b => {
+      b.addEventListener("click", () => {
+        document.querySelectorAll(".completion-btn").forEach(x => {
+          x.className = "completion-btn";
+        });
+        b.classList.add("sel-" + b.dataset.comp);
+      });
+    });
+
+    // bind SEQ buttons
+    document.querySelectorAll(".seq-btn").forEach(b => {
+      b.addEventListener("click", () => {
+        document.querySelectorAll(".seq-btn").forEach(x => x.classList.remove("sel"));
+        b.classList.add("sel");
+      });
+    });
+
+    document.getElementById("btn-save").addEventListener("click", () => {
+      saveCurrentForm();
+      const msg = document.getElementById("save-msg");
+      msg.style.display = "inline";
+      setTimeout(() => { msg.style.display = "none"; }, 2000);
+      buildNav();
+      updateSummary();
+    });
+
+    document.getElementById("btn-next").addEventListener("click", () => {
+      saveCurrentForm();
+      if (current < TCS.length - 1) {
+        current++;
+        buildNav();
+        renderForm();
+        window.scrollTo(0, 0);
+      }
+    });
+  }
+
+  function saveCurrentForm() {
+    const tc = TCS[current];
+    const compBtn = document.querySelector(".completion-btn.sel-done, .completion-btn.sel-fail, .completion-btn.sel-abandon");
+    const seqBtn  = document.querySelector(".seq-btn.sel");
+    results[tc.id] = {
+      completed: compBtn ? compBtn.dataset.comp : "",
+      time:      +document.getElementById("f-time").value  || null,
+      steps:     +document.getElementById("f-steps").value || null,
+      seq:       seqBtn ? +seqBtn.dataset.seq : null,
+      step1:     document.getElementById("step-1").value,
+      step2:     document.getElementById("step-2").value,
+      step3:     document.getElementById("step-3").value,
+      step4:     document.getElementById("step-4").value,
+      stuck:     document.getElementById("f-stuck").value,
+      insights:  document.getElementById("f-insights").value,
+    };
+    saveToStorage();
+  }
+
+  function updateSummary() {
+    const all = TCS.map(tc => results[tc.id]).filter(Boolean);
+    const done = all.filter(r => r.completed === "done").length;
+    document.getElementById("done-count").textContent = `${done} / ${TCS.length}`;
+
+    const seqs = all.map(r => r.seq).filter(Boolean);
+    document.getElementById("avg-seq").textContent = seqs.length
+      ? (seqs.reduce((s,n) => s+n, 0) / seqs.length).toFixed(1) : "—";
+
+    const withSteps = all.filter(r => r.steps != null && r.completed === "done");
+    const inThree   = withSteps.filter(r => r.steps <= 3).length;
+    document.getElementById("step-rate").textContent = withSteps.length
+      ? `${inThree} / ${withSteps.length}` : "—";
+  }
+
+  function esc(s) {
+    return String(s ?? "").replace(/[&<>"]/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+  }
+
+  // ── export ──
+  document.getElementById("export-btn").addEventListener("click", () => {
+    saveCurrentForm();
+    const pid = document.getElementById("p-id").value || "未入力";
+    const date = document.getElementById("p-date").value || new Date().toISOString().slice(0,10);
+    const profile = document.getElementById("p-profile").value || "";
+    const output = {
+      participant: { id: pid, date, profile },
+      summary: {
+        totalTC: TCS.length, // 7件（TC-03〜TC-09）
+        completed: Object.values(results).filter(r => r.completed === "done").length,
+        avgSEQ: (() => {
+          const s = Object.values(results).map(r => r.seq).filter(Boolean);
+          return s.length ? +(s.reduce((a,b)=>a+b,0)/s.length).toFixed(2) : null;
+        })(),
+        threeStepRate: (() => {
+          const d = Object.values(results).filter(r => r.completed==="done" && r.steps);
+          return d.length ? `${d.filter(r=>r.steps<=3).length}/${d.length}` : null;
+        })(),
+      },
+      results: Object.fromEntries(TCS.map(tc => [tc.id, results[tc.id] || null])),
+    };
+    document.getElementById("export-pre").textContent = JSON.stringify(output, null, 2);
+    document.getElementById("export-overlay").classList.add("open");
+    updateSummary();
+  });
+
+  document.getElementById("copy-btn").addEventListener("click", () => {
+    const text = document.getElementById("export-pre").textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      document.getElementById("copy-btn").textContent = "✓ コピーしました";
+      setTimeout(() => { document.getElementById("copy-btn").textContent = "クリップボードにコピー"; }, 2000);
+    });
+  });
+
+  document.getElementById("close-modal-btn").addEventListener("click", () => {
+    document.getElementById("export-overlay").classList.remove("open");
+  });
+  document.getElementById("export-overlay").addEventListener("click", e => {
+    if (e.target === e.currentTarget)
+      document.getElementById("export-overlay").classList.remove("open");
+  });
+
+  // ── init ──
+  document.getElementById("p-date").valueAsDate = new Date();
+  document.getElementById("p-id").addEventListener("input", () => {
+    loadFromStorage();
+    buildNav();
+    renderForm();
+    updateSummary();
+  });
+
+  loadFromStorage();
+  buildNav();
+  renderForm();
+  updateSummary();
+})();
+</script>
+</body>
+</html>
