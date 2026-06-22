@@ -65,10 +65,12 @@
   })();
 
   // ---- card-level slider ----
+  const HIDE_SLIDER = `this.closest('.card-slider').hidden=true;this.closest('.card').classList.remove('has-slider');`;
+
   function cardSliderHTML(images) {
     if (!images || !images.length) return "";
     if (images.length === 1) {
-      return `<div class="card-slider"><div class="card-slider-track"><img src="${images[0]}" alt="" loading="lazy"></div></div>`;
+      return `<div class="card-slider"><div class="card-slider-track"><img src="${images[0]}" alt="" loading="lazy" onerror="${HIDE_SLIDER}"></div></div>`;
     }
     const dots = images.map((_, i) =>
       `<button class="card-slider-dot${i===0?" active":""}" data-idx="${i}" aria-label="スライド${i+1}"></button>`
@@ -225,8 +227,8 @@
       list_h1_en:"Directory",
       search_ph:"アセット名・オーナー・概要で検索…",
       sort_label:"並び順",
-      sort_views:"人気順（ビュー）", sort_newest:"新着順", sort_likes:"いいね順", sort_title:"名前順",
-      facet_dept_label_b:"担当",
+      sort_views:"人気順（ビュー）", sort_downloads:"利用実績順（DL）", sort_newest:"新着順", sort_likes:"いいね順", sort_title:"名前順",
+      facet_cap_label:"機能タグ",
       facet_all:"すべて",
       result_suffix:"件のアセット",
       more_text:"さらに表示", more_remain:"残り",
@@ -269,8 +271,8 @@
       list_h1_en:"Directory",
       search_ph:"Search by name, owner, or description…",
       sort_label:"Sort",
-      sort_views:"Most Popular", sort_newest:"Newest", sort_likes:"Most Liked", sort_title:"Name A–Z",
-      facet_dept_label_b:"Department",
+      sort_views:"Most Popular", sort_downloads:"Most Downloaded", sort_newest:"Newest", sort_likes:"Most Liked", sort_title:"Name A–Z",
+      facet_cap_label:"Capability",
       facet_all:"All",
       result_suffix:"assets found",
       more_text:"Load more", more_remain:"remaining",
@@ -481,10 +483,10 @@
     const params  = new URLSearchParams(location.search);
     const qInput  = document.getElementById("q");
     const sortSel = document.getElementById("sort");
-    const validSorts = ["views","newest","likes","title"];
+    const validSorts = ["views","downloads","newest","likes","title"];
     const urlSort = params.get("sort");
     const state = {
-      q:"", cat: params.get("cat")||"all",
+      q:"", cat: params.get("cat")||"all", cap:"",
       sort: validSorts.includes(urlSort) ? urlSort : "views",
       shown:0, step:48, results:[],
     };
@@ -492,25 +494,39 @@
     const countEl   = document.getElementById("result-count");
     const moreBtn   = document.getElementById("more");
     const emptyEl   = document.getElementById("empty");
+    const capSel    = document.getElementById("facet-cap");
 
     const chips = [{ id:"all", name:t("facet_all"), icon:"✦", count:DATA.meta.total }, ...CATS];
     chipWrap.innerHTML = chips.map(c =>
       `<button class="chip" data-cat="${c.id}">${esc(c.icon)} ${esc(c.name)} <span>${fmt(c.count)}</span></button>`
     ).join("");
 
+    // populate capability select from data
+    if (capSel) {
+      const capSet = new Map();
+      DATA.agents.forEach(a => (a.capabilities||[]).forEach(c => { if (!capSet.has(c)) capSet.set(c, 0); capSet.set(c, capSet.get(c)+1); }));
+      [...capSet.entries()].sort((a,b) => a[0].localeCompare(b[0],"ja")).forEach(([name, cnt]) => {
+        const opt = document.createElement("option");
+        opt.value = name; opt.textContent = `${name} (${cnt})`;
+        capSel.appendChild(opt);
+      });
+    }
+
     function compute() {
       const q = state.q.trim().toLowerCase();
       let r = DATA.agents.filter(a => {
         if (state.cat !== "all" && a.category !== state.cat) return false;
+        if (state.cap && !(a.capabilities||[]).includes(state.cap)) return false;
         if (q && !(a.title.toLowerCase().includes(q) || (a.owner||"").toLowerCase().includes(q)
           || (a.description||"").toLowerCase().includes(q))) return false;
         return true;
       });
       const sorters = {
-        views:  (a,b) => b.views - a.views,
-        newest: (a,b) => (b.published||"").localeCompare(a.published||""),
-        title:  (a,b) => a.title.localeCompare(b.title,"ja"),
-        likes:  (a,b) => b.likes - a.likes || b.views - a.views,
+        views:     (a,b) => b.views - a.views,
+        downloads: (a,b) => b.downloads - a.downloads || b.views - a.views,
+        newest:    (a,b) => (b.published||"").localeCompare(a.published||""),
+        title:     (a,b) => a.title.localeCompare(b.title,"ja"),
+        likes:     (a,b) => b.likes - a.likes || b.views - a.views,
       };
       r.sort(sorters[state.sort]);
       state.results = r; state.shown = 0;
@@ -545,6 +561,7 @@
     let timer;
     qInput.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(() => { state.q = qInput.value; refresh(); }, 160); });
     sortSel.addEventListener("change", () => { state.sort = sortSel.value; refresh(); });
+    if (capSel) capSel.addEventListener("change", () => { state.cap = capSel.value; refresh(); });
     moreBtn.addEventListener("click", () => paint(true));
     bindCards(grid);
 
