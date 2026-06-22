@@ -541,7 +541,7 @@
     buildPills(tagPills, tagSet, state.tags);
 
     function compute() {
-      const q = state.q.trim().toLowerCase();
+      const tokens = state.q.trim().toLowerCase().split(/[\s　]+/).filter(Boolean);
       const now = new Date();
       let r = DATA.agents.filter(a => {
         if (state.cats.length > 0 && !state.cats.includes(a.category)) return false;
@@ -554,8 +554,12 @@
           if (state.dateRange === "year" && d.getFullYear() < now.getFullYear()) return false;
         }
         if (a.downloads < state.minDl) return false;
-        if (q && !(a.title.toLowerCase().includes(q) || (a.owner||"").toLowerCase().includes(q)
-          || (a.description||"").toLowerCase().includes(q))) return false;
+        if (tokens.length > 0) {
+          const ti = a.title.toLowerCase();
+          const ow = (a.owner||"").toLowerCase();
+          const de = (a.description||"").toLowerCase();
+          if (!tokens.every(tok => ti.includes(tok) || ow.includes(tok) || de.includes(tok))) return false;
+        }
         return true;
       });
       const sorters = {
