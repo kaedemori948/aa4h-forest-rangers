@@ -162,22 +162,23 @@
     const assets = json.assets;
     const typeMap = new Map();
     assets.forEach(a => {
-      if (!typeMap.has(a.type.id)) {
-        typeMap.set(a.type.id, {
-          id: String(a.type.id),
-          name: a.type.title,
-          icon: getCatIcon(a.type.title),
+      const key = a.type.title;
+      if (!typeMap.has(key)) {
+        typeMap.set(key, {
+          id: key,
+          name: key,
+          icon: getCatIcon(key),
           count: 0,
         });
       }
-      typeMap.get(a.type.id).count++;
+      typeMap.get(key).count++;
     });
     const categories = [...typeMap.values()];
 
     const agents = assets.map((a, i) => ({
       id: a.id,
       title: a.title,
-      category: String(a.type.id),
+      category: a.type.title,
       views: a.stats?.view_count || 0,
       uniqueViews: a.stats?.unique_view_count || 0,
       downloads: a.stats?.download_count || 0,
@@ -540,7 +541,7 @@
     buildPills(tagPills, tagSet, state.tags);
 
     function compute() {
-      const q = state.q.trim().toLowerCase();
+      const tokens = state.q.trim().toLowerCase().split(/[\s　]+/).filter(Boolean);
       const now = new Date();
       let r = DATA.agents.filter(a => {
         if (state.cats.length > 0 && !state.cats.includes(a.category)) return false;
@@ -553,8 +554,12 @@
           if (state.dateRange === "year" && d.getFullYear() < now.getFullYear()) return false;
         }
         if (a.downloads < state.minDl) return false;
-        if (q && !(a.title.toLowerCase().includes(q) || (a.owner||"").toLowerCase().includes(q)
-          || (a.description||"").toLowerCase().includes(q))) return false;
+        if (tokens.length > 0) {
+          const ti = a.title.toLowerCase();
+          const ow = (a.owner||"").toLowerCase();
+          const de = (a.description||"").toLowerCase();
+          if (!tokens.every(tok => ti.includes(tok) || ow.includes(tok) || de.includes(tok))) return false;
+        }
         return true;
       });
       const sorters = {
