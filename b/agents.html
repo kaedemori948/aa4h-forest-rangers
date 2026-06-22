@@ -81,11 +81,40 @@
       <div class="chips" id="chips"></div>
 
       <div class="facets">
-        <div class="rail-title" data-i18n="rail_filter">絞り込み</div>
+        <div class="facet-group-head">
+          <div class="rail-title" data-i18n="rail_filter">絞り込み</div>
+          <button id="facet-reset" class="facet-reset-btn" style="display:none" data-i18n="facet_reset">リセット</button>
+        </div>
+
+        <div class="facet-group">
+          <div class="facet-group-label" data-i18n="facet_cap_label">機能タグ</div>
+          <div class="facet-pills" id="facet-cap-pills"></div>
+        </div>
+
         <label class="facet-field">
-          <span data-i18n="facet_cap_label">機能タグ</span>
-          <select id="facet-cap"><option value="" data-i18n="facet_all">すべて</option></select>
+          <span data-i18n="facet_date_label">更新日</span>
+          <select id="facet-date">
+            <option value="" data-i18n="facet_all">すべて</option>
+            <option value="1m" data-i18n="facet_date_1m">過去1ヶ月</option>
+            <option value="3m" data-i18n="facet_date_3m">過去3ヶ月</option>
+            <option value="year" data-i18n="facet_date_year">今年</option>
+          </select>
         </label>
+
+        <label class="facet-field">
+          <span data-i18n="facet_dl_label">DL実績</span>
+          <select id="facet-dl">
+            <option value="0" data-i18n="facet_all">すべて</option>
+            <option value="10" data-i18n="facet_dl_10">10件以上</option>
+            <option value="50" data-i18n="facet_dl_50">50件以上</option>
+            <option value="100" data-i18n="facet_dl_100">100件以上</option>
+          </select>
+        </label>
+
+        <div class="facet-group">
+          <div class="facet-group-label" data-i18n="facet_tag_label">タグ</div>
+          <div class="facet-pills" id="facet-tag-pills"></div>
+        </div>
       </div>
     </aside>
     <div>

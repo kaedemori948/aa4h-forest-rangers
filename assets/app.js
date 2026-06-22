@@ -201,6 +201,7 @@
       overview: a.overview || null,
       pick: i < 4,
       images: a.preview_url ? [a.preview_url] : [],
+      tags: (a.tags || []).map(t => typeof t === "string" ? t : (t.title || "")).filter(Boolean),
     }));
 
     return {
@@ -228,7 +229,10 @@
       search_ph:"アセット名・オーナー・概要で検索…",
       sort_label:"並び順",
       sort_views:"人気順（ビュー）", sort_downloads:"利用実績順（DL）", sort_newest:"新着順", sort_likes:"いいね順", sort_title:"名前順",
-      facet_cap_label:"機能タグ",
+      facet_cap_label:"機能タグ", facet_date_label:"更新日", facet_dl_label:"DL実績", facet_tag_label:"タグ",
+      facet_date_1m:"過去1ヶ月", facet_date_3m:"過去3ヶ月", facet_date_year:"今年",
+      facet_dl_10:"10件以上", facet_dl_50:"50件以上", facet_dl_100:"100件以上",
+      facet_reset:"リセット",
       facet_all:"すべて",
       result_suffix:"件のアセット",
       more_text:"さらに表示", more_remain:"残り",
@@ -272,7 +276,10 @@
       search_ph:"Search by name, owner, or description…",
       sort_label:"Sort",
       sort_views:"Most Popular", sort_downloads:"Most Downloaded", sort_newest:"Newest", sort_likes:"Most Liked", sort_title:"Name A–Z",
-      facet_cap_label:"Capability",
+      facet_cap_label:"Capability", facet_date_label:"Updated", facet_dl_label:"Downloads", facet_tag_label:"Tags",
+      facet_date_1m:"Past month", facet_date_3m:"Past 3 months", facet_date_year:"This year",
+      facet_dl_10:"10+", facet_dl_50:"50+", facet_dl_100:"100+",
+      facet_reset:"Reset",
       facet_all:"All",
       result_suffix:"assets found",
       more_text:"Load more", more_remain:"remaining",
@@ -485,8 +492,9 @@
     const sortSel = document.getElementById("sort");
     const validSorts = ["views","downloads","newest","likes","title"];
     const urlSort = params.get("sort");
+    const urlCats = (params.get("cat") || "").split(",").filter(Boolean);
     const state = {
-      q:"", cat: params.get("cat")||"all", cap:"",
+      q:"", cats: urlCats, caps:[], tags:[], dateRange:"", minDl:0,
       sort: validSorts.includes(urlSort) ? urlSort : "views",
       shown:0, step:48, results:[],
     };
@@ -494,29 +502,57 @@
     const countEl   = document.getElementById("result-count");
     const moreBtn   = document.getElementById("more");
     const emptyEl   = document.getElementById("empty");
-    const capSel    = document.getElementById("facet-cap");
+    const capPills  = document.getElementById("facet-cap-pills");
+    const tagPills  = document.getElementById("facet-tag-pills");
+    const dateSel   = document.getElementById("facet-date");
+    const dlSel     = document.getElementById("facet-dl");
+    const resetBtn  = document.getElementById("facet-reset");
 
     const chips = [{ id:"all", name:t("facet_all"), icon:"✦", count:DATA.meta.total }, ...CATS];
     chipWrap.innerHTML = chips.map(c =>
       `<button class="chip" data-cat="${c.id}">${esc(c.icon)} ${esc(c.name)} <span>${fmt(c.count)}</span></button>`
     ).join("");
 
-    // populate capability select from data
-    if (capSel) {
-      const capSet = new Map();
-      DATA.agents.forEach(a => (a.capabilities||[]).forEach(c => { if (!capSet.has(c)) capSet.set(c, 0); capSet.set(c, capSet.get(c)+1); }));
-      [...capSet.entries()].sort((a,b) => a[0].localeCompare(b[0],"ja")).forEach(([name, cnt]) => {
-        const opt = document.createElement("option");
-        opt.value = name; opt.textContent = `${name} (${cnt})`;
-        capSel.appendChild(opt);
+    // build capability pills
+    function buildPills(container, items, stateArr) {
+      if (!container) return;
+      container.innerHTML = [...items.entries()]
+        .sort((a, b) => a[0].localeCompare(b[0], "ja"))
+        .map(([name, cnt]) =>
+          `<button class="facet-pill" data-val="${esc(name)}">${esc(name)}<span>${cnt}</span></button>`
+        ).join("");
+      container.addEventListener("click", e => {
+        const b = e.target.closest(".facet-pill"); if (!b) return;
+        const val = b.dataset.val;
+        const idx = stateArr.indexOf(val);
+        if (idx === -1) stateArr.push(val); else stateArr.splice(idx, 1);
+        b.classList.toggle("active", stateArr.includes(val));
+        refresh();
       });
     }
 
+    const capSet = new Map();
+    DATA.agents.forEach(a => (a.capabilities||[]).forEach(c => capSet.set(c, (capSet.get(c)||0)+1)));
+    buildPills(capPills, capSet, state.caps);
+
+    const tagSet = new Map();
+    DATA.agents.forEach(a => (a.tags||[]).forEach(tg => tagSet.set(tg, (tagSet.get(tg)||0)+1)));
+    buildPills(tagPills, tagSet, state.tags);
+
     function compute() {
       const q = state.q.trim().toLowerCase();
+      const now = new Date();
       let r = DATA.agents.filter(a => {
-        if (state.cat !== "all" && a.category !== state.cat) return false;
-        if (state.cap && !(a.capabilities||[]).includes(state.cap)) return false;
+        if (state.cats.length > 0 && !state.cats.includes(a.category)) return false;
+        if (state.caps.length > 0 && !(a.capabilities||[]).some(c => state.caps.includes(c))) return false;
+        if (state.tags.length > 0 && !(a.tags||[]).some(tg => state.tags.includes(tg))) return false;
+        if (state.dateRange && a.published) {
+          const d = new Date(a.published + "T00:00:00");
+          if (state.dateRange === "1m" && (now - d) > 30 * 86400000) return false;
+          if (state.dateRange === "3m" && (now - d) > 90 * 86400000) return false;
+          if (state.dateRange === "year" && d.getFullYear() < now.getFullYear()) return false;
+        }
+        if (a.downloads < state.minDl) return false;
         if (q && !(a.title.toLowerCase().includes(q) || (a.owner||"").toLowerCase().includes(q)
           || (a.description||"").toLowerCase().includes(q))) return false;
         return true;
@@ -547,21 +583,50 @@
       emptyEl.style.display = state.results.length ? "none" : "";
     }
 
-    function refresh() { compute(); paint(false); syncChips(); }
     function syncChips() {
       chipWrap.querySelectorAll(".chip").forEach(b =>
-        b.classList.toggle("active", b.dataset.cat === state.cat));
+        b.classList.toggle("active",
+          b.dataset.cat === "all" ? state.cats.length === 0 : state.cats.includes(b.dataset.cat)));
     }
+
+    function syncReset() {
+      if (!resetBtn) return;
+      const active = state.cats.length > 0 || state.caps.length > 0 || state.tags.length > 0
+        || state.dateRange || state.minDl > 0 || state.q;
+      resetBtn.style.display = active ? "" : "none";
+    }
+
+    function refresh() { compute(); paint(false); syncChips(); syncReset(); }
 
     chipWrap.addEventListener("click", e => {
       const b = e.target.closest(".chip"); if (!b) return;
-      state.cat = b.dataset.cat; refresh();
-      history.replaceState(null,"", state.cat==="all" ? location.pathname : `?cat=${state.cat}`);
+      if (b.dataset.cat === "all") {
+        state.cats = [];
+      } else {
+        const id = b.dataset.cat;
+        const idx = state.cats.indexOf(id);
+        if (idx === -1) state.cats.push(id); else state.cats.splice(idx, 1);
+      }
+      refresh();
+      const catParam = state.cats.join(",");
+      history.replaceState(null, "", catParam ? `?cat=${catParam}` : location.pathname);
     });
+
+    if (dateSel) dateSel.addEventListener("change", () => { state.dateRange = dateSel.value; refresh(); });
+    if (dlSel)   dlSel.addEventListener("change",   () => { state.minDl = +dlSel.value; refresh(); });
+    if (resetBtn) resetBtn.addEventListener("click", () => {
+      state.cats = []; state.caps = []; state.tags = []; state.dateRange = ""; state.minDl = 0; state.q = "";
+      qInput.value = "";
+      if (dateSel) dateSel.value = "";
+      if (dlSel)   dlSel.value = "0";
+      if (capPills) capPills.querySelectorAll(".facet-pill").forEach(p => p.classList.remove("active"));
+      if (tagPills) tagPills.querySelectorAll(".facet-pill").forEach(p => p.classList.remove("active"));
+      refresh();
+    });
+
     let timer;
     qInput.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(() => { state.q = qInput.value; refresh(); }, 160); });
     sortSel.addEventListener("change", () => { state.sort = sortSel.value; refresh(); });
-    if (capSel) capSel.addEventListener("change", () => { state.cap = capSel.value; refresh(); });
     moreBtn.addEventListener("click", () => paint(true));
     bindCards(grid);
 

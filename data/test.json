@@ -113,7 +113,9 @@
                     "mapping_id": 70001
                 }
             ],
-            "tags": [],
+            "tags": [
+                "テンプレート"
+            ],
             "stats": {
                 "view_count": 468,
                 "unique_view_count": 325,
@@ -379,7 +381,10 @@
                     "mapping_id": 70003
                 }
             ],
-            "tags": [],
+            "tags": [
+                "Excel対応",
+                "テンプレート"
+            ],
             "stats": {
                 "view_count": 77,
                 "unique_view_count": 57,
@@ -911,7 +916,9 @@
                     "mapping_id": 70007
                 }
             ],
-            "tags": [],
+            "tags": [
+                "テンプレート"
+            ],
             "stats": {
                 "view_count": 520,
                 "unique_view_count": 412,
@@ -1310,7 +1317,9 @@
                     "mapping_id": 70010
                 }
             ],
-            "tags": [],
+            "tags": [
+                "テンプレート"
+            ],
             "stats": {
                 "view_count": 713,
                 "unique_view_count": 377,
@@ -1576,7 +1585,10 @@
                     "mapping_id": 70012
                 }
             ],
-            "tags": [],
+            "tags": [
+                "Excel対応",
+                "テンプレート"
+            ],
             "stats": {
                 "view_count": 814,
                 "unique_view_count": 685,
@@ -2241,7 +2253,9 @@
                     "mapping_id": 70017
                 }
             ],
-            "tags": [],
+            "tags": [
+                "テンプレート"
+            ],
             "stats": {
                 "view_count": 596,
                 "unique_view_count": 276,
@@ -2507,7 +2521,9 @@
                     "mapping_id": 70019
                 }
             ],
-            "tags": [],
+            "tags": [
+                "テンプレート"
+            ],
             "stats": {
                 "view_count": 127,
                 "unique_view_count": 85,
@@ -2640,7 +2656,9 @@
                     "mapping_id": 70020
                 }
             ],
-            "tags": [],
+            "tags": [
+                "API連携"
+            ],
             "stats": {
                 "view_count": 351,
                 "unique_view_count": 183,
@@ -2773,7 +2791,10 @@
                     "mapping_id": 70021
                 }
             ],
-            "tags": [],
+            "tags": [
+                "Excel対応",
+                "ダッシュボード"
+            ],
             "stats": {
                 "view_count": 434,
                 "unique_view_count": 208,
@@ -3172,7 +3193,9 @@
                     "mapping_id": 70024
                 }
             ],
-            "tags": [],
+            "tags": [
+                "テンプレート"
+            ],
             "stats": {
                 "view_count": 248,
                 "unique_view_count": 124,
@@ -3571,7 +3594,9 @@
                     "mapping_id": 70027
                 }
             ],
-            "tags": [],
+            "tags": [
+                "テンプレート"
+            ],
             "stats": {
                 "view_count": 528,
                 "unique_view_count": 244,
@@ -3704,7 +3729,9 @@
                     "mapping_id": 70028
                 }
             ],
-            "tags": [],
+            "tags": [
+                "テンプレート"
+            ],
             "stats": {
                 "view_count": 531,
                 "unique_view_count": 443,
@@ -3970,7 +3997,11 @@
                     "mapping_id": 80000
                 }
             ],
-            "tags": [],
+            "tags": [
+                "Excel対応",
+                "API連携",
+                "ダッシュボード"
+            ],
             "stats": {
                 "view_count": 763,
                 "unique_view_count": 405,
@@ -4102,7 +4133,10 @@
                     "mapping_id": 80001
                 }
             ],
-            "tags": [],
+            "tags": [
+                "API連携",
+                "自動通知"
+            ],
             "stats": {
                 "view_count": 551,
                 "unique_view_count": 353,
@@ -4234,7 +4268,9 @@
                     "mapping_id": 80002
                 }
             ],
-            "tags": [],
+            "tags": [
+                "CRM連携"
+            ],
             "stats": {
                 "view_count": 1127,
                 "unique_view_count": 842,
@@ -4498,7 +4534,9 @@
                     "mapping_id": 80004
                 }
             ],
-            "tags": [],
+            "tags": [
+                "CI/CD対応"
+            ],
             "stats": {
                 "view_count": 835,
                 "unique_view_count": 473,
@@ -4630,7 +4668,9 @@
                     "mapping_id": 80005
                 }
             ],
-            "tags": [],
+            "tags": [
+                "ノーコード"
+            ],
             "stats": {
                 "view_count": 735,
                 "unique_view_count": 440,
@@ -4762,7 +4802,9 @@
                     "mapping_id": 80006
                 }
             ],
-            "tags": [],
+            "tags": [
+                "チャットBot"
+            ],
             "stats": {
                 "view_count": 476,
                 "unique_view_count": 311,
@@ -5026,7 +5068,9 @@
                     "mapping_id": 80008
                 }
             ],
-            "tags": [],
+            "tags": [
+                "CI/CD対応"
+            ],
             "stats": {
                 "view_count": 575,
                 "unique_view_count": 474,
@@ -5158,7 +5202,9 @@
                     "mapping_id": 80009
                 }
             ],
-            "tags": [],
+            "tags": [
+                "ダッシュボード"
+            ],
             "stats": {
                 "view_count": 1123,
                 "unique_view_count": 554,
@@ -5290,7 +5336,11 @@
                     "mapping_id": 80010
                 }
             ],
-            "tags": [],
+            "tags": [
+                "API連携",
+                "チャットBot",
+                "自動通知"
+            ],
             "stats": {
                 "view_count": 64,
                 "unique_view_count": 44,
@@ -5422,7 +5472,9 @@
                     "mapping_id": 80011
                 }
             ],
-            "tags": [],
+            "tags": [
+                "CRM連携"
+            ],
             "stats": {
                 "view_count": 552,
                 "unique_view_count": 423,
@@ -5950,7 +6002,9 @@
                     "mapping_id": 80015
                 }
             ],
-            "tags": [],
+            "tags": [
+                "ノーコード"
+            ],
             "stats": {
                 "view_count": 122,
                 "unique_view_count": 64,
@@ -6082,7 +6136,9 @@
                     "mapping_id": 80016
                 }
             ],
-            "tags": [],
+            "tags": [
+                "Outlook連携"
+            ],
             "stats": {
                 "view_count": 121,
                 "unique_view_count": 83,
@@ -6214,7 +6270,9 @@
                     "mapping_id": 80017
                 }
             ],
-            "tags": [],
+            "tags": [
+                "CI/CD対応"
+            ],
             "stats": {
                 "view_count": 220,
                 "unique_view_count": 157,
@@ -6346,7 +6404,11 @@
                     "mapping_id": 80018
                 }
             ],
-            "tags": [],
+            "tags": [
+                "Excel対応",
+                "API連携",
+                "ダッシュボード"
+            ],
             "stats": {
                 "view_count": 580,
                 "unique_view_count": 382,
@@ -7138,7 +7200,9 @@
                     "mapping_id": 80024
                 }
             ],
-            "tags": [],
+            "tags": [
+                "ノーコード"
+            ],
             "stats": {
                 "view_count": 445,
                 "unique_view_count": 343,
@@ -7270,7 +7334,9 @@
                     "mapping_id": 80025
                 }
             ],
-            "tags": [],
+            "tags": [
+                "Excel対応"
+            ],
             "stats": {
                 "view_count": 768,
                 "unique_view_count": 383,
@@ -7402,7 +7468,9 @@
                     "mapping_id": 80026
                 }
             ],
-            "tags": [],
+            "tags": [
+                "API連携"
+            ],
             "stats": {
                 "view_count": 1164,
                 "unique_view_count": 555,
@@ -7534,7 +7602,10 @@
                     "mapping_id": 80027
                 }
             ],
-            "tags": [],
+            "tags": [
+                "ダッシュボード",
+                "自動通知"
+            ],
             "stats": {
                 "view_count": 499,
                 "unique_view_count": 298,
@@ -7666,7 +7737,9 @@
                     "mapping_id": 80028
                 }
             ],
-            "tags": [],
+            "tags": [
+                "自動通知"
+            ],
             "stats": {
                 "view_count": 115,
                 "unique_view_count": 80,
@@ -7798,7 +7871,10 @@
                     "mapping_id": 80029
                 }
             ],
-            "tags": [],
+            "tags": [
+                "Outlook連携",
+                "CRM連携"
+            ],
             "stats": {
                 "view_count": 353,
                 "unique_view_count": 202,
@@ -8062,7 +8138,9 @@
                     "mapping_id": 80031
                 }
             ],
-            "tags": [],
+            "tags": [
+                "CI/CD対応"
+            ],
             "stats": {
                 "view_count": 531,
                 "unique_view_count": 309,
@@ -8722,7 +8800,9 @@
                     "mapping_id": 80036
                 }
             ],
-            "tags": [],
+            "tags": [
+                "Excel対応"
+            ],
             "stats": {
                 "view_count": 401,
                 "unique_view_count": 264,
@@ -8854,7 +8934,9 @@
                     "mapping_id": 80037
                 }
             ],
-            "tags": [],
+            "tags": [
+                "自動通知"
+            ],
             "stats": {
                 "view_count": 94,
                 "unique_view_count": 68,
@@ -8986,7 +9068,9 @@
                     "mapping_id": 80038
                 }
             ],
-            "tags": [],
+            "tags": [
+                "CRM連携"
+            ],
             "stats": {
                 "view_count": 335,
                 "unique_view_count": 189,
@@ -9118,7 +9202,9 @@
                     "mapping_id": 80039
                 }
             ],
-            "tags": [],
+            "tags": [
+                "CI/CD対応"
+            ],
             "stats": {
                 "view_count": 772,
                 "unique_view_count": 633,
@@ -9250,7 +9336,9 @@
                     "mapping_id": 80040
                 }
             ],
-            "tags": [],
+            "tags": [
+                "ノーコード"
+            ],
             "stats": {
                 "view_count": 865,
                 "unique_view_count": 672,
@@ -9382,7 +9470,9 @@
                     "mapping_id": 80041
                 }
             ],
-            "tags": [],
+            "tags": [
+                "ダッシュボード"
+            ],
             "stats": {
                 "view_count": 768,
                 "unique_view_count": 648,
@@ -9514,7 +9604,9 @@
                     "mapping_id": 80042
                 }
             ],
-            "tags": [],
+            "tags": [
+                "チャットBot"
+            ],
             "stats": {
                 "view_count": 21,
                 "unique_view_count": 11,
@@ -10042,7 +10134,9 @@
                     "mapping_id": 80046
                 }
             ],
-            "tags": [],
+            "tags": [
+                "自動通知"
+            ],
             "stats": {
                 "view_count": 1043,
                 "unique_view_count": 614,
@@ -10174,7 +10268,10 @@
                     "mapping_id": 80047
                 }
             ],
-            "tags": [],
+            "tags": [
+                "Outlook連携",
+                "CRM連携"
+            ],
             "stats": {
                 "view_count": 776,
                 "unique_view_count": 420,
@@ -10438,7 +10535,9 @@
                     "mapping_id": 80049
                 }
             ],
-            "tags": [],
+            "tags": [
+                "CI/CD対応"
+            ],
             "stats": {
                 "view_count": 641,
                 "unique_view_count": 322,
