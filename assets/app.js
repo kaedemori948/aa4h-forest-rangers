@@ -162,22 +162,23 @@
     const assets = json.assets;
     const typeMap = new Map();
     assets.forEach(a => {
-      if (!typeMap.has(a.type.id)) {
-        typeMap.set(a.type.id, {
-          id: String(a.type.id),
-          name: a.type.title,
-          icon: getCatIcon(a.type.title),
+      const key = a.type.title;
+      if (!typeMap.has(key)) {
+        typeMap.set(key, {
+          id: key,
+          name: key,
+          icon: getCatIcon(key),
           count: 0,
         });
       }
-      typeMap.get(a.type.id).count++;
+      typeMap.get(key).count++;
     });
     const categories = [...typeMap.values()];
 
     const agents = assets.map((a, i) => ({
       id: a.id,
       title: a.title,
-      category: String(a.type.id),
+      category: a.type.title,
       views: a.stats?.view_count || 0,
       uniqueViews: a.stats?.unique_view_count || 0,
       downloads: a.stats?.download_count || 0,
