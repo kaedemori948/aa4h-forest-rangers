@@ -71,6 +71,10 @@
         </div>
         <div class="flex items-start gap-4 py-3 border-b border-gray-100">
           <span class="text-[#E60012] font-bold text-sm w-6 shrink-0">02</span>
+          <span class="text-gray-700 font-medium">AIAgentサイトの利用フロー</span>
+        </div>
+        <div class="flex items-start gap-4 py-3 border-b border-gray-100">
+          <span class="text-[#E60012] font-bold text-sm w-6 shrink-0">03</span>
           <div>
             <div class="text-gray-700 font-medium mb-1">開発フロー</div>
             <div class="flex flex-col gap-1 pl-2">
@@ -81,15 +85,15 @@
           </div>
         </div>
         <div class="flex items-start gap-4 py-3 border-b border-gray-100">
-          <span class="text-[#E60012] font-bold text-sm w-6 shrink-0">03</span>
+          <span class="text-[#E60012] font-bold text-sm w-6 shrink-0">04</span>
           <span class="text-gray-700 font-medium">AIAgentサイト サイトマップ</span>
         </div>
         <div class="flex items-start gap-4 py-3 border-b border-gray-100">
-          <span class="text-[#E60012] font-bold text-sm w-6 shrink-0">04</span>
+          <span class="text-[#E60012] font-bold text-sm w-6 shrink-0">05</span>
           <span class="text-gray-700 font-medium">ディレクトリ構成</span>
         </div>
         <div class="flex items-start gap-4 py-3 border-b border-gray-100">
-          <span class="text-[#E60012] font-bold text-sm w-6 shrink-0">05</span>
+          <span class="text-[#E60012] font-bold text-sm w-6 shrink-0">06</span>
           <div>
             <div class="text-gray-700 font-medium mb-1">Claude for AI Agent</div>
             <div class="flex flex-col gap-1 pl-2">
@@ -117,7 +121,7 @@
       <div class="flex-1 flex flex-col gap-4">
         <div class="bg-red-50 border border-red-200 rounded-xl p-6">
           <div class="text-xs text-gray-400 mb-2 font-semibold uppercase tracking-widest">目的</div>
-          <p class="text-sm text-gray-700 leading-relaxed">クライアント社内システムのUI/UXを刷新する。既存システムの機能はそのままに、操作性・視認性を改善し、業務効率の向上を目指す。</p>
+          <p class="text-sm text-gray-700 leading-relaxed">AIAgentサイトのUI/UXを刷新する。既存システムの機能はそのままに、操作性・視認性を改善し、業務効率の向上を目指す。</p>
         </div>
         <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
           <div class="text-xs text-gray-400 mb-3 font-semibold uppercase tracking-widest">アーキテクチャ</div>
@@ -143,11 +147,91 @@
   </div>
 </div>
 
-<!-- ── SLIDE 4: ツール関係図 ── -->
+<!-- ── SLIDE 4: AIAgentサイトの利用フロー ── -->
+<div class="slide" data-act="Site Flow">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-8 flex flex-col">
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">02 — AIAgentサイトの利用フロー</p>
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">サイト利用者のアクセスフロー</h2>
+    <div class="flex-1 flex items-center justify-center">
+      <svg viewBox="0 0 840 520" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-4xl">
+        <defs>
+          <marker id="arrFlow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#64748b"/>
+          </marker>
+        </defs>
+
+        <!-- ユーザー (w=134 h=90) -->
+        <rect x="10" y="115" width="134" height="90" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+        <text x="77" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#1e293b">ユーザー</text>
+
+        <line x1="144" y1="160" x2="174" y2="160" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrFlow)"/>
+
+        <!-- GitHub Pages/Vercel (w=134 h=90) -->
+        <rect x="174" y="115" width="134" height="90" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+        <text x="241" y="142" text-anchor="middle" font-size="11" font-weight="600" fill="#1e293b">GitHub Pages</text>
+        <text x="241" y="160" text-anchor="middle" font-size="10" fill="#6b7280">またはVercel</text>
+        <text x="241" y="178" text-anchor="middle" font-size="10" fill="#6b7280">HTML/JS</text>
+
+        <line x1="308" y1="160" x2="338" y2="160" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrFlow)"/>
+
+        <!-- GitHub OAuth (w=134 h=90) -->
+        <rect x="338" y="115" width="134" height="90" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+        <text x="405" y="152" text-anchor="middle" font-size="11" font-weight="600" fill="#1e293b">GitHub OAuth</text>
+        <text x="405" y="170" text-anchor="middle" font-size="10" fill="#6b7280">ログイン確認？</text>
+
+        <line x1="472" y1="160" x2="502" y2="160" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrFlow)"/>
+
+        <!-- 認可ユーザー？ (w=134 h=90) -->
+        <rect x="502" y="115" width="134" height="90" rx="8" fill="#fff5f5" stroke="#E60012" stroke-width="2"/>
+        <text x="569" y="152" text-anchor="middle" font-size="11" font-weight="700" fill="#E60012">認可</text>
+        <text x="569" y="170" text-anchor="middle" font-size="11" font-weight="700" fill="#E60012">ユーザー？</text>
+
+        <!-- Connector to spine -->
+        <line x1="636" y1="160" x2="666" y2="160" stroke="#64748b" stroke-width="1.5"/>
+
+        <!-- Vertical spine x=666: y=50〜y=260 -->
+        <line x1="666" y1="50" x2="666" y2="260" stroke="#64748b" stroke-width="1.5"/>
+
+        <!-- NO branch -->
+        <text x="672" y="105" font-size="10" font-weight="700" fill="#64748b">NO</text>
+        <line x1="666" y1="50" x2="700" y2="50" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrFlow)"/>
+
+        <!-- 拒否 (w=134 h=90) -->
+        <rect x="700" y="5" width="134" height="90" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="767" y="54" text-anchor="middle" font-size="12" font-weight="600" fill="#475569">拒否</text>
+
+        <!-- YES branch -->
+        <text x="672" y="210" font-size="10" font-weight="700" fill="#64748b">YES</text>
+        <line x1="666" y1="260" x2="700" y2="260" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrFlow)"/>
+
+        <!-- サイト利用 (w=134 h=90) -->
+        <rect x="700" y="215" width="134" height="90" rx="8" fill="#fff5f5" stroke="#E60012" stroke-width="1.5"/>
+        <text x="767" y="264" text-anchor="middle" font-size="12" font-weight="600" fill="#E60012">サイト利用</text>
+
+        <line x1="767" y1="305" x2="767" y2="320" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrFlow)"/>
+
+        <!-- Vercel Functions (w=134 h=90) -->
+        <rect x="700" y="320" width="134" height="90" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+        <text x="767" y="357" text-anchor="middle" font-size="11" font-weight="600" fill="#1e293b">Vercel</text>
+        <text x="767" y="375" text-anchor="middle" font-size="10" fill="#6b7280">Functions</text>
+
+        <line x1="767" y1="410" x2="767" y2="425" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrFlow)"/>
+
+        <!-- 外部API (w=134 h=90) -->
+        <rect x="700" y="425" width="134" height="90" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+        <text x="767" y="462" text-anchor="middle" font-size="11" font-weight="600" fill="#1e293b">外部API</text>
+        <text x="767" y="480" text-anchor="middle" font-size="10" fill="#6b7280">（APIキー隠蔽）</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ── SLIDE 5: ツール関係図 ── -->
 <div class="slide" data-act="Flow">
   <div class="h-1.5 bg-[#E60012]"></div>
   <div class="flex-1 bg-white px-16 py-8 flex flex-col">
-    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">02 — 開発フロー① ツール関係図</p>
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">03 — 開発フロー① ツール関係図</p>
     <h2 class="text-2xl font-bold text-gray-900 mb-6">GitHub / AIAgentサイト / Vercel / KMPF / VSCode の関係</h2>
     <div class="flex-1 flex items-center justify-center">
       <div class="w-full max-w-4xl">
@@ -231,7 +315,7 @@
 
     <div class="flex items-baseline justify-between mb-6">
       <div>
-        <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-1">02 — 開発フロー② UI/UX改善フロー</p>
+        <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-1">03 — 開発フロー② UI/UX改善フロー</p>
         <h2 class="text-2xl font-bold text-gray-900">UI/UX 改善サイクル</h2>
       </div>
       <div class="flex items-center gap-5 text-xs text-gray-500">
@@ -324,7 +408,7 @@
 <div class="slide" data-act="Flow">
   <div class="h-1.5 bg-[#E60012]"></div>
   <div class="flex-1 bg-white px-16 py-8 flex flex-col">
-    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">02 — 開発フロー③ ブランチ構成（暫定）</p>
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">03 — 開発フロー③ ブランチ構成（暫定）</p>
     <h2 class="text-2xl font-bold text-gray-900 mb-2">ブランチ戦略</h2>
     <p class="text-xs text-gray-400 mb-5">※ 週1回 main へデプロイ。1週間分のIssue対応をweeklyブランチに集約してからリリース</p>
     <div class="flex-1 flex items-center justify-center">
@@ -397,7 +481,7 @@
 <div class="slide" data-act="Sitemap">
   <div class="h-1.5 bg-[#E60012]"></div>
   <div class="flex-1 bg-white px-16 py-8 flex flex-col">
-    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">03 — AIAgentサイト サイトマップ</p>
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">04 — AIAgentサイト サイトマップ</p>
     <h2 class="text-2xl font-bold text-gray-900 mb-6">画面構成と各ページの役割</h2>
     <div class="flex-1 flex items-start gap-8">
 
@@ -474,7 +558,7 @@
 <div class="slide" data-act="Directory">
   <div class="h-1.5 bg-[#E60012]"></div>
   <div class="flex-1 bg-white px-16 py-8 flex flex-col">
-    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">04 — ディレクトリ構成</p>
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">05 — ディレクトリ構成</p>
     <h2 class="text-2xl font-bold text-gray-900 mb-6">フォルダ構成と役割</h2>
     <div class="flex gap-10 flex-1">
       <div class="flex-1 bg-gray-50 border border-gray-200 rounded-xl p-6 font-mono text-xs leading-7 overflow-auto">
@@ -512,7 +596,7 @@
 <div class="slide" data-act="Claude for AI Agent">
   <div class="h-1.5 bg-[#E60012]"></div>
   <div class="flex-1 bg-white px-16 py-8 flex flex-col">
-    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">05 — Claude for AI Agent① Skills とエージェント</p>
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">06 — Claude for AI Agent① Skills とエージェント</p>
     <h2 class="text-2xl font-bold text-gray-900 mb-5">Skills・エージェント一覧と役割</h2>
     <div class="flex gap-6 flex-1">
 
@@ -580,7 +664,7 @@
 <div class="slide" data-act="Claude for AI Agent">
   <div class="h-1.5 bg-[#E60012]"></div>
   <div class="flex-1 bg-white px-16 py-10 flex flex-col">
-    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-4">05 — Claude for AI Agent② 利用可能なコマンド</p>
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-4">06 — Claude for AI Agent② 利用可能なコマンド</p>
     <div class="flex gap-14 flex-1 items-center">
       <div class="w-64 shrink-0">
         <h2 class="text-3xl font-bold text-gray-900 leading-snug">コマンドと<br>処理フロー</h2>
