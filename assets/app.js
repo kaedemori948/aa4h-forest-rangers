@@ -239,6 +239,11 @@
       more_text:"さらに表示", more_remain:"残り",
       empty_title:"No matches.", empty_title_b:"該当なし",
       empty_msg:"条件に合うアセットが見つかりませんでした。キーワードやカテゴリを変えてお試しください。",
+      suggest_title:"もしかして、こちらをお探しですか？",
+      suggest_reason_tag:'タグ "<b>$1</b>" に一致',
+      suggest_reason_cat:'カテゴリ "<b>$1</b>" に一致',
+      suggest_reason_cap:'機能 "<b>$1</b>" に一致',
+      suggest_reason_desc:'概要に "<b>$1</b>" が含まれます',
       rail_cats:"カテゴリ", rail_filter:"絞り込み",
       card_reuse:"ビュー", card_users:"ユニーク",
       rank_reuse:"ビュー",
@@ -286,6 +291,11 @@
       more_text:"Load more", more_remain:"remaining",
       empty_title:"No matches.", empty_title_b:"No matches.",
       empty_msg:"No assets match your filters. Try a different keyword or category.",
+      suggest_title:"Did you mean one of these?",
+      suggest_reason_tag:'Matches tag "<b>$1</b>"',
+      suggest_reason_cat:'Matches category "<b>$1</b>"',
+      suggest_reason_cap:'Matches capability "<b>$1</b>"',
+      suggest_reason_desc:'"<b>$1</b>" found in description',
       rail_cats:"Categories", rail_filter:"Filters",
       card_reuse:"Views", card_users:"Unique",
       rank_reuse:"Views",
@@ -573,6 +583,57 @@
       state.results = r; state.shown = 0;
     }
 
+    // ---- suggest: broader search when results are zero ----
+    let suggestEl = document.getElementById("suggest-section");
+    if (!suggestEl) {
+      suggestEl = document.createElement("div");
+      suggestEl.id = "suggest-section";
+      suggestEl.style.display = "none";
+      emptyEl.insertAdjacentElement("afterend", suggestEl);
+    }
+
+    function suggestAgents(tokens) {
+      if (!tokens.length) return [];
+      return DATA.agents.map(a => {
+        let reason = null;
+        const catTitle = catName(a.category).toLowerCase();
+        for (const tok of tokens) {
+          const matched = (a.tags||[]).find(tg => tg.toLowerCase().includes(tok));
+          if (matched) { reason = t("suggest_reason_tag").replace("$1", esc(matched)); break; }
+          if (catTitle.includes(tok)) { reason = t("suggest_reason_cat").replace("$1", esc(catName(a.category))); break; }
+          const cap = (a.capabilities||[]).find(c => c.toLowerCase().includes(tok));
+          if (cap) { reason = t("suggest_reason_cap").replace("$1", esc(cap)); break; }
+          const desc = (a.description||"").toLowerCase();
+          if (desc.includes(tok)) { reason = t("suggest_reason_desc").replace("$1", esc(tok)); break; }
+        }
+        return reason ? { a, reason } : null;
+      }).filter(Boolean).slice(0, 4);
+    }
+
+    function paintSuggests(tokens) {
+      if (!tokens.length) { suggestEl.style.display = "none"; return; }
+      const items = suggestAgents(tokens);
+      if (!items.length) { suggestEl.style.display = "none"; return; }
+      suggestEl.innerHTML = `
+        <div class="suggest-head">${t("suggest_title")}</div>
+        <div class="suggest-grid">
+          ${items.map(({a, reason}) => `
+            <article class="suggest-card" data-id="${a.id}">
+              <span class="suggest-reason">${reason}</span>
+              <span class="suggest-cat"><span class="gl">${catGlyph(a.category)}</span>${esc(catName(a.category))}</span>
+              <span class="suggest-title">${esc(a.title)}</span>
+            </article>`).join("")}
+        </div>`;
+      suggestEl.style.display = "";
+      if (!suggestEl.dataset.bound) {
+        suggestEl.addEventListener("click", e => {
+          const c = e.target.closest(".suggest-card");
+          if (c) go(+c.dataset.id);
+        });
+        suggestEl.dataset.bound = "1";
+      }
+    }
+
     function paint(append) {
       if (!append) grid.innerHTML = "";
       const next = state.results.slice(state.shown, state.shown + state.step);
@@ -585,7 +646,11 @@
       countEl.textContent = fmt(state.results.length);
       moreBtn.style.display = state.shown < state.results.length ? "" : "none";
       moreBtn.textContent = `${t("more_text")}  (${t("more_remain")} ${fmt(state.results.length - state.shown)})`;
-      emptyEl.style.display = state.results.length ? "none" : "";
+      const isEmpty = state.results.length === 0;
+      emptyEl.style.display = isEmpty ? "" : "none";
+      const tokens = state.q.trim().toLowerCase().split(/[\s　]+/).filter(Boolean);
+      if (isEmpty && tokens.length) paintSuggests(tokens);
+      else suggestEl.style.display = "none";
     }
 
     function syncChips() {

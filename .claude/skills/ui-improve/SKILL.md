@@ -1,3 +1,8 @@
+---
+name: ui-improve
+description: UI/UX改善サイクルを1回実行する。proposal: revise → proposal: needed の優先順でissueを1件選び、改善案の生成・承認・実装・PR提出まで自動で行う。
+---
+
 # ui-improve
 
 UI/UX改善サイクルを1回実行する。
