@@ -6,7 +6,7 @@ on:
 
 jobs:
   post-revise-template:
-    if: github.event.label.name == 'proposal: revise'
+    if: "github.event.label.name == 'proposal: revise'"
     runs-on: ubuntu-latest
     permissions:
       issues: write
