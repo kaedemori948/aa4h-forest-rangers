@@ -1,0 +1,33 @@
+name: Add revise comment template
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  post-revise-template:
+    if: github.event.label.name == 'proposal: revise'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Post rejection reason template
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: [
+                '## 修正依頼',
+                '',
+                '前回の提案を却下しました。次の改善案を生成する際の参考にしてください。',
+                '',
+                '### 却下理由',
+                '<!-- 前回の案がNGだった理由を記入してください（任意） -->',
+                '',
+                '### 期待するアプローチの方向性',
+                '<!-- あれば記入してください（任意） -->',
+              ].join('\n')
+            });
