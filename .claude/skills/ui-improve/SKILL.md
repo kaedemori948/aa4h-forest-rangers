@@ -43,6 +43,9 @@ gh issue edit <番号> --remove-label "proposal: needed" --remove-label "proposa
 
 `/issue-to-impl <番号>` を実行する。
 
+UIの変更を伴う場合は `superpowers/subagent-driven-development` の並列エージェントパターンを使い、
+HTML骨格・CSS・JSモックデータ層を並行実装することでコンテキスト汚染を防ぐ。
+
 ### 5. ブランチ作成・PR提出
 
 ```bash
