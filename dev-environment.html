@@ -44,7 +44,7 @@
 <div class="no-print fixed top-4 right-6 text-xs text-gray-400 z-50" id="counter"></div>
 <div class="no-print fixed top-4 left-6 text-xs text-gray-400 tracking-widest uppercase z-50" id="act-label"></div>
 
-<!-- ── SLIDE 1: カバー ── -->
+<!-- ── SLIDE 1: 表紙 ── -->
 <div class="slide active" data-act="">
   <div class="h-1.5 bg-[#E60012]"></div>
   <div class="flex-1 flex flex-col justify-center items-center bg-white px-20">
@@ -57,11 +57,57 @@
   <div class="h-px bg-gray-100"></div>
 </div>
 
-<!-- ── SLIDE 2: プロジェクト概要 ── -->
+<!-- ── SLIDE 2: 目次 ── -->
+<div class="slide" data-act="目次">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-10 flex flex-col">
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-4">Agenda</p>
+    <h2 class="text-3xl font-bold text-gray-900 mb-8">目次</h2>
+    <div class="flex gap-16 flex-1">
+      <div class="flex flex-col gap-3 flex-1">
+        <div class="flex items-start gap-4 py-3 border-b border-gray-100">
+          <span class="text-[#E60012] font-bold text-sm w-6 shrink-0">01</span>
+          <span class="text-gray-700 font-medium">プロジェクト目的 / 概要</span>
+        </div>
+        <div class="flex items-start gap-4 py-3 border-b border-gray-100">
+          <span class="text-[#E60012] font-bold text-sm w-6 shrink-0">02</span>
+          <div>
+            <div class="text-gray-700 font-medium mb-1">開発フロー</div>
+            <div class="flex flex-col gap-1 pl-2">
+              <span class="text-xs text-gray-400">— ツール関係図（GitHub / AIAgentサイト / Vercel / KMPF / VSCode）</span>
+              <span class="text-xs text-gray-400">— UI/UX改善フロー（利用 → FB → Issue → 実装 → PR → 承認）</span>
+              <span class="text-xs text-gray-400">— ブランチ構成（main / weekly / PR）</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 py-3 border-b border-gray-100">
+          <span class="text-[#E60012] font-bold text-sm w-6 shrink-0">03</span>
+          <span class="text-gray-700 font-medium">AIAgentサイト サイトマップ</span>
+        </div>
+        <div class="flex items-start gap-4 py-3 border-b border-gray-100">
+          <span class="text-[#E60012] font-bold text-sm w-6 shrink-0">04</span>
+          <span class="text-gray-700 font-medium">ディレクトリ構成</span>
+        </div>
+        <div class="flex items-start gap-4 py-3 border-b border-gray-100">
+          <span class="text-[#E60012] font-bold text-sm w-6 shrink-0">05</span>
+          <div>
+            <div class="text-gray-700 font-medium mb-1">Claude for AI Agent</div>
+            <div class="flex flex-col gap-1 pl-2">
+              <span class="text-xs text-gray-400">— Skills とエージェントの一覧と役割</span>
+              <span class="text-xs text-gray-400">— 利用可能なコマンドと実行後の処理</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SLIDE 3: プロジェクト目的/概要 ── -->
 <div class="slide" data-act="Overview">
   <div class="h-1.5 bg-[#E60012]"></div>
   <div class="flex-1 bg-white px-16 py-10 flex flex-col">
-    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-4">Overview — 01 / 01</p>
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-4">01 — プロジェクト目的 / 概要</p>
     <div class="flex gap-14 flex-1 items-start">
       <div class="w-64 shrink-0">
         <h2 class="text-3xl font-bold text-gray-900 leading-snug">プロジェクト<br>概要</h2>
@@ -97,165 +143,96 @@
   </div>
 </div>
 
-<!-- ── SLIDE 3: 開発ツール構成 ── -->
-<div class="slide" data-act="Tools">
+<!-- ── SLIDE 4: ツール関係図 ── -->
+<div class="slide" data-act="Flow">
   <div class="h-1.5 bg-[#E60012]"></div>
-  <div class="flex-1 bg-white px-16 py-10 flex flex-col">
-    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-3">Tools — 01 / 01</p>
-    <h2 class="text-3xl font-bold text-gray-900 mb-2">開発ツール構成</h2>
-    <p class="text-sm text-gray-500 mb-6">各ツールの役割と使い方の方針</p>
-    <table class="w-full border-collapse flex-1">
-      <thead>
-        <tr class="border-b border-gray-200">
-          <th class="text-left py-3 px-4 text-xs text-gray-400 uppercase tracking-widest font-medium w-36">ツール</th>
-          <th class="text-left py-3 px-4 text-xs text-gray-400 uppercase tracking-widest font-medium w-52">役割</th>
-          <th class="text-left py-3 px-4 text-xs text-gray-400 uppercase tracking-widest font-medium">備考</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="border-b border-gray-100">
-          <td class="py-5 px-4">
-            <div class="text-xs text-[#E60012] mb-1">01</div>
-            <div class="font-semibold text-gray-900">Claude Code</div>
-          </td>
-          <td class="py-5 px-4 text-sm text-gray-600">AIによるフロントエンド実装</td>
-          <td class="py-5 px-4 text-sm text-gray-600">CLAUDE.md・Skills・Agentsを設定して使用。GitHubのIssueを読んでコードを自動生成する</td>
-        </tr>
-        <tr class="border-b border-gray-100">
-          <td class="py-5 px-4">
-            <div class="text-xs text-[#E60012] mb-1">02</div>
-            <div class="font-semibold text-gray-900">VSCode</div>
-          </td>
-          <td class="py-5 px-4 text-sm text-gray-600">コード確認・Git操作</td>
-          <td class="py-5 px-4 text-sm text-gray-600">実装はClaudeCodeに任せ、人間はコードの確認・レビュー・マージに集中する</td>
-        </tr>
-        <tr class="border-b border-gray-100">
-          <td class="py-5 px-4">
-            <div class="text-xs text-[#E60012] mb-1">03</div>
-            <div class="font-semibold text-gray-900">GitHub</div>
-          </td>
-          <td class="py-5 px-4 text-sm text-gray-600">ソースコード管理</td>
-          <td class="py-5 px-4 text-sm text-gray-600">Issueを起票して要件を管理。ブランチ・PRベースのレビューフローを採用</td>
-        </tr>
-        <tr>
-          <td class="py-5 px-4">
-            <div class="text-xs text-[#E60012] mb-1">04</div>
-            <div class="font-semibold text-gray-900">GitHub Actions</div>
-          </td>
-          <td class="py-5 px-4 text-sm text-gray-600">自動テスト・PR制御</td>
-          <td class="py-5 px-4 text-sm text-gray-600">テスト・Lint・セキュリティチェックを自動実行。すべてパスしたものだけPR可能にする</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+  <div class="flex-1 bg-white px-16 py-8 flex flex-col">
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">02 — 開発フロー① ツール関係図</p>
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">GitHub / AIAgentサイト / Vercel / KMPF / VSCode の関係</h2>
+    <div class="flex-1 flex items-center justify-center">
+      <div class="w-full max-w-4xl">
+        <!-- 関係図SVG -->
+        <svg viewBox="0 0 860 380" xmlns="http://www.w3.org/2000/svg" class="w-full">
+          <!-- 中央: AIAgentサイト -->
+          <rect x="320" y="140" width="220" height="70" rx="12" fill="#fff" stroke="#E60012" stroke-width="2.5"/>
+          <text x="430" y="168" text-anchor="middle" font-size="13" font-weight="700" fill="#E60012">AIAgentサイト</text>
+          <text x="430" y="186" text-anchor="middle" font-size="10" fill="#6b7280">フロントエンド（HTML/CSS/JS）</text>
+          <text x="430" y="200" text-anchor="middle" font-size="10" fill="#6b7280">社内システムUI/UX刷新</text>
 
-<!-- ── SLIDE 4: Claude Code 設定 ── -->
-<div class="slide" data-act="Claude Code">
-  <div class="h-1.5 bg-[#E60012]"></div>
-  <div class="flex-1 bg-white px-16 py-10 flex flex-col">
-    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-4">Claude Code — 01 / 01</p>
-    <div class="flex gap-14 flex-1 items-start">
-      <div class="w-64 shrink-0">
-        <h2 class="text-3xl font-bold text-gray-900 leading-snug">Claude Code<br>設定</h2>
-        <div class="w-10 h-0.5 bg-[#E60012] my-5"></div>
-        <p class="text-sm text-gray-600 leading-loose">CLAUDE.md・Skills・Agentsの3層構造でClaudeCodeの挙動を制御する</p>
-      </div>
-      <div class="flex-1 flex flex-col gap-4">
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
-          <div class="text-xs text-[#E60012] font-semibold mb-2">CLAUDE.md（コーディング規約・プロジェクト情報）</div>
-          <ul class="flex flex-col gap-1.5">
-            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>クライアントからもらったモックを元に、ClaudeCodeでWEBサイトの叩き台を作成</li>
-            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>叩き台をClaudeCodeに読み込ませてCLAUDE.md案を生成 → 手で修正して完成</li>
-            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>記載内容：プロジェクト概要・技術スタック・CSSルール・JSルール・コメント規約・自動化パイプラインの説明</li>
-            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>リポジトリのルートに配置。ClaudeCodeが毎回参照するため、規約変更時はここを更新する</li>
-          </ul>
-        </div>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
-          <div class="text-xs text-[#E60012] font-semibold mb-2">Skills（ClaudeCodeの追加機能）</div>
-          <ul class="flex flex-col gap-1.5">
-            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span><strong>superpowers</strong>：ClaudeCodeの標準機能を拡張するスキルセット</li>
-            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span><strong>frontend-design</strong>：UI/UX実装に特化した指示パターンを提供</li>
-          </ul>
-        </div>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
-          <div class="text-xs text-[#E60012] font-semibold mb-2">Agents定義ファイルの置き場所</div>
-          <ul class="flex flex-col gap-1.5">
-            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>各Agentの定義は <code class="bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded text-xs">.claude/agents/</code> 配下にMarkdownファイルとして配置</li>
-            <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>Skillsの定義は <code class="bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded text-xs">.claude/commands/</code> 配下に配置</li>
-          </ul>
-        </div>
+          <!-- GitHub -->
+          <rect x="60" y="140" width="180" height="70" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+          <text x="150" y="168" text-anchor="middle" font-size="13" font-weight="700" fill="#1e293b">GitHub</text>
+          <text x="150" y="186" text-anchor="middle" font-size="10" fill="#6b7280">ソースコード管理</text>
+          <text x="150" y="200" text-anchor="middle" font-size="10" fill="#6b7280">Issue / PR / Branch</text>
+
+          <!-- Vercel -->
+          <rect x="320" y="270" width="220" height="70" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+          <text x="430" y="298" text-anchor="middle" font-size="13" font-weight="700" fill="#1e293b">Vercel（仮）</text>
+          <text x="430" y="316" text-anchor="middle" font-size="10" fill="#6b7280">ホスティング・公開</text>
+          <text x="430" y="330" text-anchor="middle" font-size="10" fill="#6b7280">mainブランチを自動デプロイ</text>
+
+          <!-- KMPF -->
+          <rect x="620" y="140" width="180" height="70" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+          <text x="710" y="168" text-anchor="middle" font-size="13" font-weight="700" fill="#1e293b">KMPF</text>
+          <text x="710" y="186" text-anchor="middle" font-size="10" fill="#6b7280">既存API群</text>
+          <text x="710" y="200" text-anchor="middle" font-size="10" fill="#6b7280">クライアント管理・変更不可</text>
+
+          <!-- VSCode -->
+          <rect x="320" y="20" width="220" height="70" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+          <text x="430" y="48" text-anchor="middle" font-size="13" font-weight="700" fill="#1e293b">VSCode</text>
+          <text x="430" y="66" text-anchor="middle" font-size="10" fill="#6b7280">ソース閲覧・編集</text>
+          <text x="430" y="80" text-anchor="middle" font-size="10" fill="#6b7280">コードレビュー・マージ操作</text>
+
+          <!-- 矢印: GitHub → AIAgentサイト -->
+          <line x1="240" y1="175" x2="318" y2="175" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <text x="278" y="166" text-anchor="middle" font-size="9" fill="#6b7280">デプロイ元</text>
+
+          <!-- 矢印: AIAgentサイト → Vercel -->
+          <line x1="430" y1="210" x2="430" y2="268" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <text x="455" y="243" font-size="9" fill="#6b7280">公開</text>
+
+          <!-- 矢印: AIAgentサイト → KMPF (API呼び出し) -->
+          <line x1="540" y1="175" x2="618" y2="175" stroke="#E60012" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrowRed)"/>
+          <text x="578" y="166" text-anchor="middle" font-size="9" fill="#E60012">API呼び出し</text>
+
+          <!-- 矢印: VSCode → GitHub (push/PR) -->
+          <line x1="320" y1="68" x2="175" y2="138" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <text x="232" y="92" text-anchor="middle" font-size="9" fill="#6b7280">push / PR</text>
+
+          <!-- 矢印: VSCode → AIAgentサイト -->
+          <line x1="430" y1="90" x2="430" y2="138" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <text x="455" y="118" font-size="9" fill="#6b7280">編集</text>
+
+          <!-- GitHub Auth 注釈 -->
+          <rect x="580" y="270" width="240" height="60" rx="8" fill="#fef9c3" stroke="#fbbf24" stroke-width="1.5"/>
+          <text x="590" y="291" font-size="10" font-weight="700" fill="#92400e">📌 GitHub Auth</text>
+          <text x="590" y="308" font-size="9" fill="#78350f">AIAgentサイトへのログインは</text>
+          <text x="590" y="322" font-size="9" fill="#78350f">GitHub認証（OAuth）を利用</text>
+
+          <!-- 矢印定義 -->
+          <defs>
+            <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#94a3b8"/>
+            </marker>
+            <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#E60012"/>
+            </marker>
+          </defs>
+        </svg>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ── SLIDE 5: AIエージェント ── -->
-<div class="slide" data-act="Agents">
-  <div class="h-1.5 bg-[#E60012]"></div>
-  <div class="flex-1 bg-white px-16 py-10 flex flex-col">
-    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-3">Agents — 01 / 01</p>
-    <h2 class="text-3xl font-bold text-gray-900 mb-2">AIエージェント</h2>
-    <p class="text-sm text-gray-500 mb-6">品質・修正・セキュリティを専門エージェントが並列で担当する</p>
-    <div class="grid grid-cols-3 gap-4 flex-1">
-      <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 flex flex-col">
-        <div class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-4">QA Agent</div>
-        <div class="font-bold text-gray-900 text-lg mb-3">品質検査</div>
-        <ul class="flex flex-col gap-1.5 flex-1">
-          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>UI操作</li>
-          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>入力処理</li>
-          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>JSイベント</li>
-          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>レスポンシブ</li>
-          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>エラー処理</li>
-        </ul>
-        <div class="mt-4 pt-4 border-t border-gray-200">
-          <div class="text-xs text-gray-400">出力先</div>
-          <code class="text-xs bg-gray-100 border border-gray-200 px-2 py-1 rounded mt-1 block">.claude/reports/qa/</code>
-        </div>
-      </div>
-      <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 flex flex-col">
-        <div class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-4">Fixer Agent</div>
-        <div class="font-bold text-gray-900 text-lg mb-3">修正担当</div>
-        <ul class="flex flex-col gap-1.5 flex-1">
-          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>問題一覧を入力として受け取る</li>
-          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>原因確認</li>
-          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>コード修正</li>
-          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>git diff で説明</li>
-        </ul>
-        <div class="mt-4 pt-4 border-t border-gray-200">
-          <div class="text-xs text-gray-400">入力元</div>
-          <code class="text-xs bg-gray-100 border border-gray-200 px-2 py-1 rounded mt-1 block">.claude/reports/</code>
-        </div>
-      </div>
-      <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 flex flex-col">
-        <div class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-4">Security Agent</div>
-        <div class="font-bold text-gray-900 text-lg mb-3">セキュリティ監査</div>
-        <ul class="flex flex-col gap-1.5 flex-1">
-          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>XSS</li>
-          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>innerHTML</li>
-          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>APIキー漏洩</li>
-          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>localStorage</li>
-          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">—</span>外部通信</li>
-        </ul>
-        <div class="mt-4 pt-4 border-t border-gray-200">
-          <div class="text-xs text-gray-400">出力先</div>
-          <code class="text-xs bg-gray-100 border border-gray-200 px-2 py-1 rounded mt-1 block">.claude/reports/security/</code>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── SLIDE 6: 開発フロー ── -->
+<!-- ── SLIDE 5: UI/UX改善フロー ── -->
 <div class="slide" data-act="Flow">
   <div class="h-1.5 bg-[#E60012]"></div>
   <div class="flex-1 bg-white px-16 py-8 flex flex-col">
 
-    <!-- ヘッダー -->
     <div class="flex items-baseline justify-between mb-6">
       <div>
-        <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-1">Flow — 01 / 01</p>
-        <h2 class="text-3xl font-bold text-gray-900">開発フロー</h2>
+        <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-1">02 — 開発フロー② UI/UX改善フロー</p>
+        <h2 class="text-2xl font-bold text-gray-900">UI/UX 改善サイクル</h2>
       </div>
       <div class="flex items-center gap-5 text-xs text-gray-500">
         <span class="flex items-center gap-2"><span class="border-2 border-gray-400 rounded px-2 py-0.5 font-semibold text-gray-600">人間</span>テスター・開発者チームが担当</span>
@@ -264,10 +241,7 @@
       </div>
     </div>
 
-    <!-- ステップ＋ループ全体（残りスペースに縦中央） -->
     <div class="flex-1 flex flex-col justify-center">
-
-      <!-- ステップ行 -->
       <div class="flex items-stretch gap-2">
 
         <!-- STEP 01 -->
@@ -276,20 +250,20 @@
             <span class="text-xs font-bold text-gray-400 tracking-widest">STEP 01</span>
             <span class="border-2 border-gray-400 rounded px-2 py-0.5 text-xs font-semibold text-gray-600">人間</span>
           </div>
-          <div class="font-bold text-gray-900 mb-2">ユーザーテスト実施</div>
-          <div class="text-sm text-gray-500 leading-relaxed">テスト指示文に従い、特定アセットへ素早くたどり着けるか検証する</div>
+          <div class="font-bold text-gray-900 mb-2">利用 &amp;<br>FBフォーム入力</div>
+          <div class="text-sm text-gray-500 leading-relaxed">実際にAIAgentサイトを利用し、気づいた要望・不具合をフィードバックフォームへ入力する</div>
         </div>
 
         <div class="flex items-center text-gray-300 text-2xl shrink-0">→</div>
 
         <!-- STEP 02 -->
-        <div class="flex-1 bg-red-50 border-2 border-[#E60012] rounded-xl p-5 flex flex-col">
+        <div class="flex-1 border-2 border-gray-300 rounded-xl p-5 flex flex-col">
           <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-bold text-[#E60012] tracking-widest">STEP 02</span>
-            <span class="bg-red-50 border-2 border-[#E60012] text-[#E60012] rounded px-2 py-0.5 text-xs font-semibold">ClaudeCode</span>
+            <span class="text-xs font-bold text-gray-400 tracking-widest">STEP 02</span>
+            <span class="border-2 border-gray-400 rounded px-2 py-0.5 text-xs font-semibold text-gray-600">人間</span>
           </div>
-          <div class="font-bold text-gray-900 mb-2">修正案を作成</div>
-          <div class="text-sm text-gray-600 leading-relaxed">テスト結果を受けて、UI改善の修正案をまとめる</div>
+          <div class="font-bold text-gray-900 mb-2">Issue起票<br>（ラベル管理）</div>
+          <div class="text-sm text-gray-500 leading-relaxed">FBをもとにGitHub Issueを起票。ラベル（bug / enhancement 等）で分類・優先度管理する</div>
         </div>
 
         <div class="flex items-center text-gray-300 text-2xl shrink-0">→</div>
@@ -300,12 +274,8 @@
             <span class="text-xs font-bold text-[#E60012] tracking-widest">STEP 03</span>
             <span class="bg-red-50 border-2 border-[#E60012] text-[#E60012] rounded px-2 py-0.5 text-xs font-semibold">ClaudeCode</span>
           </div>
-          <div class="font-bold text-gray-900 mb-1">コード修正</div>
-          <div class="text-sm text-gray-600 leading-relaxed mb-3">新ブランチを切り、修正案をもとにフロントのコードを修正する</div>
-          <div class="border-t border-red-200 pt-3">
-            <div class="font-bold text-gray-900 mb-1">次回テスト指示文を作成</div>
-            <div class="text-sm text-gray-600 leading-relaxed">次のサイクルで使うテスト指示文を複数パターン生成する</div>
-          </div>
+          <div class="font-bold text-gray-900 mb-2">実装</div>
+          <div class="text-sm text-gray-600 leading-relaxed">Issueを読んで新ブランチを切り、フロントのコードを修正する。自動テストも実行する</div>
         </div>
 
         <div class="flex items-center text-gray-300 text-2xl shrink-0">→</div>
@@ -316,37 +286,25 @@
             <span class="text-xs font-bold text-[#E60012] tracking-widest">STEP 04</span>
             <span class="bg-red-50 border-2 border-[#E60012] text-[#E60012] rounded px-2 py-0.5 text-xs font-semibold">ClaudeCode</span>
           </div>
-          <div class="font-bold text-gray-900 mb-2">自動テスト ＋ PR作成</div>
-          <div class="text-sm text-gray-600 leading-relaxed">GitHub Actionsで自動テストを実行。パスしたものだけmainへPRを作成する</div>
+          <div class="font-bold text-gray-900 mb-2">PR作成</div>
+          <div class="text-sm text-gray-600 leading-relaxed">テスト通過後、weeklyブランチへPRを作成する</div>
         </div>
 
         <div class="flex items-center text-gray-300 text-2xl shrink-0">→</div>
 
         <!-- STEP 05 -->
-        <div class="flex-1 border-2 border-gray-300 rounded-xl p-5 flex flex-col">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-bold text-gray-400 tracking-widest">STEP 05</span>
-            <span class="border-2 border-gray-400 rounded px-2 py-0.5 text-xs font-semibold text-gray-600">人間</span>
-          </div>
-          <div class="font-bold text-gray-900 mb-2">レビュー ＆ マージ</div>
-          <div class="text-sm text-gray-500 leading-relaxed">開発者チームがPRを確認し、mainにマージする</div>
-        </div>
-
-        <div class="flex items-center text-gray-300 text-2xl shrink-0">→</div>
-
-        <!-- STEP 06 -->
         <div class="flex-1 border-2 border-blue-300 rounded-xl p-5 flex flex-col">
           <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-bold text-blue-400 tracking-widest">STEP 06</span>
+            <span class="text-xs font-bold text-blue-400 tracking-widest">STEP 05</span>
             <span class="border-2 border-blue-400 rounded px-2 py-0.5 text-xs font-semibold text-blue-500">リーダー</span>
           </div>
-          <div class="font-bold text-gray-900 mb-2">品質管理</div>
-          <div class="text-sm text-gray-500 leading-relaxed">ああああああああああああああああああ</div>
+          <div class="font-bold text-gray-900 mb-2">承認 &amp; マージ</div>
+          <div class="text-sm text-gray-500 leading-relaxed">リーダーがPRをレビューし、weeklyブランチへマージする。週次でmainへデプロイ</div>
         </div>
 
       </div>
 
-      <!-- ループ U字（SVG） -->
+      <!-- ループ矢印 -->
       <div class="w-full" style="height:44px;">
         <svg viewBox="0 0 1000 44" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
           <path d="M 960 4 L 960 28 Q 960 40 944 40 L 56 40 Q 40 40 40 28 L 40 4"
@@ -356,11 +314,289 @@
         </svg>
       </div>
       <div class="flex justify-center mt-1">
-        <span class="text-xs font-semibold text-[#E60012]">↺　STEP05完了後、STEP03で生成した新しいテスト指示文でSTEP01に戻り、何周もくり返す</span>
+        <span class="text-xs font-semibold text-[#E60012]">↺　承認・マージ後、継続的に改善サイクルを繰り返す</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SLIDE 6: ブランチ構成 ── -->
+<div class="slide" data-act="Flow">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-8 flex flex-col">
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">02 — 開発フロー③ ブランチ構成（暫定）</p>
+    <h2 class="text-2xl font-bold text-gray-900 mb-2">ブランチ戦略</h2>
+    <p class="text-xs text-gray-400 mb-5">※ 週1回 main へデプロイ。1週間分のIssue対応をweeklyブランチに集約してからリリース</p>
+    <div class="flex-1 flex items-center justify-center">
+      <svg viewBox="0 0 820 320" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-3xl">
+        <!-- main branch line -->
+        <line x1="40" y1="60" x2="780" y2="60" stroke="#1e293b" stroke-width="3"/>
+        <circle cx="40" cy="60" r="8" fill="#1e293b"/>
+        <circle cx="780" cy="60" r="8" fill="#1e293b"/>
+        <text x="400" y="38" text-anchor="middle" font-size="13" font-weight="700" fill="#1e293b">main</text>
+        <text x="400" y="52" text-anchor="middle" font-size="9" fill="#6b7280">本番ブランチ — 週1回 Vercel へ自動デプロイ</text>
+
+        <!-- weekly branch -->
+        <line x1="120" y1="60" x2="120" y2="130" stroke="#E60012" stroke-width="2" stroke-dasharray="4,2"/>
+        <line x1="120" y1="130" x2="680" y2="130" stroke="#E60012" stroke-width="2.5"/>
+        <circle cx="120" cy="130" r="7" fill="#E60012"/>
+        <circle cx="680" cy="130" r="7" fill="#E60012"/>
+        <line x1="680" y1="130" x2="680" y2="60" stroke="#E60012" stroke-width="2" stroke-dasharray="4,2"/>
+        <text x="400" y="120" text-anchor="middle" font-size="12" font-weight="700" fill="#E60012">weekly/2026-W26</text>
+        <text x="400" y="152" text-anchor="middle" font-size="9" fill="#E60012">週ごとに作成。1週間分のPRをここに集約 → 週末にmainへマージ</text>
+
+        <!-- PR branches from weekly -->
+        <!-- PR 1 -->
+        <line x1="220" y1="130" x2="220" y2="210" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <line x1="220" y1="210" x2="330" y2="210" stroke="#64748b" stroke-width="2"/>
+        <circle cx="220" cy="210" r="5" fill="#64748b"/>
+        <circle cx="330" cy="210" r="5" fill="#64748b"/>
+        <line x1="330" y1="210" x2="330" y2="130" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <text x="275" y="200" text-anchor="middle" font-size="9" font-weight="600" fill="#475569">feature/issue-12</text>
+        <text x="275" y="228" text-anchor="middle" font-size="8" fill="#94a3b8">Issue #12 対応</text>
+
+        <!-- PR 2 -->
+        <line x1="380" y1="130" x2="380" y2="250" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <line x1="380" y1="250" x2="490" y2="250" stroke="#64748b" stroke-width="2"/>
+        <circle cx="380" cy="250" r="5" fill="#64748b"/>
+        <circle cx="490" cy="250" r="5" fill="#64748b"/>
+        <line x1="490" y1="250" x2="490" y2="130" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <text x="435" y="240" text-anchor="middle" font-size="9" font-weight="600" fill="#475569">feature/issue-15</text>
+        <text x="435" y="268" text-anchor="middle" font-size="8" fill="#94a3b8">Issue #15 対応</text>
+
+        <!-- PR 3 -->
+        <line x1="540" y1="130" x2="540" y2="210" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <line x1="540" y1="210" x2="640" y2="210" stroke="#64748b" stroke-width="2"/>
+        <circle cx="540" cy="210" r="5" fill="#64748b"/>
+        <circle cx="640" cy="210" r="5" fill="#64748b"/>
+        <line x1="640" y1="210" x2="640" y2="130" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <text x="590" y="200" text-anchor="middle" font-size="9" font-weight="600" fill="#475569">feature/issue-18</text>
+        <text x="590" y="228" text-anchor="middle" font-size="8" fill="#94a3b8">Issue #18 対応</text>
+
+        <!-- ラベル: PRマージ -->
+        <text x="275" y="180" text-anchor="middle" font-size="8" fill="#E60012">← PR →</text>
+        <text x="435" y="220" text-anchor="middle" font-size="8" fill="#E60012">← PR →</text>
+        <text x="590" y="180" text-anchor="middle" font-size="8" fill="#E60012">← PR →</text>
+
+        <!-- 凡例 -->
+        <rect x="30" y="275" width="760" height="34" rx="6" fill="#f8fafc" stroke="#e2e8f0"/>
+        <circle cx="60" cy="292" r="5" fill="#1e293b"/>
+        <text x="72" y="296" font-size="10" fill="#475569">main（本番）</text>
+        <circle cx="180" cy="292" r="5" fill="#E60012"/>
+        <text x="192" y="296" font-size="10" fill="#475569">weekly（週次集約）</text>
+        <circle cx="330" cy="292" r="5" fill="#64748b"/>
+        <text x="342" y="296" font-size="10" fill="#475569">feature/issue-XX（各Issue対応ブランチ）</text>
+        <line x1="555" y1="292" x2="590" y2="292" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <text x="598" y="296" font-size="10" fill="#475569">PR（マージ方向）</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ── SLIDE 7: サイトマップ ── -->
+<div class="slide" data-act="Sitemap">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-8 flex flex-col">
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">03 — AIAgentサイト サイトマップ</p>
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">画面構成と各ページの役割</h2>
+    <div class="flex-1 flex items-start gap-8">
+
+      <!-- サイトマップ図 -->
+      <div class="flex-1">
+        <svg viewBox="0 0 680 340" xmlns="http://www.w3.org/2000/svg" class="w-full">
+          <!-- ルート -->
+          <rect x="250" y="10" width="180" height="52" rx="10" fill="#E60012"/>
+          <text x="340" y="33" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">ホーム</text>
+          <text x="340" y="50" text-anchor="middle" font-size="9" fill="#fecaca">index.html</text>
+
+          <!-- ホームからのリンク -->
+          <line x1="340" y1="62" x2="340" y2="90" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="340" y1="90" x2="110" y2="90" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="340" y1="90" x2="340" y2="90" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="340" y1="90" x2="570" y2="90" stroke="#94a3b8" stroke-width="1.5"/>
+
+          <!-- エージェント一覧 -->
+          <line x1="110" y1="90" x2="110" y2="110" stroke="#94a3b8" stroke-width="1.5"/>
+          <rect x="30" y="110" width="160" height="52" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+          <text x="110" y="133" text-anchor="middle" font-size="12" font-weight="700" fill="#1e293b">エージェント一覧</text>
+          <text x="110" y="150" text-anchor="middle" font-size="9" fill="#6b7280">agents.html</text>
+
+          <!-- エージェント詳細 -->
+          <line x1="110" y1="162" x2="110" y2="185" stroke="#94a3b8" stroke-width="1.5"/>
+          <rect x="30" y="185" width="160" height="52" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+          <text x="110" y="208" text-anchor="middle" font-size="12" font-weight="700" fill="#1e293b">エージェント詳細</text>
+          <text x="110" y="225" text-anchor="middle" font-size="9" fill="#6b7280">agent.html</text>
+
+          <!-- 新着 -->
+          <line x1="340" y1="90" x2="340" y2="110" stroke="#94a3b8" stroke-width="1.5"/>
+          <rect x="250" y="110" width="180" height="52" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+          <text x="340" y="133" text-anchor="middle" font-size="12" font-weight="700" fill="#1e293b">新着一覧</text>
+          <text x="340" y="150" text-anchor="middle" font-size="9" fill="#6b7280">agents.html?sort=newest</text>
+
+          <!-- 要望フォーム -->
+          <line x1="570" y1="90" x2="570" y2="110" stroke="#94a3b8" stroke-width="1.5"/>
+          <rect x="490" y="110" width="160" height="52" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+          <text x="570" y="133" text-anchor="middle" font-size="12" font-weight="700" fill="#1e293b">要望フォーム</text>
+          <text x="570" y="150" text-anchor="middle" font-size="9" fill="#6b7280">feedback.html</text>
+
+          <!-- フィルター・ソート -->
+          <line x1="110" y1="237" x2="110" y2="260" stroke="#94a3b8" stroke-width="1.5"/>
+          <rect x="30" y="260" width="160" height="52" rx="10" fill="#fef9c3" stroke="#fbbf24" stroke-width="1.5"/>
+          <text x="110" y="283" text-anchor="middle" font-size="11" font-weight="600" fill="#92400e">カテゴリ / 検索 / ソート</text>
+          <text x="110" y="300" text-anchor="middle" font-size="9" fill="#78350f">同一画面内での絞り込み</text>
+        </svg>
       </div>
 
+      <!-- ページ役割説明 -->
+      <div class="w-72 flex flex-col gap-3">
+        <div class="bg-red-50 border border-red-200 rounded-xl p-4">
+          <div class="text-xs font-bold text-[#E60012] mb-1">ホーム</div>
+          <p class="text-xs text-gray-600 leading-relaxed">プロデューサーズピック・カテゴリ一覧・人気ランキング・新着を表示。サイト全体のエントリーポイント</p>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+          <div class="text-xs font-bold text-gray-700 mb-1">エージェント一覧</div>
+          <p class="text-xs text-gray-600 leading-relaxed">全エージェントをキーワード検索・カテゴリフィルター・ソート（人気/新着/いいね）で横断検索できる画面</p>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+          <div class="text-xs font-bold text-gray-700 mb-1">エージェント詳細</div>
+          <p class="text-xs text-gray-600 leading-relaxed">各エージェントのプロンプト・使い方・評価などの詳細情報を表示する画面</p>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+          <div class="text-xs font-bold text-gray-700 mb-1">要望フォーム</div>
+          <p class="text-xs text-gray-600 leading-relaxed">利用者がUI改善要望・新規エージェントリクエストを送信できるフォーム。入力内容がGitHub Issueへ連携される</p>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
 
+<!-- ── SLIDE 8: ディレクトリ構成 ── -->
+<div class="slide" data-act="Directory">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-8 flex flex-col">
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">04 — ディレクトリ構成</p>
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">フォルダ構成と役割</h2>
+    <div class="flex gap-10 flex-1">
+      <div class="flex-1 bg-gray-50 border border-gray-200 rounded-xl p-6 font-mono text-xs leading-7 overflow-auto">
+        <div class="text-gray-400 mb-2"># プロジェクトルート</div>
+        <div><span class="text-[#E60012]">aa4h-forest-rangers/</span></div>
+        <div class="pl-4"><span class="text-blue-600">├─ .claude/</span></div>
+        <div class="pl-8"><span class="text-blue-500">├─ agents/</span> <span class="text-gray-400 font-sans">— AIエージェント定義ファイル（.md）</span></div>
+        <div class="pl-8"><span class="text-blue-500">├─ documents/</span> <span class="text-gray-400 font-sans">— 資料ごとのMDファイル（スライド素材）</span></div>
+        <div class="pl-12"><span class="text-gray-500">├─ agents/</span></div>
+        <div class="pl-12"><span class="text-gray-500">├─ claude-code/</span></div>
+        <div class="pl-12"><span class="text-gray-500">├─ cover/</span></div>
+        <div class="pl-12"><span class="text-gray-500">├─ flow/</span></div>
+        <div class="pl-12"><span class="text-gray-500">└─ pj-summary/</span></div>
+        <div class="pl-8"><span class="text-blue-500">├─ reports/</span> <span class="text-gray-400 font-sans">— 各エージェントの出力レポート</span></div>
+        <div class="pl-12"><span class="text-gray-500">├─ qa/</span> <span class="text-gray-400 font-sans">— QAエージェントのレポート</span></div>
+        <div class="pl-12"><span class="text-gray-500">└─ security/</span> <span class="text-gray-400 font-sans">— セキュリティエージェントのレポート</span></div>
+        <div class="pl-8"><span class="text-blue-500">└─ skills/</span> <span class="text-gray-400 font-sans">— ClaudeCodeのSkill定義</span></div>
+        <div class="pl-12"><span class="text-gray-500">├─ frontend-design/</span> <span class="text-gray-400 font-sans">— UI/UX実装支援スキル</span></div>
+        <div class="pl-12"><span class="text-gray-500">├─ issue-to-impl.md</span> <span class="text-gray-400 font-sans">— Issue→実装スキル</span></div>
+        <div class="pl-12"><span class="text-gray-500">├─ ship.md</span> <span class="text-gray-400 font-sans">— デプロイスキル</span></div>
+        <div class="pl-12"><span class="text-gray-500">└─ superpowers/</span> <span class="text-gray-400 font-sans">— ClaudeCode標準拡張スキル群</span></div>
+        <div class="pl-4"><span class="text-blue-600">├─ assets/</span> <span class="text-gray-400 font-sans">— 共通CSS・JSファイル</span></div>
+        <div class="pl-4"><span class="text-blue-600">├─ b/</span> <span class="text-gray-400 font-sans">— AIAgentサイト本体（HTML群）</span></div>
+        <div class="pl-4"><span class="text-blue-600">├─ data/</span> <span class="text-gray-400 font-sans">— モックデータ・テストデータ</span></div>
+        <div class="pl-4"><span class="text-blue-600">├─ scripts/</span> <span class="text-gray-400 font-sans">— ユーティリティスクリプト</span></div>
+        <div class="pl-4"><span class="text-gray-700">├─ CLAUDE.md</span> <span class="text-gray-400 font-sans">— AI向けプロジェクト規約</span></div>
+        <div class="pl-4"><span class="text-gray-700">├─ index.html</span> <span class="text-gray-400 font-sans">— b/index.html へリダイレクト</span></div>
+        <div class="pl-4"><span class="text-gray-700">└─ dev-environment.html</span> <span class="text-gray-400 font-sans">— このドキュメント</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SLIDE 9: Skills とエージェント一覧 ── -->
+<div class="slide" data-act="Claude for AI Agent">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-8 flex flex-col">
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">05 — Claude for AI Agent① Skills とエージェント</p>
+    <h2 class="text-2xl font-bold text-gray-900 mb-5">Skills・エージェント一覧と役割</h2>
+    <div class="flex gap-6 flex-1">
+
+      <!-- Skills -->
+      <div class="flex-1 flex flex-col gap-3">
+        <div class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Skills（/コマンドで呼び出す追加機能）</div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+          <div class="text-xs font-semibold text-[#E60012] mb-1">issue-to-impl</div>
+          <p class="text-xs text-gray-600">GitHub IssueのURLを受け取り、内容を読んでブランチ作成→コード修正→コミットまで自動で行う</p>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+          <div class="text-xs font-semibold text-[#E60012] mb-1">ship</div>
+          <p class="text-xs text-gray-600">実装完了後にPRを作成してデプロイまでのフローを実行する</p>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+          <div class="text-xs font-semibold text-[#E60012] mb-1">frontend-design</div>
+          <p class="text-xs text-gray-600">UI/UX実装に特化した指示パターンを提供。デザイン品質を一定に保つ</p>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+          <div class="text-xs font-semibold text-[#E60012] mb-1">superpowers（拡張スキル群）</div>
+          <ul class="text-xs text-gray-600 flex flex-col gap-0.5 mt-1">
+            <li><span class="text-gray-400">—</span> brainstorming：ブレインストーミング支援</li>
+            <li><span class="text-gray-400">—</span> systematic-debugging：体系的デバッグ手順</li>
+            <li><span class="text-gray-400">—</span> test-driven-development：TDD実践支援</li>
+            <li><span class="text-gray-400">—</span> dispatching-parallel-agents：並列エージェント実行</li>
+            <li><span class="text-gray-400">—</span> using-git-worktrees：Git Worktree活用</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Agents -->
+      <div class="flex-1 flex flex-col gap-3">
+        <div class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Agents（自律的に動くAIサブエージェント）</div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+          <div class="flex items-center justify-between mb-1">
+            <div class="text-xs font-semibold text-[#E60012]">QA Agent</div>
+            <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">.claude/reports/qa/</code>
+          </div>
+          <p class="text-xs text-gray-600">UI操作・入力処理・JSイベント・レスポンシブ・エラー処理の品質検査を担当</p>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+          <div class="flex items-center justify-between mb-1">
+            <div class="text-xs font-semibold text-[#E60012]">Fixer Agent</div>
+            <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">.claude/reports/</code>
+          </div>
+          <p class="text-xs text-gray-600">QA/Securityレポートを入力に受け取り、原因確認→コード修正→git diff説明を行う</p>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+          <div class="flex items-center justify-between mb-1">
+            <div class="text-xs font-semibold text-[#E60012]">Security Agent</div>
+            <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">.claude/reports/security/</code>
+          </div>
+          <p class="text-xs text-gray-600">XSS・innerHTML・APIキー漏洩・localStorage・外部通信のセキュリティ監査を担当</p>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+          <div class="text-xs font-semibold text-[#E60012] mb-1">UI Analyst Agent</div>
+          <p class="text-xs text-gray-600">UIの使いやすさ・視認性を分析し、改善提案をまとめるエージェント</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SLIDE 10: 利用可能なコマンド ── -->
+<div class="slide" data-act="Claude for AI Agent">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-10 flex flex-col">
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-4">05 — Claude for AI Agent② 利用可能なコマンド</p>
+    <div class="flex gap-14 flex-1 items-center">
+      <div class="w-64 shrink-0">
+        <h2 class="text-3xl font-bold text-gray-900 leading-snug">コマンドと<br>処理フロー</h2>
+        <div class="w-10 h-0.5 bg-[#E60012] my-5"></div>
+        <p class="text-sm text-gray-500 leading-loose">実行可能なSlashコマンドと、コマンド実行後に発生する一連の処理</p>
+      </div>
+      <div class="flex-1 flex flex-col items-center justify-center">
+        <div class="w-full max-w-lg bg-gray-50 border-2 border-dashed border-gray-300 rounded-2xl p-12 flex flex-col items-center gap-4">
+          <div class="text-5xl text-gray-300">🔧</div>
+          <div class="text-xl font-bold text-gray-400">検討中</div>
+          <p class="text-sm text-gray-400 text-center leading-relaxed">
+            利用可能なコマンドと実行後に発生する<br>一連の処理については現在検討中です。
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
