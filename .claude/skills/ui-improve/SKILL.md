@@ -1,3 +1,8 @@
+---
+name: ui-improve
+description: UI/UX改善サイクルを1回実行する。proposal: revise → proposal: needed の優先順でissueを1件選び、改善案の生成・承認・実装・PR提出まで自動で行う。
+---
+
 # ui-improve
 
 UI/UX改善サイクルを1回実行する。
@@ -21,6 +26,8 @@ gh issue list --label "proposal: needed" --state open --json number,title,body,l
 
 どちらも空なら「対象issueなし」と報告して終了する。
 
+取得したissueのラベルが `proposal: revise` か `proposal: needed` かを記録しておく（ステップ5で分岐に使う）。
+
 ### 2. 改善案の生成
 
 ui-analyst エージェントを呼び出し、取得したissueの改善案を生成する。
@@ -38,7 +45,30 @@ gh issue edit <番号> --remove-label "proposal: needed" --remove-label "proposa
 
 `/issue-to-impl <番号>` を実行する。
 
+UIの変更を伴う場合は `superpowers/subagent-driven-development` の並列エージェントパターンを使い、
+HTML骨格・CSS・JSモックデータ層を並行実装することでコンテキスト汚染を防ぐ。
+
 ### 5. ブランチ作成・PR提出
+
+**ステップ1で取得したラベルによって分岐する。**
+
+#### proposal: revise だった場合（既存PRへの追加）
+
+既存ブランチに切り替えてcommit・pushする。PRは新規作成しない。
+
+```bash
+git checkout feature/issue-<番号>
+git add .
+git commit -m "fix: <Issueタイトル> 修正 (#<番号>)"
+git push origin HEAD
+gh issue edit <番号> \
+  --remove-label "proposal: approved" \
+  --add-label "proposal: ready"
+```
+
+#### proposal: needed だった場合（新規PR作成）
+
+新規ブランチを作成してcommit・push・PR作成する。
 
 ```bash
 git checkout -b feature/issue-<番号>
@@ -49,11 +79,6 @@ gh pr create \
   --title "<Issueタイトル> (#<番号>)" \
   --body "closes #<番号>" \
   --label "proposal: ready"
-```
-
-PR作成後、issueのラベルを `proposal: ready` に更新する。
-
-```bash
 gh issue edit <番号> \
   --remove-label "proposal: approved" \
   --add-label "proposal: ready"
