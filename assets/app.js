@@ -261,7 +261,7 @@
       chat_hello:"こんにちは！<b>AI Assets</b> の検索アシスタントです。<br>どんな業務をAIでサポートしたいか教えてください。",
       chat_found:"件見つかりました", chat_noresult:"該当するアセットが見つかりませんでした。<br>別のキーワードでお試しください。",
       chat_detail_link:"詳細を見る →", chat_reuse:"ビュー",
-      chat_sugs:["資料作成","コードレビュー","データ分析","営業支援","情報収集","テスト自動化"],
+      chat_sugs:["資料作成","コードレビュー","データ分析","営業支援","社内規定・ポリシー","テスト自動化"],
       cta_explore:"アセットを探す", cta_cats:"カテゴリから見る", cta_dir_btn:"アセット一覧へ",
       hero_badge_b:"AI CoE · 社内AIアセット カタログ",
       hero_h1_b:'あなたに最適な、<br><em>AIアセット</em>を。',
@@ -912,19 +912,53 @@
       msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight; return div;
     }
 
+    // 業務用語と実際のカテゴリ・キーワードの橋渡し（タイトルに現れない概念をカバーするため）
+    const SYNONYMS = {
+      '規定': ['faq', 'ポリシー', '規程', '就業', '総務'],
+      '規程': ['faq', 'ポリシー', '規定', '就業', '総務'],
+      'ポリシー': ['faq', '規定', '規程', '方針', '総務'],
+      '就業規則': ['faq', '規定', '就業', '労働', '総務'],
+      '就業': ['faq', '規定', '就業規則', '労働'],
+      '社内規定': ['faq', 'ポリシー', '規程', '就業規則'],
+      'hr': ['人事', '総務', '就業', '採用'],
+      '人事': ['hr', '総務', '就業規則'],
+      '労務': ['就業', '規定', '総務', '人事'],
+      '経費': ['精算', '申請', 'ポリシー'],
+      '出張': ['精算', '申請', '日当', '経費'],
+    };
+    function expandTokens(tokens) {
+      const expanded = new Set(tokens);
+      tokens.forEach(tok => {
+        const syns = SYNONYMS[tok];
+        if (syns) syns.forEach(s => expanded.add(s));
+      });
+      return [...expanded];
+    }
+
     function searchAgents(query) {
       const q = query.toLowerCase().trim();
-      const tokens = q.split(/[\s　]+/).filter(Boolean);
-      if (!tokens.length) return [];
+      const baseTokens = q.split(/[\s　]+/).filter(Boolean);
+      if (!baseTokens.length) return [];
+      const tokens = expandTokens(baseTokens);
       return DATA.agents.map(a => {
         let score = 0;
         const ti = a.title.toLowerCase();
         const d  = (a.description||"").toLowerCase();
         const catTitle = catName(a.category).toLowerCase();
-        tokens.forEach(tok => {
+        const useCases = (a.useCases||[]).join(' ').toLowerCase();
+        // 元のトークンは高スコア、同義語展開トークンは低スコア
+        baseTokens.forEach(tok => {
           if (ti.includes(tok)) score += 4;
           if (d.includes(tok))  score += 1.5;
           if (catTitle.includes(tok)) score += 2;
+          if (useCases.includes(tok)) score += 1;
+        });
+        const synTokens = tokens.filter(t => !baseTokens.includes(t));
+        synTokens.forEach(tok => {
+          if (ti.includes(tok)) score += 1.5;
+          if (d.includes(tok))  score += 0.5;
+          if (catTitle.includes(tok)) score += 0.8;
+          if (useCases.includes(tok)) score += 0.4;
         });
         if (a.pick) score *= 1.2;
         return {a, score};
