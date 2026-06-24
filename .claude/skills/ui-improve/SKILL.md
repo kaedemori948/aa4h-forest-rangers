@@ -1,94 +1,64 @@
 ---
 name: ui-improve
-description: UI/UX改善サイクルを1回実行する。proposal: revise → proposal: needed の優先順でissueを1件選び、改善案の生成・承認・実装・PR提出まで自動で行う。
+description: GitHubの全issueを確認し、proposal:needed または proposal:revise ラベルを持つissueを全てピックアップして、それぞれ対応するサブスキルに処理を委譲するオーケストレーター。
 ---
 
 # ui-improve
 
-UI/UX改善サイクルを1回実行する。
-対象issueは `proposal: revise` → `proposal: needed` の優先順で1件選ぶ。
+GitHubの全issueを走査し、`proposal: needed` / `proposal: revise` ラベルを持つissueをピックアップして、対応するスキルに処理を委譲する。
 
 ## トリガー
 - `/ui-improve`
 
 ## 手順
 
-### 1. イシュー取得
-
-`proposal: revise` ラベルのissueを優先して取得する。
-なければ `proposal: needed` を取得する。
+### 1. 対象issueの全件取得
 
 ```bash
-gh issue list --label "proposal: revise" --state open --json number,title,body,labels --limit 1
-# 結果が空なら:
-gh issue list --label "proposal: needed" --state open --json number,title,body,labels --limit 1
+gh issue list --label "proposal: needed" --state open --json number,title,labels --limit 100
+gh issue list --label "proposal: revise" --state open --json number,title,labels --limit 100
 ```
 
-どちらも空なら「対象issueなし」と報告して終了する。
+両方の結果をまとめてリスト化する。どちらも空なら「対象issueなし」と報告して終了する。
 
-取得したissueのラベルが `proposal: revise` か `proposal: needed` かを記録しておく（ステップ5で分岐に使う）。
+### 2. issueの分類と表示
 
-### 2. 改善案の生成
+取得したissueを以下の2グループに分けて一覧表示する。
 
-ui-analyst エージェントを呼び出し、取得したissueの改善案を生成する。
-エージェントの出力は `.claude/reports/ui-proposals/` に保存される。
+```
+[proposal: needed]
+  #12 ヘッダーのコントラスト改善
+  #15 モバイルレイアウトの崩れ修正
 
-### 3. 案の自動選択
-
-スコア最上位の案を自動で選択し、確認なしでステップ4へ進む。
-
-```bash
-gh issue edit <番号> --remove-label "proposal: needed" --remove-label "proposal: revise" --add-label "proposal: approved"
+[proposal: revise]
+  #10 フォームのバリデーション表示
 ```
 
-### 4. 実装
+### 3. 各issueへの処理委譲
 
-`/issue-to-impl <番号>` を実行する。
+分類ごとに、対応するスキルを順番に呼び出す。
 
-UIの変更を伴う場合は `superpowers/subagent-driven-development` の並列エージェントパターンを使い、
-HTML骨格・CSS・JSモックデータ層を並行実装することでコンテキスト汚染を防ぐ。
+#### proposal: needed のissueに対して
 
-### 5. ブランチ作成・PR提出
+issue 1件ごとに `/ui-improve-needed` の処理フローを実行する。
+ただし `/ui-improve-needed` のステップ1（イシュー取得）はスキップし、
+このステップで取得済みのissue番号を直接渡してステップ2（改善案の生成）から開始する。
 
-**ステップ1で取得したラベルによって分岐する。**
+#### proposal: revise のissueに対して
 
-#### proposal: revise だった場合（既存PRへの追加）
+issue 1件ごとに `/ui-improve-revise` の処理フローを実行する。
+ただし `/ui-improve-revise` のステップ1（イシュー取得）はスキップし、
+このステップで取得済みのissue番号を直接渡してステップ2（改善案の生成）から開始する。
 
-既存ブランチに切り替えてcommit・pushする。PRは新規作成しない。
+### 4. 完了報告
 
-```bash
-git checkout feature/issue-<番号>
-git add .
-git commit -m "fix: <Issueタイトル> 修正 (#<番号>)"
-git push origin HEAD
-gh issue edit <番号> \
-  --remove-label "proposal: approved" \
-  --add-label "proposal: ready"
+全issueの処理が終わったら、処理結果を以下の形式でまとめて報告する。
+
 ```
-
-#### proposal: needed だった場合（新規PR作成）
-
-新規ブランチを作成してcommit・push・PR作成する。
-
-```bash
-git checkout -b feature/issue-<番号>
-git add .
-git commit -m "feat: <Issueタイトル> (#<番号>)"
-git push origin HEAD
-gh pr create \
-  --title "<Issueタイトル> (#<番号>)" \
-  --body "closes #<番号>" \
-  --label "proposal: ready"
-gh issue edit <番号> \
-  --remove-label "proposal: approved" \
-  --add-label "proposal: ready"
-```
-
-## ラベル定義（初回のみセットアップ）
-
-```bash
-gh label create "proposal: needed"   --color "e11d48" --description "修正案が提案されていない"
-gh label create "proposal: ready"    --color "f59e0b" --description "修正案が提案されている"
-gh label create "proposal: revise"   --color "f97316" --description "別の修正案を要求"
-gh label create "proposal: approved" --color "16a34a" --description "修正案承認済み"
+処理完了:
+  [proposal: needed → proposal: ready]
+    #12 ヘッダーのコントラスト改善
+    #15 モバイルレイアウトの崩れ修正
+  [proposal: revise → proposal: ready]
+    #10 フォームのバリデーション表示
 ```
