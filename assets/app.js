@@ -568,7 +568,8 @@
           const ti = a.title.toLowerCase();
           const ow = (a.owner||"").toLowerCase();
           const de = (a.description||"").toLowerCase();
-          if (!tokens.every(tok => ti.includes(tok) || ow.includes(tok) || de.includes(tok))) return false;
+          const tg = (a.tags||[]).join(" ").toLowerCase();
+          if (!tokens.every(tok => ti.includes(tok) || ow.includes(tok) || de.includes(tok) || tg.includes(tok))) return false;
         }
         return true;
       });
