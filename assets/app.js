@@ -568,7 +568,10 @@
           const ti = a.title.toLowerCase();
           const ow = (a.owner||"").toLowerCase();
           const de = (a.description||"").toLowerCase();
-          if (!tokens.every(tok => ti.includes(tok) || ow.includes(tok) || de.includes(tok))) return false;
+          const tg = (a.tags||[]).join(" ").toLowerCase();
+          const cp = (a.capabilities||[]).join(" ").toLowerCase();
+          const ca = (a.category||"").toLowerCase();
+          if (!tokens.every(tok => ti.includes(tok) || ow.includes(tok) || de.includes(tok) || tg.includes(tok) || cp.includes(tok) || ca.includes(tok))) return false;
         }
         return true;
       });
@@ -607,7 +610,7 @@
           if (desc.includes(tok)) { reason = t("suggest_reason_desc").replace("$1", esc(tok)); break; }
         }
         return reason ? { a, reason } : null;
-      }).filter(Boolean).slice(0, 4);
+      }).filter(Boolean).slice(0, 6);
     }
 
     function paintSuggests(tokens) {
@@ -649,7 +652,8 @@
       const isEmpty = state.results.length === 0;
       emptyEl.style.display = isEmpty ? "" : "none";
       const tokens = state.q.trim().toLowerCase().split(/[\s　]+/).filter(Boolean);
-      if (isEmpty && tokens.length) paintSuggests(tokens);
+      // タグ・機能での間接ヒットを補完するため、少数結果時もサジェストを表示する
+      if (tokens.length && state.results.length < 4) paintSuggests(tokens);
       else suggestEl.style.display = "none";
     }
 
