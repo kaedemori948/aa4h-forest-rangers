@@ -22,14 +22,9 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: pr.number,
-              body: `## :x: 修正案が却下されました
+              body: `## 却下理由
 
-            このPRの修正案は承認されませんでした。別の修正案の提出をお願いします。
-
-            **却下理由:**
-            <!-- レビュアーが却下理由をここに追記してください -->
-
-            対応するIssueのラベルも \`proposal: revise\` に更新しました。`,
+            <!- レビュアーが却下理由をここに追記してください ->`,
             });
 
       - name: Update linked issue label
