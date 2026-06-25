@@ -422,7 +422,7 @@
   document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
 
   function go(id) {
-    if (flagDetailPage()) location.href = `agent.html?id=${id}`;
+    if (flagDetailPage()) location.href = `${window.AGENT_PAGE ?? "agent.html"}?id=${id}`;
     else openModal(id);
   }
 
@@ -939,7 +939,7 @@
           <div class="chat-result-title">${esc(a.title)}</div>
           <div class="chat-result-meta">
             <span>${fmt(a.views)} ${t("chat_reuse")}</span>
-            <a class="chat-result-link" href="agent.html?id=${a.id}">${t("chat_detail_link")}</a>
+            <a class="chat-result-link" href="${window.AGENT_PAGE ?? "agent.html"}?id=${a.id}">${t("chat_detail_link")}</a>
           </div>
         </div>`).join("");
     }
