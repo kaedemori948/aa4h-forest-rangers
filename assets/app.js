@@ -200,10 +200,15 @@
       termsTitle: a.type?.download_term_condition_title || null,
       description: stripHTML(a.overview),
       overview: a.overview || null,
-      pick: i < 4,
+      pick: false,
       images: a.preview_url ? [a.preview_url] : [],
       tags: (a.tags || []).map(t => typeof t === "string" ? t : (t.title || "")).filter(Boolean),
     }));
+
+    const topPickIds = new Set(
+      [...agents].sort((a, b) => b.views - a.views).slice(0, 4).map(a => a.id)
+    );
+    agents.forEach(a => { a.pick = topPickIds.has(a.id); });
 
     return {
       meta: {
