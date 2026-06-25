@@ -45,6 +45,9 @@ gh issue edit <番号> --remove-label "proposal: needed" --remove-label "proposa
 
 `/issue-to-impl <番号>` を実行する。
 
+> **制約: `data/` 配下のファイル（`test.json` 等）は変更禁止。**
+> 検索ヒット漏れなどデータ起因の問題は、UIロジック側（同義語展開・スコアリング等）で吸収すること。
+
 UIの変更を伴う場合は `superpowers/subagent-driven-development` の並列エージェントパターンを使い、
 HTML骨格・CSS・JSモックデータ層を並行実装することでコンテキスト汚染を防ぐ。
 
