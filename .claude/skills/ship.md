@@ -52,6 +52,27 @@
      --add-label "proposal: ready"
    ```
 
+5. **コンフリクトチェック**
+
+   push・PR作成の後、GitHubのマージ可能性チェックが完了するまで待ってからコンフリクトを確認する。
+   `mergeable` が `UNKNOWN` の間は数秒おきに再取得し、`CONFLICTING` または `MERGEABLE` になるまで待つ。
+
+   ```bash
+   gh pr view <PR番号> --json mergeable
+   ```
+
+   `CONFLICTING` であれば `/resolve-conflict <PR番号>` の手順を実行する。
+   解消・再実装が完了したら、改めて以下でcommit・pushする：
+
+   ```bash
+   git add .
+   git commit -m "fix: re-implement after backmerge main (#<番号>)"
+   git push origin HEAD
+   ```
+
+   pushが完了したら再度コンフリクトチェックを行う（再pushで新たなコンフリクトが起きる可能性があるため）。
+   `MERGEABLE` になったら完了。
+
 ## 注意
 - `git push --force` は使わない
 - mainブランチへの直接pushはしない（必ずブランチを切る）
