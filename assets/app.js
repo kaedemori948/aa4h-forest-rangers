@@ -10,7 +10,6 @@
   let CAT_BY_ID = {};
 
   const CARD_PAD = document.querySelector('link[href*="theme-b"],link[href*="theme-c"]') ? 18 : 22;
-  const PAGES_DIR = document.body.dataset.pagesdir || '';
 
   // ---- slider CSS ----
   (function injectSliderCSS() {
@@ -201,10 +200,15 @@
       termsTitle: a.type?.download_term_condition_title || null,
       description: stripHTML(a.overview),
       overview: a.overview || null,
-      pick: i < 4,
+      pick: false,
       images: a.preview_url ? [a.preview_url] : [],
       tags: (a.tags || []).map(t => typeof t === "string" ? t : (t.title || "")).filter(Boolean),
     }));
+
+    const topPickIds = new Set(
+      [...agents].sort((a, b) => b.views - a.views).slice(0, 4).map(a => a.id)
+    );
+    agents.forEach(a => { a.pick = topPickIds.has(a.id); });
 
     return {
       meta: {
@@ -423,7 +427,7 @@
   document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
 
   function go(id) {
-    if (flagDetailPage()) location.href = `${PAGES_DIR}agent.html?id=${id}`;
+    if (flagDetailPage()) location.href = `${window.AGENT_PAGE ?? "agent.html"}?id=${id}`;
     else openModal(id);
   }
 
@@ -940,7 +944,7 @@
           <div class="chat-result-title">${esc(a.title)}</div>
           <div class="chat-result-meta">
             <span>${fmt(a.views)} ${t("chat_reuse")}</span>
-            <a class="chat-result-link" href="${PAGES_DIR}agent.html?id=${a.id}">${t("chat_detail_link")}</a>
+            <a class="chat-result-link" href="${window.AGENT_PAGE ?? "agent.html"}?id=${a.id}">${t("chat_detail_link")}</a>
           </div>
         </div>`).join("");
     }
