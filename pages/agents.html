@@ -135,6 +135,46 @@
 </div></footer>
 
 <script src="../data/test.js"></script>
+<script>
+/* issue-14: 営業提案書ドラフト生成AI — 要望アセットをデータに追加 */
+(function () {
+  if (!window.ASSETS_DATA) return;
+  window.ASSETS_DATA.assets.push({
+    id: 9001,
+    original_asset_id: 9001,
+    version_number: 1,
+    title: "営業提案書ドラフト生成AI",
+    tag_line: "",
+    overview: "<p>顧客名・商材・取引履歴を入力するとWord形式の提案書ドラフトを自動生成。商品説明・料金表・推奨オプションも自動で挿入され、担当者が確認・微修正するだけで使える状態にします。</p>",
+    contact_email_id: "",
+    preview_gallery_id: null,
+    preview_url: null,
+    type: {
+      id: 299,
+      c_name: "category",
+      title: "営業支援",
+      download_term_condition_url: null,
+      download_term_condition_title: null
+    },
+    status: { id: 4, c_name: "published", title: "Published" },
+    access_type: { id: 2, c_name: "everyone", title: "Everyone" },
+    people: [],
+    last_updated_at: "2026-06-26T00:00:00.000Z",
+    communities: [],
+    languages: [],
+    active_versions: [],
+    versions: [],
+    entities: [],
+    locations: [],
+    owners: [],
+    moderators: [],
+    creator: null,
+    capabilities: ["Word", "PowerPoint", "Salesforce"],
+    tags: ["提案書", "営業", "ドキュメント生成"],
+    stats: { view_count: 0, unique_view_count: 0, download_count: 0, like_count: 0, comment_count: 0 }
+  });
+})();
+</script>
 <script src="../assets/app.js"></script>
 <script src="../assets/api.js"></script>
 <script>
