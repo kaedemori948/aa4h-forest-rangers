@@ -592,112 +592,115 @@
   </div>
 </div>
 
-<!-- ── SLIDE 9: Skills とエージェント一覧 ── -->
+<!-- ── SLIDE 9: Agents 一覧 ── -->
 <div class="slide" data-act="Claude for AI Agent">
   <div class="h-1.5 bg-[#E60012]"></div>
   <div class="flex-1 bg-white px-16 py-8 flex flex-col">
-    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">06 — Claude for AI Agent① Skills とエージェント</p>
-    <h2 class="text-2xl font-bold text-gray-900 mb-4">Skills・エージェント一覧と役割</h2>
-    <div class="flex gap-6 flex-1">
-
-      <!-- 左列: Skills -->
-      <div class="flex-1 flex flex-col gap-2">
-        <div class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Skills（/コマンドで呼び出す追加機能）</div>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
-          <div class="text-xs font-semibold text-[#E60012] mb-1">issue-to-impl</div>
-          <p class="text-xs text-gray-600">GitHubイシューを解析し、実装までを行う</p>
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">06 — Claude for AI Agent① Agents</p>
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">エージェント一覧と役割</h2>
+    <div class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Agents（自律的に動くAIサブエージェント）</div>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-xs font-semibold text-[#E60012]">QA Agent</div>
+          <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">.claude/reports/qa/</code>
         </div>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
-          <div class="text-xs font-semibold text-[#E60012] mb-1">ship</div>
-          <p class="text-xs text-gray-600">テスト済みの変更をブランチ作成→commit→push→PR作成まで行う</p>
-        </div>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
-          <div class="text-xs font-semibold text-[#E60012] mb-1">update-docs</div>
-          <p class="text-xs text-gray-600">.claude/documents/ を参照して dev-environment.html を再生成する</p>
-        </div>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
-          <div class="text-xs font-semibold text-[#E60012] mb-1">frontend-design</div>
-          <p class="text-xs text-gray-600">個性的・意図的なビジュアルデザインの指針を提供する</p>
-        </div>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
-          <div class="text-xs font-semibold text-[#E60012] mb-1">update-dev-env</div>
-          <p class="text-xs text-gray-600">updateFormat.md の修正指示をもとに dev-environment.html を部分的に更新する</p>
-        </div>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
-          <div class="text-xs font-semibold text-[#E60012] mb-1">ui-improve</div>
-          <p class="text-xs text-gray-600">proposal:needed / proposal:revise ラベルのissueを全件ピックアップし並列処理するオーケストレーター</p>
-        </div>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
-          <div class="text-xs font-semibold text-[#E60012] mb-1">ui-improve-needed</div>
-          <p class="text-xs text-gray-600">proposal: needed のissueを1件選び、改善案の生成・実装・PR提出まで自動で行う</p>
-        </div>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
-          <div class="text-xs font-semibold text-[#E60012] mb-1">ui-improve-revise</div>
-          <p class="text-xs text-gray-600">proposal: revise のissueを1件選び、却下理由を踏まえて再実装・pushする</p>
-        </div>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
-          <div class="text-xs font-semibold text-[#E60012] mb-1">sync-skills-page</div>
-          <p class="text-xs text-gray-600">.claude/agents/ と .claude/skills/ の内容を読み取り、dev-environment.html のスキル一覧ページを更新する</p>
-        </div>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
-          <div class="text-xs font-semibold text-[#E60012] mb-1">resolve-conflict</div>
-          <p class="text-xs text-gray-600">指定PRのコンフリクトをAIが自動解消し、コミット・プッシュまで行う</p>
-        </div>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
-          <div class="text-xs font-semibold text-[#E60012] mb-2">superpowers（拡張スキル群）</div>
-          <div class="flex gap-4">
-            <ul class="text-xs text-gray-600 flex flex-col gap-0.5 flex-1">
-              <li><span class="text-gray-400">—</span> brainstorming</li>
-              <li><span class="text-gray-400">—</span> systematic-debugging</li>
-              <li><span class="text-gray-400">—</span> test-driven-development</li>
-              <li><span class="text-gray-400">—</span> dispatching-parallel-agents</li>
-              <li><span class="text-gray-400">—</span> using-git-worktrees</li>
-              <li><span class="text-gray-400">—</span> executing-plans</li>
-              <li><span class="text-gray-400">—</span> finishing-a-development-branch</li>
-            </ul>
-            <ul class="text-xs text-gray-600 flex flex-col gap-0.5 flex-1">
-              <li><span class="text-gray-400">—</span> receiving-code-review</li>
-              <li><span class="text-gray-400">—</span> requesting-code-review</li>
-              <li><span class="text-gray-400">—</span> subagent-driven-development</li>
-              <li><span class="text-gray-400">—</span> using-superpowers</li>
-              <li><span class="text-gray-400">—</span> verification-before-completion</li>
-              <li><span class="text-gray-400">—</span> writing-plans</li>
-              <li><span class="text-gray-400">—</span> writing-skills</li>
-            </ul>
-          </div>
-        </div>
+        <p class="text-xs text-gray-600">UI操作・入力処理・JSイベント・レスポンシブ・エラー処理の品質検査を担当</p>
       </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-xs font-semibold text-[#E60012]">Security Agent</div>
+          <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">.claude/reports/security/</code>
+        </div>
+        <p class="text-xs text-gray-600">XSS・innerHTML・APIキー漏洩・localStorage・外部通信のセキュリティ監査を担当</p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-xs font-semibold text-[#E60012]">Fixer Agent</div>
+          <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">.claude/reports/</code>
+        </div>
+        <p class="text-xs text-gray-600">QA/Securityレポートを入力に受け取り、原因確認→コード修正→git diff説明を行う</p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-xs font-semibold text-[#E60012]">UI Analyst Agent</div>
+          <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">.claude/reports/ui-proposals/</code>
+        </div>
+        <p class="text-xs text-gray-600">フロントエンドUI/UXの改善提案者。issueの内容とコードベースをもとに改善案を生成する</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-      <!-- 右列: Agents -->
-      <div class="flex-1 flex flex-col gap-2">
-        <div class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Agents（自律的に動くAIサブエージェント）</div>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
-          <div class="flex items-center justify-between mb-1">
-            <div class="text-xs font-semibold text-[#E60012]">QA Agent</div>
-            <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">.claude/reports/qa/</code>
-          </div>
-          <p class="text-xs text-gray-600">UI操作・入力処理・JSイベント・レスポンシブ・エラー処理の品質検査を担当</p>
-        </div>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
-          <div class="flex items-center justify-between mb-1">
-            <div class="text-xs font-semibold text-[#E60012]">Security Agent</div>
-            <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">.claude/reports/security/</code>
-          </div>
-          <p class="text-xs text-gray-600">XSS・innerHTML・APIキー漏洩・localStorage・外部通信のセキュリティ監査を担当</p>
-        </div>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
-          <div class="flex items-center justify-between mb-1">
-            <div class="text-xs font-semibold text-[#E60012]">Fixer Agent</div>
-            <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">.claude/reports/</code>
-          </div>
-          <p class="text-xs text-gray-600">QA/Securityレポートを入力に受け取り、原因確認→コード修正→git diff説明を行う</p>
-        </div>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
-          <div class="flex items-center justify-between mb-1">
-            <div class="text-xs font-semibold text-[#E60012]">UI Analyst Agent</div>
-            <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">.claude/reports/ui-proposals/</code>
-          </div>
-          <p class="text-xs text-gray-600">フロントエンドUI/UXの改善提案者。issueの内容とコードベースをもとに改善案を生成する</p>
+<!-- ── SLIDE 10: Skills 一覧 ── -->
+<div class="slide" data-act="Claude for AI Agent">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-8 flex flex-col">
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">06 — Claude for AI Agent② Skills</p>
+    <h2 class="text-2xl font-bold text-gray-900 mb-2">Skills 一覧と役割</h2>
+    <div class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Skills（/コマンドで呼び出す追加機能）</div>
+    <div class="grid grid-cols-2 gap-1.5">
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-2">
+        <div class="text-xs font-semibold text-[#E60012] mb-1">issue-to-impl</div>
+        <p class="text-xs text-gray-600">GitHubイシューを解析し、実装までを行う</p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-2">
+        <div class="text-xs font-semibold text-[#E60012] mb-1">ship</div>
+        <p class="text-xs text-gray-600">テスト済みの変更をブランチ作成→commit→push→PR作成まで行う</p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-2">
+        <div class="text-xs font-semibold text-[#E60012] mb-1">update-docs</div>
+        <p class="text-xs text-gray-600">.claude/documents/ を参照して dev-environment.html を再生成する</p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-2">
+        <div class="text-xs font-semibold text-[#E60012] mb-1">frontend-design</div>
+        <p class="text-xs text-gray-600">個性的・意図的なビジュアルデザインの指針を提供する</p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-2">
+        <div class="text-xs font-semibold text-[#E60012] mb-1">update-dev-env</div>
+        <p class="text-xs text-gray-600">dev-environment.html を最新の開発状況に合わせて更新する（Agents / Skills は別ページで管理）</p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-2">
+        <div class="text-xs font-semibold text-[#E60012] mb-1">ui-improve</div>
+        <p class="text-xs text-gray-600">proposal:needed / proposal:revise ラベルのissueを全件ピックアップし並列処理するオーケストレーター</p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-2">
+        <div class="text-xs font-semibold text-[#E60012] mb-1">ui-improve-needed</div>
+        <p class="text-xs text-gray-600">proposal: needed のissueを1件選び、改善案の生成・実装・PR提出まで自動で行う</p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-2">
+        <div class="text-xs font-semibold text-[#E60012] mb-1">ui-improve-revise</div>
+        <p class="text-xs text-gray-600">proposal: revise のissueを1件選び、却下理由を踏まえて再実装・pushする</p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-2">
+        <div class="text-xs font-semibold text-[#E60012] mb-1">sync-skills-page</div>
+        <p class="text-xs text-gray-600">.claude/agents/ と .claude/skills/ の内容を読み取り、dev-environment.html のスキル一覧ページを更新する</p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-2">
+        <div class="text-xs font-semibold text-[#E60012] mb-1">resolve-conflict</div>
+        <p class="text-xs text-gray-600">指定PRのコンフリクトをAIが自動解消し、コミット・プッシュまで行う</p>
+      </div>
+      <div class="col-span-2 bg-gray-50 border border-gray-200 rounded-xl p-2">
+        <div class="text-xs font-semibold text-[#E60012] mb-1">superpowers（拡張スキル群）</div>
+        <div class="flex gap-4">
+          <ul class="text-xs text-gray-600 flex flex-col gap-0.5 flex-1">
+            <li><span class="text-gray-400">—</span> brainstorming</li>
+            <li><span class="text-gray-400">—</span> systematic-debugging</li>
+            <li><span class="text-gray-400">—</span> test-driven-development</li>
+            <li><span class="text-gray-400">—</span> dispatching-parallel-agents</li>
+            <li><span class="text-gray-400">—</span> using-git-worktrees</li>
+            <li><span class="text-gray-400">—</span> executing-plans</li>
+            <li><span class="text-gray-400">—</span> finishing-a-development-branch</li>
+          </ul>
+          <ul class="text-xs text-gray-600 flex flex-col gap-0.5 flex-1">
+            <li><span class="text-gray-400">—</span> receiving-code-review</li>
+            <li><span class="text-gray-400">—</span> requesting-code-review</li>
+            <li><span class="text-gray-400">—</span> subagent-driven-development</li>
+            <li><span class="text-gray-400">—</span> using-superpowers</li>
+            <li><span class="text-gray-400">—</span> verification-before-completion</li>
+            <li><span class="text-gray-400">—</span> writing-plans</li>
+            <li><span class="text-gray-400">—</span> writing-skills</li>
+          </ul>
         </div>
       </div>
     </div>
