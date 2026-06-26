@@ -304,26 +304,27 @@ select.fb-input { appearance: none; padding-right: 30px;
   </div>
 
   <div class="fb-actions">
-    <button class="btn-primary" id="submit-btn" type="button">Issue として送信する（デモ）</button>
+    <button class="btn-primary" id="submit-btn" type="button">Issue として送信する</button>
     <button class="btn-copy" id="copy-btn" type="button">Markdown をコピー</button>
     <span class="copy-msg" id="copy-msg">コピーしました</span>
   </div>
 
   <div class="sent-banner" id="sent-banner">
-    <h2>送信しました（デモ）</h2>
-    <p>実際の送信機能は未実装です。上記の Markdown をコピーして GitHub Issues へ貼り付けてください。<br>
-       ご要望はAI CoEチームが確認し、アセット開発の優先度検討に活用します。</p>
+    <h2>送信しました</h2>
+    <p>ご要望はAI CoEチームが確認し、アセット開発の優先度検討に活用します。<br>
+       <a id="issue-link" href="#" target="_blank" rel="noopener">GitHub Issue を確認する →</a></p>
   </div>
 
 </div>
 
 <footer class="site-foot"><div class="wrap">
   <div class="foot-brand">AI Assets <b>for</b> AI Agent</div>
-  <div class="foot-meta">© 2026 ABC Group AI Center of Excellence<br><span class="demo-note">※ このフォームはデモ版です。実際のGitHub送信は未実装</span></div>
+  <div class="foot-meta">© 2026 ABC Group AI Center of Excellence</div>
 </div></footer>
 
 <script src="../data/test.js"></script>
 <script src="../assets/app.js"></script>
+<script src="../assets/api.js"></script>
 <script>
 (function () {
   "use strict";
@@ -491,8 +492,8 @@ select.fb-input { appearance: none; padding-right: 30px;
     });
   });
 
-  // ── submit (demo) ──
-  document.getElementById("submit-btn").addEventListener("click", () => {
+  // ── submit ──
+  document.getElementById("submit-btn").addEventListener("click", async () => {
     const goal   = document.getElementById("goal").value.trim();
     const result = document.getElementById("result").value;
     const desc   = document.getElementById("asset-desc").value.trim();
@@ -500,10 +501,24 @@ select.fb-input { appearance: none; padding-right: 30px;
       alert("必須項目（達成したかったこと・検索結果の状況・求める機能）を入力してください。");
       return;
     }
-    document.getElementById("sent-banner").style.display = "block";
-    document.getElementById("submit-btn").disabled = true;
-    document.getElementById("submit-btn").textContent = "送信済み";
-    document.getElementById("sent-banner").scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+    const btn = document.getElementById("submit-btn");
+    btn.disabled = true;
+    btn.textContent = "送信中…";
+
+    try {
+      const { title, body } = buildIssue();
+      const { url } = await AA4HAPI.createIssue({ title, body });
+
+      document.getElementById("issue-link").href = url;
+      document.getElementById("sent-banner").style.display = "block";
+      btn.textContent = "送信済み";
+      document.getElementById("sent-banner").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    } catch (err) {
+      alert(`送信に失敗しました: ${err.message}`);
+      btn.disabled = false;
+      btn.textContent = "Issue として送信する";
+    }
   });
 
   updatePreview();
