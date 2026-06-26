@@ -459,7 +459,7 @@
     if (ci) {
       const maxc = Math.max(...CATS.map(c => c.count));
       ci.innerHTML = CATS.map((c,i) => `
-        <a class="cat-row reveal" href="agents.html?cat=${c.id}" style="animation-delay:${i*50}ms">
+        <a class="cat-row reveal" href="${window.AGENTS_PAGE || 'pages/agents.html'}?cat=${c.id}" style="animation-delay:${i*50}ms">
           <span class="cat-no">${String(i+1).padStart(2,"0")}</span>
           <span class="cat-gl">${esc(c.icon)}</span>
           <span class="cat-name">${esc(c.name)}</span>
