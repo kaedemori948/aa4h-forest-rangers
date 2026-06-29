@@ -776,11 +776,6 @@
             <div class="dtl-stat"><span class="dtl-stat-n">${fmt(a.comments)}</span><span class="dtl-stat-l">コメント</span></div>
           </div>
 
-          <div class="dtl-cta">
-            <button class="btn try-cta">${t("detail_try")} <span class="arr">→</span></button>
-            <span class="detail-demo">${t("detail_demo")}</span>
-          </div>
-
           <dl class="dtl-meta">
             <div>
               <dt>${t("fld_owner")}</dt>
@@ -803,9 +798,7 @@
 
     bindDetailSlider(root);
 
-    root.querySelector(".try-cta").addEventListener("click", function() {
-      this.innerHTML = t("detail_try_done"); this.classList.add("tried");
-    });
+
   }
 
   // ================= CHAT POD =================
