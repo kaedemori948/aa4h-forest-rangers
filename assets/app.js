@@ -457,14 +457,12 @@
 
     const ci = document.getElementById("cat-index");
     if (ci) {
-      const maxc = Math.max(...CATS.map(c => c.count));
       ci.innerHTML = CATS.map((c,i) => `
         <a class="cat-row reveal" href="${window.AGENTS_PAGE || 'pages/agents.html'}?cat=${c.id}" style="animation-delay:${i*50}ms">
           <span class="cat-no">${String(i+1).padStart(2,"0")}</span>
           <span class="cat-gl">${esc(c.icon)}</span>
           <span class="cat-name">${esc(c.name)}</span>
-          <span class="cat-bar"><span style="width:${(c.count/maxc*100).toFixed(1)}%"></span></span>
-          <span class="cat-count">${fmt(c.count)}</span>
+          <span class="cat-count">${fmt(c.count)} assets</span>
           <span class="cat-arr">→</span>
         </a>`).join("");
     }
