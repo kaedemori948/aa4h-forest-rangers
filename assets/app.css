@@ -169,7 +169,7 @@ img { max-width:100%; display:block; }
 }
 .card-desc {
   font-size:13px; color: var(--muted); line-height:1.55;
-  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden;
   min-height: 0;
 }
 .card-foot {

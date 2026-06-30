@@ -549,9 +549,45 @@
     DATA.agents.forEach(a => (a.capabilities||[]).forEach(c => capSet.set(c, (capSet.get(c)||0)+1)));
     buildPills(capPills, capSet, state.caps);
 
+    const TAG_GROUPS = [
+      { label: "業務・文書",   tags: ["テンプレート","文書","手順書","チェックリスト","レポート","提案","ロードマップ"] },
+      { label: "データ・分析", tags: ["データ","分析","BI","KPI","ダッシュボード","トレンド","市場","調査","リサーチ","情報収集"] },
+      { label: "開発・技術",   tags: ["コード","開発","バグ","テスト","API","CI/CD対応","DevOps","UX","アーキテクチャ","QA","ノーコード","品質","品質保証"] },
+      { label: "営業・顧客",   tags: ["営業","顧客","リード","CRM","CRM連携","フォローアップ"] },
+      { label: "業務改善",     tags: ["自動化","効率化","業務改善","自動通知","監査","確認"] },
+      { label: "ナレッジ・情報", tags: ["ナレッジ","Wiki"] },
+      { label: "ツール連携",   tags: ["API連携","Excel対応","Outlook連携","チャットBot"] },
+      { label: "戦略・企画",   tags: ["戦略","プロダクト","アジャイル","ビジネス","レビュー"] },
+    ];
+
     const tagSet = new Map();
     DATA.agents.forEach(a => (a.tags||[]).forEach(tg => tagSet.set(tg, (tagSet.get(tg)||0)+1)));
-    buildPills(tagPills, tagSet, state.tags);
+
+    function buildGroupedTagPills(container, stateArr) {
+      if (!container) return;
+      const allKnown = new Set(TAG_GROUPS.flatMap(g => g.tags));
+      const otherTags = [...tagSet.keys()].filter(t => !allKnown.has(t)).sort((a,b) => a.localeCompare(b,"ja"));
+      const groups = otherTags.length > 0 ? [...TAG_GROUPS, { label:"その他", tags: otherTags }] : TAG_GROUPS;
+      container.innerHTML = groups.map(g => {
+        const pills = g.tags.filter(t => tagSet.has(t));
+        if (!pills.length) return "";
+        return `<div class="tag-group">
+          <div class="tag-group-label">${esc(g.label)}</div>
+          <div class="facet-pills">${pills.map(name =>
+            `<button class="facet-pill" data-val="${esc(name)}">${esc(name)}<span>${tagSet.get(name)}</span></button>`
+          ).join("")}</div>
+        </div>`;
+      }).join("");
+      container.addEventListener("click", e => {
+        const b = e.target.closest(".facet-pill"); if (!b) return;
+        const val = b.dataset.val;
+        const idx = stateArr.indexOf(val);
+        if (idx === -1) stateArr.push(val); else stateArr.splice(idx, 1);
+        b.classList.toggle("active", stateArr.includes(val));
+        refresh();
+      });
+    }
+    buildGroupedTagPills(tagPills, state.tags);
 
     function compute() {
       const tokens = state.q.trim().toLowerCase().split(/[\s　]+/).filter(Boolean);
