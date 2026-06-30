@@ -366,7 +366,7 @@
 <article class="card reveal${sliderClass}" data-id="${a.id}"${delay}>
   ${slider}
   <div class="card-top">
-    <span class="card-cat"><span class="gl">${catGlyph(a.category)}</span>${esc(catName(a.category))}</span>
+    <a class="card-cat" href="${(window.AGENTS_PAGE||'agents.html')}?cat=${encodeURIComponent(a.category)}"><span class="gl">${catGlyph(a.category)}</span>${esc(catName(a.category))}</a>
     <span class="card-id">№${a.id}</span>
   </div>
   <h3 class="card-title">${esc(a.title)}</h3>
@@ -435,6 +435,7 @@
     root.addEventListener("click", e => {
       if (e.target.closest("[data-slider]") &&
           (e.target.closest(".card-slider-btn") || e.target.closest(".card-slider-dot"))) return;
+      if (e.target.closest(".card-cat")) return;
       const c = e.target.closest(".card");
       if (c) go(+c.dataset.id);
     });
@@ -792,8 +793,7 @@
         <div class="dtl-img">${imgHTML}</div>
         <div class="dtl-info">
           <div class="dtl-eyebrow">
-            <span class="gl">${catGlyph(a.category)}</span>
-            ${esc(catName(a.category))}
+            <a class="dtl-cat-link" href="agents.html?cat=${encodeURIComponent(a.category)}"><span class="gl">${catGlyph(a.category)}</span>${esc(catName(a.category))}</a>
             <span>·</span><span>№${a.id}</span>
             ${a.pick ? `<span class="dtl-pick">· ${t("pick_badge")}</span>` : ""}
           </div>
