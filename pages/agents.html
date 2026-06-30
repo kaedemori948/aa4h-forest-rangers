@@ -18,8 +18,23 @@
 .toolbar .wrap { display:flex; gap:14px; align-items:center; }
 .toolbar .search-box { flex:1; }
 
+/* やりたいことで探すバー — 1クリックで業務課題ベースの絞り込みを実現 */
+.quickfilter-bar { border-bottom:1px solid var(--line); background:var(--surface); padding:10px 0; }
+.quickfilter-bar .wrap { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.quickfilter-label { font-size:11.5px; font-weight:600; color:var(--muted); letter-spacing:.04em; white-space:nowrap; }
+.quickfilter-btns { display:flex; gap:7px; flex-wrap:wrap; }
+.qf-btn {
+  font-family:var(--sans); font-size:13px; font-weight:500; color:var(--ink-2);
+  background:var(--bg); border:1px solid var(--line-2); border-radius:100px;
+  padding:6px 14px; cursor:pointer; white-space:nowrap;
+  transition: background .15s var(--ease), color .15s var(--ease), border-color .15s var(--ease), box-shadow .15s var(--ease);
+}
+.qf-btn:hover { background:var(--red-soft); color:var(--red); border-color:var(--red); }
+.qf-btn.active { background:var(--red); color:#fff; border-color:var(--red);
+  box-shadow:0 4px 12px -4px rgba(200,16,46,.45); }
+
 .layout { display:grid; grid-template-columns:236px 1fr; gap:32px; padding:26px 0 0; align-items:start; }
-.rail { position:sticky; top:130px; max-height:calc(100vh - 150px); overflow-y:auto; padding-right:4px; }
+.rail { position:sticky; top:168px; max-height:calc(100vh - 188px); overflow-y:auto; padding-right:4px; }
 .rail::-webkit-scrollbar { width:6px; }
 .rail::-webkit-scrollbar-thumb { background:var(--line-2); border-radius:3px; }
 .rail-title { font-size:12px; font-weight:500; color:var(--muted); padding:0 12px 8px; }
@@ -33,6 +48,7 @@
   .rail { position:static; }
   .chips { flex-direction:row; flex-wrap:wrap; }
   .chip { border:1px solid var(--line-2); border-radius:100px; }
+  .quickfilter-bar .wrap { gap:8px; }
 }
 </style>
 </head>
@@ -73,6 +89,19 @@
     </select>
   </div>
 </div></div>
+
+<div class="quickfilter-bar" id="quickfilter-bar">
+  <div class="wrap">
+    <span class="quickfilter-label">やりたいことで探す</span>
+    <div class="quickfilter-btns" id="qf-btns">
+      <button class="qf-btn" data-qf="proposal" type="button">📄 提案書を作りたい</button>
+      <button class="qf-btn" data-qf="analysis" type="button">📊 データ分析したい</button>
+      <button class="qf-btn" data-qf="research" type="button">🔍 情報収集・調査したい</button>
+      <button class="qf-btn" data-qf="review" type="button">✅ レビュー・チェックしたい</button>
+      <button class="qf-btn" data-qf="dev" type="button">💻 コード・開発を支援したい</button>
+    </div>
+  </div>
+</div>
 
 <main class="wrap">
   <div class="layout">

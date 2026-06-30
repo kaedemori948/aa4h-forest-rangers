@@ -699,6 +699,51 @@
       refresh();
     });
 
+    // ---- クイックフィルタ: 業務課題ラベルから1クリックで絞り込むため、タグ/カテゴリを束ねたマップで管理 ----
+    const QF_MAP = {
+      proposal: { cats: ["営業支援", "資料・文書作成"], tags: ["提案書", "営業", "ドキュメント生成"] },
+      analysis: { cats: ["データ分析・診断"],           tags: ["データ分析", "分析", "診断"] },
+      research: { cats: ["情報収集・調査"],              tags: ["調査", "情報収集", "リサーチ"] },
+      review:   { cats: ["レビュー・チェック", "テスト・品質保証"], tags: ["レビュー", "チェック", "品質"] },
+      dev:      { cats: ["開発・コード支援"],            tags: ["コード", "開発", "プログラム"] },
+    };
+    let activeQf = null;
+
+    function applyQf(key) {
+      if (activeQf === key) {
+        // 同じボタンを再クリックで解除
+        activeQf = null;
+        state.cats = []; state.tags = [];
+      } else {
+        activeQf = key;
+        const rule = QF_MAP[key];
+        state.cats = [...rule.cats];
+        state.tags = [...rule.tags];
+      }
+      document.querySelectorAll(".qf-btn").forEach(b => b.classList.toggle("active", b.dataset.qf === activeQf));
+      // サイドレールのカテゴリチップも同期してユーザーが現在の絞り込み状態を把握できるようにする
+      syncChips();
+      syncReset();
+      compute(); paint(false);
+    }
+
+    const qfBtns = document.getElementById("qf-btns");
+    if (qfBtns) {
+      qfBtns.addEventListener("click", e => {
+        const b = e.target.closest(".qf-btn"); if (!b) return;
+        applyQf(b.dataset.qf);
+      });
+    }
+
+    // クイックフィルタ中にリセットボタンを押したらQFも解除する
+    const _origReset = resetBtn && resetBtn.onclick;
+    if (resetBtn) {
+      resetBtn.addEventListener("click", () => {
+        activeQf = null;
+        document.querySelectorAll(".qf-btn").forEach(b => b.classList.remove("active"));
+      });
+    }
+
     let timer;
     qInput.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(() => { state.q = qInput.value; refresh(); }, 160); });
     sortSel.addEventListener("change", () => { state.sort = sortSel.value; refresh(); });
