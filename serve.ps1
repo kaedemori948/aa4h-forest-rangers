@@ -5,9 +5,9 @@ $listener.Prefixes.Add("http://localhost:${port}/")
 $listener.Start()
 Write-Host "Serving $root on http://localhost:$port/"
 $mimeTypes = @{
-  ".html"=>"text/html; charset=utf-8";".css"=>"text/css";".js"=>"application/javascript";
-  ".json"=>"application/json";".png"=>"image/png";".jpg"=>"image/jpeg";".svg"=>"image/svg+xml";
-  ".txt"=>"text/plain"
+  ".html"="text/html; charset=utf-8";".css"="text/css";".js"="application/javascript";
+  ".json"="application/json";".png"="image/png";".jpg"="image/jpeg";".svg"="image/svg+xml";
+  ".txt"="text/plain"
 }
 while ($listener.IsListening) {
   $ctx = $listener.GetContext()

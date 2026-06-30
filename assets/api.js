@@ -3,66 +3,28 @@
    Switch API_BASE to the GCP endpoint on production.
    ============================================================ */
 
-// ローカルをfile://で開く場合はこの行をコメントアウト
-// const AA4H_AUTH_ENABLED = true;
+// コメントアウトするとdata/test.jsのモックデータを使用する
+// const AA4H_API_ENABLED = true;
 
 (function (global) {
   "use strict";
 
   const API_BASE = "http://localhost:3000";
 
-  // ---- Auth ----
+  // ---- Assets ----
 
-  function getToken() {
-    return sessionStorage.getItem("gh_token");
-  }
-
-  function saveToken(token) {
-    sessionStorage.setItem("gh_token", token);
-  }
-
-  function clearToken() {
-    sessionStorage.removeItem("gh_token");
-  }
-
-  // URLにtokenパラメータがあればsessionStorageに保存してURLをクリーンにする
-  function consumeTokenFromUrl() {
-    const params = new URLSearchParams(location.search);
-    const token = params.get("token");
-    if (!token) return;
-    saveToken(token);
-    params.delete("token");
-    const clean = params.toString()
-      ? `${location.pathname}?${params}`
-      : location.pathname;
-    history.replaceState(null, "", clean);
-  }
-
-  function isLoggedIn() {
-    return !!getToken();
-  }
-
-  function login() {
-    location.href = `${API_BASE}/auth/login?return_to=${encodeURIComponent(location.href)}`;
-  }
-
-  function logout() {
-    clearToken();
-    location.reload();
+  async function fetchAssets() {
+    const res = await fetch(`${API_BASE}/api/assets`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
   }
 
   // ---- Issues ----
 
   async function createIssue({ title, body }) {
-    const token = getToken();
-    if (!token) throw new Error("Not authenticated");
-
     const res = await fetch(`${API_BASE}/api/issues`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title, body }),
     });
 
@@ -74,14 +36,5 @@
     return res.json(); // { url, number }
   }
 
-  // ---- Auth guard (runs on every page that loads this script) ----
-
-  function initAuthGuard() {
-    consumeTokenFromUrl();
-    if (!isLoggedIn()) login();
-  }
-
-  global.AA4HAPI = { consumeTokenFromUrl, isLoggedIn, login, logout, createIssue, initAuthGuard };
-
-  if (typeof AA4H_AUTH_ENABLED !== "undefined" && AA4H_AUTH_ENABLED) initAuthGuard();
+  global.AA4HAPI = { fetchAssets, createIssue };
 })(window);

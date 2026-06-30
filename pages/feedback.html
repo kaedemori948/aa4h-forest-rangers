@@ -498,8 +498,12 @@ select.fb-input { appearance: none; padding-right: 30px;
     const goal   = document.getElementById("goal").value.trim();
     const result = document.getElementById("result").value;
     const desc   = document.getElementById("asset-desc").value.trim();
-    if (!goal || !result || !desc) {
-      alert("必須項目（達成したかったこと・検索結果の状況・求める機能）を入力してください。");
+    const missing = [];
+    if (!goal)   missing.push("達成したかったこと（セクション1）");
+    if (!result) missing.push("検索結果の状況（セクション2）");
+    if (!desc)   missing.push("求める機能・処理（セクション3）");
+    if (missing.length > 0) {
+      alert("以下の必須項目を入力してください:\n\n" + missing.map(m => "・" + m).join("\n"));
       return;
     }
 

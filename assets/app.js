@@ -988,11 +988,24 @@
     });
   }
 
-  // ---- boot: read window.ASSETS_DATA (loaded via data/test.js script tag) ----
-  document.addEventListener("DOMContentLoaded", () => {
+  // ---- boot ----
+  document.addEventListener("DOMContentLoaded", async () => {
     applyI18n();
-    if (!window.ASSETS_DATA) { console.error("ASSETS_DATA not loaded"); return; }
-    DATA = transformData(window.ASSETS_DATA);
+
+    let raw;
+    if (typeof AA4H_API_ENABLED !== "undefined" && AA4H_API_ENABLED) {
+      try {
+        raw = await AA4HAPI.fetchAssets();
+      } catch (e) {
+        console.error("fetchAssets failed:", e);
+        return;
+      }
+    } else {
+      if (!window.ASSETS_DATA) { console.error("ASSETS_DATA not loaded"); return; }
+      raw = window.ASSETS_DATA;
+    }
+
+    DATA = transformData(raw);
     CATS = DATA.categories;
     CAT_BY_ID = Object.fromEntries(CATS.map(c => [c.id, c]));
     if (document.body.dataset.page === "home")   renderHome();
