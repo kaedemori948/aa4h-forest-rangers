@@ -224,7 +224,7 @@
   // ---- i18n ----
   const I18N = {
     ja: {
-      nav_index:"索引", nav_home:"ホーム", nav_agents:"エージェント一覧", nav_new:"新着",
+      nav_index:"索引", nav_home:"ホーム", nav_agents:"アセット一覧", nav_new:"新着",
       stat_agents_br:"公開アセット<br>Published", stat_reuse_br:"閲覧数<br>VIEWS", stat_cats_br:"カテゴリ<br>Categories",
       stat_agents:"公開アセット", stat_reuse:"閲覧数", stat_cats:"カテゴリ",
       sec_picks_sub:"AI-CoE 厳選 — Curated", sec_cats_sub:"利用シーン別 — Index",
@@ -232,7 +232,7 @@
       link_picks:"ピック一覧 →", link_cats:"すべて見る →", link_ranking:"ランキング全体 →", link_newest:"新着をもっと →",
       list_h1:"アセット一覧", list_desc:"公開中のAIアセットを横断検索。キーワード・カテゴリ・並び順で、目的のアセットへ素早くたどり着けます。",
       list_h1_en:"Directory",
-      search_ph:"アセット名・オーナー・概要で検索…",
+      search_ph:"アセット名・概要で検索…",
       sort_label:"並び順",
       sort_views:"人気順（ビュー）", sort_downloads:"利用実績順（DL）", sort_newest:"新着順", sort_likes:"いいね順", sort_title:"名前順",
       facet_cap_label:"機能タグ", facet_date_label:"更新日", facet_dl_label:"DL実績", facet_tag_label:"タグ",
