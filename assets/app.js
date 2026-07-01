@@ -687,7 +687,8 @@
       moreBtn.style.display = state.shown < state.results.length ? "" : "none";
       moreBtn.textContent = `${t("more_text")}  (${t("more_remain")} ${fmt(state.results.length - state.shown)})`;
       const isEmpty = state.results.length === 0;
-      emptyEl.style.display = isEmpty ? "" : "none";
+      // .empty は CSS で display:none のため、表示側は明示的に block を指定する
+      emptyEl.style.display = isEmpty ? "block" : "none";
       const tokens = state.q.trim().toLowerCase().split(/[\s　]+/).filter(Boolean);
       if (isEmpty && tokens.length) paintSuggests(tokens);
       else suggestEl.style.display = "none";
