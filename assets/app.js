@@ -590,8 +590,26 @@
     }
     buildGroupedTagPills(tagPills, state.tags);
 
+    // 業務用語と実際のタイトル・説明に現れる語の橋渡し（データを変えずに検索精度を上げるため）
+    const FILTER_SYNONYMS = {
+      'スライド':    ['提案書', '資料', 'プレゼン'],
+      'powerpoint':  ['提案書', '資料', '文書'],
+      'ppt':         ['提案書', '資料', '文書'],
+      'プレゼン':    ['提案書', '資料'],
+      'プレゼンテーション': ['提案書', '資料'],
+    };
+    function expandFilterTokens(tokens) {
+      const expanded = new Set(tokens);
+      tokens.forEach(tok => {
+        const syns = FILTER_SYNONYMS[tok];
+        if (syns) syns.forEach(s => expanded.add(s));
+      });
+      return [...expanded];
+    }
+
     function compute() {
-      const tokens = state.q.trim().toLowerCase().split(/[\s　]+/).filter(Boolean);
+      const rawTokens = state.q.trim().toLowerCase().split(/[\s　]+/).filter(Boolean);
+      const tokens = expandFilterTokens(rawTokens);
       const now = new Date();
       let r = DATA.agents.filter(a => {
         if (state.cats.length > 0 && !state.cats.includes(a.category)) return false;
@@ -947,17 +965,25 @@
 
     function searchAgents(query) {
       const q = query.toLowerCase().trim();
-      const tokens = q.split(/[\s　]+/).filter(Boolean);
-      if (!tokens.length) return [];
+      const baseTokens = q.split(/[\s　]+/).filter(Boolean);
+      if (!baseTokens.length) return [];
+      const tokens = expandFilterTokens(baseTokens);
       return DATA.agents.map(a => {
         let score = 0;
         const ti = a.title.toLowerCase();
         const d  = (a.description||"").toLowerCase();
         const catTitle = catName(a.category).toLowerCase();
-        tokens.forEach(tok => {
+        // 元のトークンは高スコア、同義語展開トークンは低スコア
+        baseTokens.forEach(tok => {
           if (ti.includes(tok)) score += 4;
           if (d.includes(tok))  score += 1.5;
           if (catTitle.includes(tok)) score += 2;
+        });
+        const synTokens = tokens.filter(t => !baseTokens.includes(t));
+        synTokens.forEach(tok => {
+          if (ti.includes(tok)) score += 1.5;
+          if (d.includes(tok))  score += 0.5;
+          if (catTitle.includes(tok)) score += 0.8;
         });
         if (a.pick) score *= 1.2;
         return {a, score};
