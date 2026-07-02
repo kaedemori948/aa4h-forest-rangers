@@ -739,49 +739,57 @@
 <!-- ── SLIDE 12: 仕様一覧 ホーム画面 ── -->
 <div class="slide" data-act="Specs">
   <div class="h-1.5 bg-[#E60012]"></div>
-  <div class="flex-1 bg-white px-16 py-8 flex flex-col">
+  <div class="flex-1 min-h-0 bg-white px-16 py-8 flex flex-col">
     <div class="flex items-baseline justify-between mb-2">
       <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase">07 — 仕様書② ホーム画面 仕様一覧</p>
       <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">specs/home.spec.md</code>
     </div>
     <h2 class="text-2xl font-bold text-gray-900 mb-1">ホーム画面（index.html）</h2>
-    <p class="text-xs text-gray-400 mb-4">対応実装: <code class="bg-gray-100 border border-gray-200 px-1 rounded">assets/app.js renderHome()</code> ／ 全6項目</p>
-    <div class="bg-gray-50 border border-gray-200 rounded-xl p-5">
+    <p class="text-xs text-gray-400 mb-4">対応実装: <code class="bg-gray-100 border border-gray-200 px-1 rounded">assets/app.js renderHome()</code> ／ 全7項目</p>
+    <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 flex-1 min-h-0 overflow-y-auto">
       <table class="w-full text-xs">
-        <thead>
+        <thead class="sticky top-0 bg-gray-50">
           <tr class="text-left text-gray-400 border-b border-gray-200">
-            <th class="py-2 pr-4 font-semibold w-40">SPEC-ID</th>
-            <th class="py-2 font-semibold">説明</th>
+            <th class="py-2 pr-4 font-semibold w-32">SPEC-ID</th>
+            <th class="py-2 pr-4 font-semibold">説明</th>
+            <th class="py-2 font-semibold">検証方法</th>
           </tr>
         </thead>
         <tbody>
           <tr class="border-b border-gray-100">
             <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">HOME-001</td>
-            <td class="py-2.5 text-gray-700">統計バーに件数・閲覧数・カテゴリ数を表示する</td>
+            <td class="py-2.5 pr-4 text-gray-700 align-top">統計バーに件数・閲覧数・カテゴリ数を表示する</td>
+            <td class="py-2.5 text-gray-500 align-top">total=5 / views=2,450 / cats=3 を表示（[SPEC-HOME-001]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">HOME-002</td>
-            <td class="py-2.5 text-gray-700">プロデューサーズピックは閲覧数上位4件を表示する</td>
+            <td class="py-2.5 pr-4 text-gray-700 align-top">プロデューサーズピックは閲覧数上位4件を表示する</td>
+            <td class="py-2.5 text-gray-500 align-top">4カード・ID={101,102,103,104}をデータ順で表示（[SPEC-HOME-002]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">HOME-003</td>
-            <td class="py-2.5 text-gray-700">カテゴリ索引に全カテゴリを初出順・件数付きで表示する</td>
+            <td class="py-2.5 pr-4 text-gray-700 align-top">カテゴリ索引に全カテゴリを初出順・件数付きで表示する</td>
+            <td class="py-2.5 text-gray-500 align-top">3行が初出順・件数付きで表示され、各hrefに?cat=を含む（[SPEC-HOME-003]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">HOME-004</td>
-            <td class="py-2.5 text-gray-700">人気ランキングは閲覧数降順で最大8件を表示する</td>
+            <td class="py-2.5 pr-4 text-gray-700 align-top">人気ランキングは閲覧数降順で最大8件を表示する</td>
+            <td class="py-2.5 text-gray-500 align-top">先頭行=コードレビューボット・閲覧数800、並び順ID=102,104,101,103,105（[SPEC-HOME-004]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">HOME-005</td>
-            <td class="py-2.5 text-gray-700">新着は更新日降順で最大8件を表示する</td>
+            <td class="py-2.5 pr-4 text-gray-700 align-top">新着は更新日降順で最大8件を表示する</td>
+            <td class="py-2.5 text-gray-500 align-top">並び順ID=104,102,101,103,105を表示（[SPEC-HOME-005]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">HOME-006</td>
-            <td class="py-2.5 text-gray-700">カード／ランキング行クリックで詳細ページへ遷移する</td>
+            <td class="py-2.5 pr-4 text-gray-700 align-top">カード／ランキング行クリックで詳細ページへ遷移する</td>
+            <td class="py-2.5 text-gray-500 align-top">クリック後の遷移先URLがagent.html?id=&lt;data-id&gt;を含む（[SPEC-HOME-006]）</td>
           </tr>
           <tr>
             <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">HOME-007</td>
-            <td class="py-2.5 text-gray-700">人気ランキングは順位が上から下へ縦に並ぶ2カラムで表示する</td>
+            <td class="py-2.5 pr-4 text-gray-700 align-top">人気ランキングは順位が上から下へ縦に並ぶ2カラムで表示する</td>
+            <td class="py-2.5 text-gray-500 align-top">デスクトップ幅でgrid-auto-flow:column・grid-template-columnsが等幅2列（[SPEC-HOME-007]）</td>
           </tr>
         </tbody>
       </table>
@@ -792,57 +800,67 @@
 <!-- ── SLIDE 13: 仕様一覧 一覧画面 ── -->
 <div class="slide" data-act="Specs">
   <div class="h-1.5 bg-[#E60012]"></div>
-  <div class="flex-1 bg-white px-16 py-8 flex flex-col">
+  <div class="flex-1 min-h-0 bg-white px-16 py-8 flex flex-col">
     <div class="flex items-baseline justify-between mb-2">
       <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase">07 — 仕様書③ 一覧画面 仕様一覧</p>
       <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">specs/list.spec.md</code>
     </div>
     <h2 class="text-2xl font-bold text-gray-900 mb-1">一覧画面（pages/agents.html）</h2>
     <p class="text-xs text-gray-400 mb-4">対応実装: <code class="bg-gray-100 border border-gray-200 px-1 rounded">assets/app.js renderList()</code> ／ 全9項目</p>
-    <div class="bg-gray-50 border border-gray-200 rounded-xl p-5">
+    <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 flex-1 min-h-0 overflow-y-auto">
       <table class="w-full text-xs">
-        <thead>
+        <thead class="sticky top-0 bg-gray-50">
           <tr class="text-left text-gray-400 border-b border-gray-200">
-            <th class="py-1.5 pr-4 font-semibold w-40">SPEC-ID</th>
-            <th class="py-1.5 font-semibold">説明</th>
+            <th class="py-1.5 pr-4 font-semibold w-32">SPEC-ID</th>
+            <th class="py-1.5 pr-4 font-semibold">説明</th>
+            <th class="py-1.5 font-semibold">検証方法</th>
           </tr>
         </thead>
         <tbody>
           <tr class="border-b border-gray-100">
             <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-001</td>
-            <td class="py-2 text-gray-700">初期表示で全件を閲覧数降順で並べ、件数を表示する</td>
+            <td class="py-2 pr-4 text-gray-700 align-top">初期表示で全件を閲覧数降順で並べ、件数を表示する</td>
+            <td class="py-2 text-gray-500 align-top">5カード・#result-count=5、並び順ID=102,104,101,103,105（[SPEC-LIST-001]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-002</td>
-            <td class="py-2 text-gray-700">キーワード検索でタイトル・オーナー・概要・タグ・機能・カテゴリに部分一致で絞り込む</td>
+            <td class="py-2 pr-4 text-gray-700 align-top">キーワード検索でタイトル・オーナー・概要・タグ・機能・カテゴリに部分一致で絞り込む</td>
+            <td class="py-2 text-gray-500 align-top">検索語「議事録」で1カード（ID=104）・#result-count=1（[SPEC-LIST-002]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-003</td>
-            <td class="py-2 text-gray-700">並び替えでDL実績の降順に並べ替える</td>
+            <td class="py-2 pr-4 text-gray-700 align-top">並び替えでDL実績の降順に並べ替える</td>
+            <td class="py-2 text-gray-500 align-top">#sortをdownloadsに変更し並び順ID=101,102,104,103,105（[SPEC-LIST-003]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-004</td>
-            <td class="py-2 text-gray-700">カテゴリチップで絞り込む</td>
+            <td class="py-2 pr-4 text-gray-700 align-top">カテゴリチップで絞り込む</td>
+            <td class="py-2 text-gray-500 align-top">「開発支援」クリックで2カード（ID=102,105）・#result-count=2（[SPEC-LIST-004]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-005</td>
-            <td class="py-2 text-gray-700">該当が無いとき空状態を表示する</td>
+            <td class="py-2 pr-4 text-gray-700 align-top">該当が無いとき空状態を表示する</td>
+            <td class="py-2 text-gray-500 align-top">検索語「該当なしxyz」で#grid .card=0、#emptyが可視、#result-count=0（[SPEC-LIST-005]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-006</td>
-            <td class="py-2 text-gray-700">URLの ?cat= で初期カテゴリを絞り込む</td>
+            <td class="py-2 pr-4 text-gray-700 align-top">URLの ?cat= で初期カテゴリを絞り込む</td>
+            <td class="py-2 text-gray-500 align-top">?cat=データ分析で開くと1カード（ID=103）・#result-count=1（[SPEC-LIST-006]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-007</td>
-            <td class="py-2 text-gray-700">タグ経由でも検索にヒットする</td>
+            <td class="py-2 pr-4 text-gray-700 align-top">タグ経由でも検索にヒットする</td>
+            <td class="py-2 text-gray-500 align-top">検索語「生成AI」で2カード（ID=101,103の順）・#result-count=2（[SPEC-LIST-007]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-008</td>
-            <td class="py-2 text-gray-700">複数キーワードは全語一致を先頭に、部分一致も関連度順で表示する</td>
+            <td class="py-2 pr-4 text-gray-700 align-top">複数キーワードは全語一致を先頭に、部分一致も関連度順で表示する</td>
+            <td class="py-2 text-gray-500 align-top">検索語「コード テスト」で2カード（ID=105,102の順）（[SPEC-LIST-008]）</td>
           </tr>
           <tr>
             <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-009</td>
-            <td class="py-2 text-gray-700">同義語展開により表記ゆれでも検索にヒットする</td>
+            <td class="py-2 pr-4 text-gray-700 align-top">同義語展開により表記ゆれでも検索にヒットする</td>
+            <td class="py-2 text-gray-500 align-top">検索語「文書」で2カード（ID=101,104の順）・#result-count=2（[SPEC-LIST-009]）</td>
           </tr>
         </tbody>
       </table>
@@ -853,41 +871,47 @@
 <!-- ── SLIDE 14: 仕様一覧 詳細画面 ── -->
 <div class="slide" data-act="Specs">
   <div class="h-1.5 bg-[#E60012]"></div>
-  <div class="flex-1 bg-white px-16 py-8 flex flex-col">
+  <div class="flex-1 min-h-0 bg-white px-16 py-8 flex flex-col">
     <div class="flex items-baseline justify-between mb-2">
       <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase">07 — 仕様書④ 詳細画面 仕様一覧</p>
       <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">specs/detail.spec.md</code>
     </div>
     <h2 class="text-2xl font-bold text-gray-900 mb-1">詳細画面（pages/agent.html）</h2>
     <p class="text-xs text-gray-400 mb-4">対応実装: <code class="bg-gray-100 border border-gray-200 px-1 rounded">assets/app.js renderDetail()</code> ／ 全5項目</p>
-    <div class="bg-gray-50 border border-gray-200 rounded-xl p-5">
+    <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 flex-1 min-h-0 overflow-y-auto">
       <table class="w-full text-xs">
-        <thead>
+        <thead class="sticky top-0 bg-gray-50">
           <tr class="text-left text-gray-400 border-b border-gray-200">
-            <th class="py-2 pr-4 font-semibold w-40">SPEC-ID</th>
-            <th class="py-2 font-semibold">説明</th>
+            <th class="py-2 pr-4 font-semibold w-32">SPEC-ID</th>
+            <th class="py-2 pr-4 font-semibold">説明</th>
+            <th class="py-2 font-semibold">検証方法</th>
           </tr>
         </thead>
         <tbody>
           <tr class="border-b border-gray-100">
             <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">DETAIL-001</td>
-            <td class="py-2.5 text-gray-700">指定IDのアセット詳細（タイトル・統計・オーナー）を表示する</td>
+            <td class="py-2.5 pr-4 text-gray-700 align-top">指定IDのアセット詳細（タイトル・統計・オーナー）を表示する</td>
+            <td class="py-2.5 text-gray-500 align-top">id=102でタイトル=コードレビューボット、閲覧数800、オーナー佐藤花子を表示（[SPEC-DETAIL-001]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">DETAIL-002</td>
-            <td class="py-2.5 text-gray-700">カテゴリリンクは一覧へ ?cat= 付きで遷移する</td>
+            <td class="py-2.5 pr-4 text-gray-700 align-top">カテゴリリンクは一覧へ ?cat= 付きで遷移する</td>
+            <td class="py-2.5 text-gray-500 align-top">.dtl-cat-linkのhrefがagents.html?cat=を含む（[SPEC-DETAIL-002]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">DETAIL-003</td>
-            <td class="py-2.5 text-gray-700">ピック対象にはピックバッジを表示し、非対象には表示しない</td>
+            <td class="py-2.5 pr-4 text-gray-700 align-top">ピック対象にはピックバッジを表示し、非対象には表示しない</td>
+            <td class="py-2.5 text-gray-500 align-top">id=102で.dtl-pickが存在、id=105で存在しない（[SPEC-DETAIL-003]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">DETAIL-004</td>
-            <td class="py-2.5 text-gray-700">存在しないIDでは not found メッセージを表示する</td>
+            <td class="py-2.5 pr-4 text-gray-700 align-top">存在しないIDでは not found メッセージを表示する</td>
+            <td class="py-2.5 text-gray-500 align-top">id=9999で「アセットが見つかりませんでした。」と一覧リンクを表示、.dtl-titleは無し（[SPEC-DETAIL-004]）</td>
           </tr>
           <tr>
             <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">DETAIL-005</td>
-            <td class="py-2.5 text-gray-700">ドキュメントタイトルがアセット名になる</td>
+            <td class="py-2.5 pr-4 text-gray-700 align-top">ドキュメントタイトルがアセット名になる</td>
+            <td class="py-2.5 text-gray-500 align-top">document.titleが「コードレビューボット」で始まる（[SPEC-DETAIL-005]）</td>
           </tr>
         </tbody>
       </table>
@@ -898,41 +922,47 @@
 <!-- ── SLIDE 15: 仕様一覧 要望フォーム ── -->
 <div class="slide" data-act="Specs">
   <div class="h-1.5 bg-[#E60012]"></div>
-  <div class="flex-1 bg-white px-16 py-8 flex flex-col">
+  <div class="flex-1 min-h-0 bg-white px-16 py-8 flex flex-col">
     <div class="flex items-baseline justify-between mb-2">
       <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase">07 — 仕様書⑤ 要望フォーム 仕様一覧</p>
       <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">specs/feedback.spec.md</code>
     </div>
     <h2 class="text-2xl font-bold text-gray-900 mb-1">要望フォーム（pages/feedback.html）</h2>
     <p class="text-xs text-gray-400 mb-4">対応実装: <code class="bg-gray-100 border border-gray-200 px-1 rounded">pages/feedback.html インラインスクリプト</code> ／ 全5項目</p>
-    <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-4">
+    <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-4 flex-1 min-h-0 overflow-y-auto">
       <table class="w-full text-xs">
-        <thead>
+        <thead class="sticky top-0 bg-gray-50">
           <tr class="text-left text-gray-400 border-b border-gray-200">
-            <th class="py-2 pr-4 font-semibold w-40">SPEC-ID</th>
-            <th class="py-2 font-semibold">説明</th>
+            <th class="py-2 pr-4 font-semibold w-32">SPEC-ID</th>
+            <th class="py-2 pr-4 font-semibold">説明</th>
+            <th class="py-2 font-semibold">検証方法</th>
           </tr>
         </thead>
         <tbody>
           <tr class="border-b border-gray-100">
             <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">FEEDBACK-001</td>
-            <td class="py-2.5 text-gray-700">入力に応じてIssueタイトルをライブプレビューする</td>
+            <td class="py-2.5 pr-4 text-gray-700 align-top">入力に応じてIssueタイトルをライブプレビューする</td>
+            <td class="py-2.5 text-gray-500 align-top">仮称「テストAI」入力で#preview-issue-titleが「[アセット要望] テストAI」（[SPEC-FEEDBACK-001]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">FEEDBACK-002</td>
-            <td class="py-2.5 text-gray-700">必須未入力で送信するとアラートを出し、APIを呼ばない</td>
+            <td class="py-2.5 pr-4 text-gray-700 align-top">必須未入力で送信するとアラートを出し、APIを呼ばない</td>
+            <td class="py-2.5 text-gray-500 align-top">alert表示・/api/issuesへのリクエスト無し・送信バナー非表示（[SPEC-FEEDBACK-002]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">FEEDBACK-003</td>
-            <td class="py-2.5 text-gray-700">必須を満たして送信すると Issue を作成し、成功バナーとリンクを表示する</td>
+            <td class="py-2.5 pr-4 text-gray-700 align-top">必須を満たして送信すると Issue を作成し、成功バナーとリンクを表示する</td>
+            <td class="py-2.5 text-gray-500 align-top">/api/issuesへPOST1回・#sent-bannerが可視・#submit-btnが「送信済み」（[SPEC-FEEDBACK-003]）</td>
           </tr>
           <tr class="border-b border-gray-100">
             <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">FEEDBACK-004</td>
-            <td class="py-2.5 text-gray-700">送信が失敗するとエラーアラートを出し、ボタンを再有効化する</td>
+            <td class="py-2.5 pr-4 text-gray-700 align-top">送信が失敗するとエラーアラートを出し、ボタンを再有効化する</td>
+            <td class="py-2.5 text-gray-500 align-top">500応答モックでalert表示・#submit-btnが非disabledで「Issue として送信する」に復帰（[SPEC-FEEDBACK-004]）</td>
           </tr>
           <tr>
             <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">FEEDBACK-005</td>
-            <td class="py-2.5 text-gray-700">キーワードを Enter でチップ追加し、重複は無視する</td>
+            <td class="py-2.5 pr-4 text-gray-700 align-top">キーワードを Enter でチップ追加し、重複は無視する</td>
+            <td class="py-2.5 text-gray-500 align-top">「提案書」+Enterを2回で.tag-chipが1個のまま（[SPEC-FEEDBACK-005]）</td>
           </tr>
         </tbody>
       </table>
