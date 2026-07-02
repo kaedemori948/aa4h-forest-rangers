@@ -73,14 +73,14 @@
       return `<div class="card-slider"><div class="card-slider-track"><img src="${images[0]}" alt="" loading="lazy" onerror="${HIDE_SLIDER}"></div></div>`;
     }
     const dots = images.map((_, i) =>
-      `<button class="card-slider-dot${i===0?" active":""}" data-idx="${i}" aria-label="スライド${i+1}"></button>`
+      `<button class="card-slider-dot${i===0?" active":""}" data-idx="${i}" aria-label="${t("aria_slide")}${i+1}"></button>`
     ).join("");
     const imgs = images.map(u => `<img src="${u}" alt="" loading="lazy">`).join("");
     return `
 <div class="card-slider" data-slider>
   <div class="card-slider-track">${imgs}</div>
-  <button class="card-slider-btn card-slider-prev" data-dir="-1" aria-label="前へ">‹</button>
-  <button class="card-slider-btn card-slider-next" data-dir="1"  aria-label="次へ">›</button>
+  <button class="card-slider-btn card-slider-prev" data-dir="-1" aria-label="${t("aria_prev")}">‹</button>
+  <button class="card-slider-btn card-slider-next" data-dir="1"  aria-label="${t("aria_next")}">›</button>
   <div class="card-slider-dots">${dots}</div>
 </div>`;
   }
@@ -109,11 +109,11 @@
     if (!images || !images.length) return "";
     const imgs = images.map(u => `<img src="${u}" alt="" loading="lazy">`).join("");
     const dots = images.length > 1 ? `<div class="detail-slider-dots">` +
-      images.map((_, i) => `<button class="detail-slider-dot${i===0?" active":""}" data-idx="${i}" aria-label="スライド${i+1}"></button>`).join("") +
+      images.map((_, i) => `<button class="detail-slider-dot${i===0?" active":""}" data-idx="${i}" aria-label="${t("aria_slide")}${i+1}"></button>`).join("") +
       `</div>` : "";
     const arrows = images.length > 1 ? `
-      <button class="detail-slider-prev" data-dir="-1" aria-label="前へ">‹</button>
-      <button class="detail-slider-next" data-dir="1"  aria-label="次へ">›</button>` : "";
+      <button class="detail-slider-prev" data-dir="-1" aria-label="${t("aria_prev")}">‹</button>
+      <button class="detail-slider-next" data-dir="1"  aria-label="${t("aria_next")}">›</button>` : "";
     const count = images.length > 1 ? `<span class="detail-slider-count">1 / ${images.length}</span>` : "";
     return `<div class="detail-slider" data-detail-slider>
   <div class="detail-slider-track">${imgs}</div>
@@ -158,15 +158,31 @@
     return (html || "").replace(/<[^>]+>/g, "").trim();
   }
 
+  // カテゴリ名（data 側は日本語固定）を EN 表示時に英語へ差し替える。data/ を変更しない制約のため表示側で吸収する。
+  const CAT_I18N_EN = {
+    '資料・文書作成': 'Document Creation', '開発・コード支援': 'Development & Code',
+    'データ分析・診断': 'Data Analysis', '情報収集・調査': 'Research',
+    '営業・顧客対応': 'Sales & Client', '営業・顧問対応': 'Sales & Client',
+    'レビュー・チェック': 'Review & Check', 'テスト・品質保証': 'Testing & QA',
+    'サービス・プロダクト': 'Service & Product', 'ナレッジ・業務支援': 'Knowledge & Ops',
+  };
+  const localizeCat = title => (_lang === "en" && CAT_I18N_EN[title]) ? CAT_I18N_EN[title] : title;
+
+  // タイトルに日本語文字を含むかでアセットの言語を判定する。
+  // 「日本語選択時は日本語アセットのみ、英語選択時は英語アセットのみ」を満たすためのフィルタに使う。
+  const JP_CHAR = /[぀-ヿ㐀-鿿ｦ-ﾟ]/;
+  const isJaAsset = a => JP_CHAR.test(a.title || "");
+  const matchesLang = a => (_lang === "en" ? !isJaAsset(a) : isJaAsset(a));
+
   function transformData(json) {
-    const assets = json.assets;
+    const assets = json.assets.filter(matchesLang);
     const typeMap = new Map();
     assets.forEach(a => {
       const key = a.type.title;
       if (!typeMap.has(key)) {
         typeMap.set(key, {
           id: key,
-          name: key,
+          name: localizeCat(key),
           icon: getCatIcon(key),
           count: 0,
         });
@@ -191,6 +207,7 @@
       ownerEmail: (a.owners && a.owners[0] && a.owners[0].email_id) || null,
       moderators: (a.moderators || []).map(m => ({ name: m.full_name, email: m.email_id })),
       capabilities: (a.capabilities || []).map(c => {
+        if (_lang === "en") return c.title;
         const ja = (c.translations || []).find(t => t.language_code === 'ja');
         return ja ? ja.title : c.title;
       }),
@@ -274,6 +291,41 @@
       sec_h_picks_b:"⭐ プロデューサーズピック", sec_h_cats_b:"カテゴリから探す",
       sec_h_ranking_b:"人気のアセット", sec_h_newest_b:"新着アセット",
       cta_band_b:"選択肢から、あなたの一体を。", cta_band_sub_b:"キーワード・カテゴリ・並び替えで横断検索",
+      nav_feedback:"要望を送る",
+      foot_devdoc:"開発ドキュメント",
+      foot_exported:"Data exported 2026.06.09 · 781 assets indexed",
+      foot_demo_note:"※ 評価・実装難度・効果・技術仕様・セキュリティ等の一部はデモ用サンプルデータです",
+      foot_demo_note_short:"※ 統計データの一部はデモ用サンプルデータです",
+      card_no_desc:"— 概要なし —",
+      cat_other:"その他", tag_group_other:"その他",
+      dtl_overview_label:"概要", dtl_mods:"モデレーター", dtl_comments:"コメント", dtl_contact:"連絡先", dtl_terms_default:"利用規約を見る",
+      aria_prev:"前へ", aria_next:"次へ", aria_slide:"スライド",
+      fb_title:"アセット要望フォーム",
+      fb_intro:"探していたアセットが見つからなかった場合、このフォームで状況を教えてください。入力内容を整理して GitHub Issue として送信できる形式に自動変換します。",
+      fb_required_note:"は必須項目です",
+      fb_s1_title:"あなたの業務・ニーズ", fb_s1_desc:"何をしたかったのかを教えてください",
+      fb_goal_label:"達成したかったこと", fb_goal_ph:"例：営業提案書の下書きを自動生成したかった。毎週の市場レポートをAIにまとめてほしかった。",
+      fb_chars:"文字",
+      fb_s2_title:"試した操作", fb_s2_desc:"どのように探しましたか？（複数選択可）",
+      fb_methods_label:"試した検索・絞り込み方法",
+      fb_m_keyword:"キーワード検索", fb_m_category:"カテゴリ絞り込み", fb_m_tag:"タグフィルタ", fb_m_dl:"DL実績フィルタ", fb_m_date:"更新日フィルタ", fb_m_sort:"並び順変更", fb_m_browse:"一覧を眺めた",
+      fb_kw_label:"使ったキーワード（Enter で追加）", fb_kw_ph:"例: 提案書 → Enter",
+      fb_result_label:"検索結果の状況",
+      fb_result_ph:"選択してください", fb_r_zero:"件数0件だった", fb_r_many:"件数は多かったが目的のものがなかった", fb_r_close:"近いものはあったが機能が足りなかった", fb_r_lost:"何を選べばよいか分からなかった", fb_r_other:"その他",
+      fb_s3_title:"求めているアセットのイメージ", fb_s3_desc:"あればあるほど精度が上がります",
+      fb_name_label:"アセットに付けたい名前（仮称）", fb_name_ph:"例：営業提案書ドラフト生成AI",
+      fb_desc_label:"どんな処理・機能をしてほしいか", fb_desc_ph:"例：顧客名・商材名・金額を入力すると、社内フォーマットに沿った提案書のドラフトをWord形式で出力してほしい。",
+      fb_tools_label:"連携・対応してほしいツール（複数選択可）",
+      fb_t_api:"API連携", fb_t_nocode:"ノーコード",
+      fb_ref_label:"参考にしたい既存アセット・類似ツール", fb_ref_ph:"例：売上トレンド分析AI、ChatGPT、Copilot など",
+      fb_s4_title:"GitHub Issue プレビュー", fb_s4_desc:"送信される内容の確認",
+      fb_preview_title_ph:"タイトルがここに表示されます", fb_preview_body_ph:"フォームに入力するとプレビューが生成されます。",
+      fb_submit:"Issue として送信する", fb_copy:"Markdown をコピー", fb_copied:"コピーしました",
+      fb_sent_title:"送信しました", fb_sent_p:"ご要望はAI CoEチームが確認し、アセット開発の優先度検討に活用します。", fb_sent_link:"GitHub Issue を確認する →",
+      fb_submitting:"送信中…", fb_sent_btn:"送信済み",
+      fb_title_prefix:"[アセット要望] ", fb_title_untitled:"[アセット要望] （タイトル未入力）",
+      fb_md_overview:"## 📌 概要", fb_md_search:"## 🔍 検索状況", fb_md_tried:"**試した操作:**", fb_md_keywords:"**使用キーワード:**", fb_md_result:"**結果の状況:**", fb_md_want:"## 💡 求めているアセット", fb_md_tentative:"**仮称:**", fb_md_features:"**求める機能・処理:**", fb_md_tools:"**連携ツール:**", fb_md_ref:"**参考:**", fb_md_unfilled:"（未入力）", fb_md_none:"（未選択）", fb_md_labels_head:"## 🏷️ Labels",
+      fb_val_intro:"以下の必須項目を入力してください:", fb_val_goal:"達成したかったこと（セクション1）", fb_val_result:"検索結果の状況（セクション2）", fb_val_desc:"求める機能・処理（セクション3）", fb_send_fail:"送信に失敗しました: ",
     },
     en: {
       nav_index:"Index", nav_home:"Home", nav_agents:"Directory", nav_new:"New",
@@ -326,11 +378,49 @@
       sec_h_picks_b:"⭐ Producer's Picks", sec_h_cats_b:"Browse Categories",
       sec_h_ranking_b:"Most Popular", sec_h_newest_b:"Newly Added",
       cta_band_b:"Find your perfect match.", cta_band_sub_b:"Search by keyword, category, or sort order",
+      nav_feedback:"Request",
+      foot_devdoc:"Developer Docs",
+      foot_exported:"Data exported 2026.06.09 · 781 assets indexed",
+      foot_demo_note:"* Some ratings, difficulty, impact, specs, and security info are sample data.",
+      foot_demo_note_short:"* Some statistics are sample data.",
+      card_no_desc:"— No description —",
+      cat_other:"Other", tag_group_other:"Other",
+      dtl_overview_label:"Overview", dtl_mods:"Moderators", dtl_comments:"Comments", dtl_contact:"Contact", dtl_terms_default:"View terms",
+      aria_prev:"Previous", aria_next:"Next", aria_slide:"Slide",
+      fb_title:"Asset Request Form",
+      fb_intro:"If you couldn't find the asset you were looking for, tell us about it here. Your input is automatically formatted so it can be submitted as a GitHub Issue.",
+      fb_required_note:"fields are required",
+      fb_s1_title:"Your Task & Needs", fb_s1_desc:"Tell us what you wanted to do",
+      fb_goal_label:"What you wanted to achieve", fb_goal_ph:"e.g. I wanted to auto-generate sales proposal drafts. I wanted AI to summarize the weekly market report.",
+      fb_chars:"chars",
+      fb_s2_title:"What You Tried", fb_s2_desc:"How did you search? (multiple allowed)",
+      fb_methods_label:"Search / filter methods you tried",
+      fb_m_keyword:"Keyword search", fb_m_category:"Category filter", fb_m_tag:"Tag filter", fb_m_dl:"Download filter", fb_m_date:"Updated-date filter", fb_m_sort:"Changed sort order", fb_m_browse:"Browsed the list",
+      fb_kw_label:"Keywords you used (Enter to add)", fb_kw_ph:"e.g. proposal → Enter",
+      fb_result_label:"Search result situation",
+      fb_result_ph:"Select…", fb_r_zero:"Got 0 results", fb_r_many:"Many results but none fit", fb_r_close:"Close, but lacked features", fb_r_lost:"Didn't know what to choose", fb_r_other:"Other",
+      fb_s3_title:"The Asset You Want", fb_s3_desc:"The more detail, the better the accuracy",
+      fb_name_label:"Proposed asset name (tentative)", fb_name_ph:"e.g. Sales Proposal Draft Generator",
+      fb_desc_label:"What it should do", fb_desc_ph:"e.g. Given a client name, product, and amount, output a proposal draft in Word following our company format.",
+      fb_tools_label:"Tools to integrate / support (multiple allowed)",
+      fb_t_api:"API integration", fb_t_nocode:"No-code",
+      fb_ref_label:"Reference assets / similar tools", fb_ref_ph:"e.g. Sales Trend Analyzer, ChatGPT, Copilot",
+      fb_s4_title:"GitHub Issue Preview", fb_s4_desc:"Review what will be sent",
+      fb_preview_title_ph:"The title will appear here", fb_preview_body_ph:"Fill in the form to generate a preview.",
+      fb_submit:"Submit as Issue", fb_copy:"Copy Markdown", fb_copied:"Copied",
+      fb_sent_title:"Sent", fb_sent_p:"The AI CoE team will review your request and use it to prioritize asset development.", fb_sent_link:"View the GitHub Issue →",
+      fb_submitting:"Submitting…", fb_sent_btn:"Sent",
+      fb_title_prefix:"[Asset Request] ", fb_title_untitled:"[Asset Request] (untitled)",
+      fb_md_overview:"## 📌 Overview", fb_md_search:"## 🔍 Search Situation", fb_md_tried:"**Methods tried:**", fb_md_keywords:"**Keywords used:**", fb_md_result:"**Result situation:**", fb_md_want:"## 💡 Requested Asset", fb_md_tentative:"**Tentative name:**", fb_md_features:"**Desired features / behavior:**", fb_md_tools:"**Integrations:**", fb_md_ref:"**References:**", fb_md_unfilled:"(not filled in)", fb_md_none:"(none selected)", fb_md_labels_head:"## 🏷️ Labels",
+      fb_val_intro:"Please fill in the following required fields:", fb_val_goal:"What you wanted to achieve (Section 1)", fb_val_result:"Search result situation (Section 2)", fb_val_desc:"Desired features / behavior (Section 3)", fb_send_fail:"Failed to send: ",
     },
   };
 
   let _lang = (typeof localStorage !== "undefined" && localStorage.getItem("aa4h_lang")) || "ja";
   const t = key => (I18N[_lang] && I18N[_lang][key] !== undefined ? I18N[_lang][key] : (I18N.ja[key] !== undefined ? I18N.ja[key] : key));
+
+  // ページ側のインラインスクリプト（feedback.html 等）からも同じ辞書・現在言語を参照できるよう同期的に公開する
+  if (typeof window !== "undefined") window.AA4HI18n = { get lang() { return _lang; }, t };
 
   function applyI18n() {
     document.documentElement.lang = _lang;
@@ -349,7 +439,7 @@
   const fmt = n => (n == null ? "0" : n.toLocaleString("en-US"));
   const esc = s => String(s ?? "").replace(/[&<>"]/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
   const safeUrl = u => /^https?:\/\//i.test(u) ? esc(u) : "#";
-  const catName  = id => (CAT_BY_ID[id] ? CAT_BY_ID[id].name  : "その他");
+  const catName  = id => (CAT_BY_ID[id] ? CAT_BY_ID[id].name  : t("cat_other"));
   const catGlyph = id => esc(CAT_BY_ID[id] ? CAT_BY_ID[id].icon : "✦");
   const fmtDate  = iso => { if (!iso) return "—"; const [y,m,d] = iso.split("-"); return `${y}.${m}.${d}`; };
 
@@ -360,7 +450,7 @@
     const slider = cardSliderHTML(a.images);
     const desc = a.description
       ? `<p class="card-desc">${esc(a.description)}</p>`
-      : `<p class="card-desc" style="opacity:.5">— 概要なし —</p>`;
+      : `<p class="card-desc" style="opacity:.5">${t("card_no_desc")}</p>`;
     const sliderClass = slider ? " has-slider" : "";
     return `
 <article class="card reveal${sliderClass}" data-id="${a.id}"${delay}>
@@ -567,7 +657,7 @@
       if (!container) return;
       const allKnown = new Set(TAG_GROUPS.flatMap(g => g.tags));
       const otherTags = [...tagSet.keys()].filter(t => !allKnown.has(t)).sort((a,b) => a.localeCompare(b,"ja"));
-      const groups = otherTags.length > 0 ? [...TAG_GROUPS, { label:"その他", tags: otherTags }] : TAG_GROUPS;
+      const groups = otherTags.length > 0 ? [...TAG_GROUPS, { label:t("tag_group_other"), tags: otherTags }] : TAG_GROUPS;
       container.innerHTML = groups.map(g => {
         const pills = g.tags.filter(t => tagSet.has(t));
         if (!pills.length) return "";
@@ -811,7 +901,7 @@
 
     const modsHTML = a.moderators && a.moderators.length
       ? `<section class="dtl-mods-section">
-          <h2 class="dtl-section-label">モデレーター</h2>
+          <h2 class="dtl-section-label">${t("dtl_mods")}</h2>
           <ul class="dtl-mods">${a.moderators.map(m => `
             <li class="dtl-mod">
               <span class="dtl-mod-name">${esc(m.name)}</span>
@@ -823,7 +913,7 @@
 
     const termsHTML = a.termsUrl
       ? `<a class="dtl-terms" href="${safeUrl(a.termsUrl)}" target="_blank" rel="noopener">
-           ${esc(a.termsTitle || "利用規約を見る")} →
+           ${esc(a.termsTitle || t("dtl_terms_default"))} →
          </a>`
       : "";
 
@@ -848,7 +938,7 @@
             <div class="dtl-stat"><span class="dtl-stat-n">${fmt(a.uniqueViews)}</span><span class="dtl-stat-l">${t("dtl_uniq")}</span></div>
             <div class="dtl-stat"><span class="dtl-stat-n">${fmt(a.downloads)}</span><span class="dtl-stat-l">${t("dtl_dl")}</span></div>
             <div class="dtl-stat"><span class="dtl-stat-n">${fmt(a.likes)}</span><span class="dtl-stat-l">${t("dtl_likes")}</span></div>
-            <div class="dtl-stat"><span class="dtl-stat-n">${fmt(a.comments)}</span><span class="dtl-stat-l">コメント</span></div>
+            <div class="dtl-stat"><span class="dtl-stat-n">${fmt(a.comments)}</span><span class="dtl-stat-l">${t("dtl_comments")}</span></div>
           </div>
 
           <dl class="dtl-meta">
@@ -856,7 +946,7 @@
               <dt>${t("fld_owner")}</dt>
               <dd>${esc(a.owner||"—")}${a.ownerRole ? `<span class="dtl-role">${esc(a.ownerRole)}</span>` : ""}</dd>
             </div>
-            ${a.ownerEmail ? `<div><dt>連絡先</dt><dd><a class="dtl-email" href="mailto:${esc(a.ownerEmail)}">${esc(a.ownerEmail)}</a></dd></div>` : ""}
+            ${a.ownerEmail ? `<div><dt>${t("dtl_contact")}</dt><dd><a class="dtl-email" href="mailto:${esc(a.ownerEmail)}">${esc(a.ownerEmail)}</a></dd></div>` : ""}
             <div><dt>${t("fld_pubdate")}</dt><dd>${fmtDate(a.published)}</dd></div>
             <div><dt>${t("fld_assetid")}</dt><dd>#${a.id}</dd></div>
           </dl>
@@ -866,7 +956,7 @@
       </div>
 
       <section class="dtl-body">
-        <h2 class="dtl-section-label">概要</h2>
+        <h2 class="dtl-section-label">${t("dtl_overview_label")}</h2>
         <div class="dtl-overview">${a.overview || `<p style="color:var(--muted)">—</p>`}</div>
         ${modsHTML}
       </section>`;

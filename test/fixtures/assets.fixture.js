@@ -68,5 +68,33 @@ window.ASSETS_DATA = {
       access_type: { title: "全社" },
       tags: [{ title: "開発" }, { title: "テスト" }],
     },
+    // 英語アセット。JA選択時は言語フィルタで除外され（タイトルに日本語を含まない）、
+    // 上の日本語5件を前提にした既存の期待値には影響しない。EN選択時の検証にのみ使う。
+    {
+      id: 201,
+      title: "Meeting Notes Summarizer",
+      overview: "<p>Summarizes meeting transcripts into action items.</p>",
+      type: { title: "資料・文書作成" },
+      stats: { view_count: 90, unique_view_count: 60, download_count: 12, like_count: 5, comment_count: 1 },
+      last_updated_at: "2026-06-20T10:00:00Z",
+      owners: [{ full_name: "John Smith", ownership_type: "owner", email_id: "john@example.com" }],
+      capabilities: [{ title: "Summarize", translations: [{ language_code: "ja", title: "要約" }] }],
+      status: { title: "Published" },
+      access_type: { title: "Everyone" },
+      tags: [{ title: "summary" }],
+    },
+    {
+      id: 202,
+      title: "Pull Request Reviewer",
+      overview: "<p>Reviews pull requests automatically.</p>",
+      type: { title: "開発・コード支援" },
+      stats: { view_count: 70, unique_view_count: 40, download_count: 8, like_count: 3, comment_count: 0 },
+      last_updated_at: "2026-06-18T10:00:00Z",
+      owners: [{ full_name: "Jane Doe", ownership_type: "owner", email_id: "jane@example.com" }],
+      capabilities: [{ title: "Review", translations: [] }],
+      status: { title: "Published" },
+      access_type: { title: "Everyone" },
+      tags: [{ title: "code-review" }],
+    },
   ],
 };

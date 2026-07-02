@@ -48796,6 +48796,2880 @@
             },
             "variants": [],
             "is_locked": false
+        },
+        {
+            "id": 9702,
+            "original_asset_id": 9702,
+            "version_number": 1,
+            "title": "Executive Summary Builder",
+            "tag_line": "One-page summaries in minutes",
+            "overview": "<p>A tool that condenses long reports into a concise executive summary.<br>[Problem] Executives had no time to read lengthy reports before meetings.<br>[Solution] Automatically extracts key points and generates a one-page summary, cutting review time by 70%.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9702/800/450",
+            "type": {
+                "id": 101,
+                "c_name": "資料-文書作成",
+                "title": "資料・文書作成",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9703,
+                    "asset_id": 9702,
+                    "original_asset_id": 9702,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90351,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2001,
+                    "full_name": "Hiroshi Sato",
+                    "email_id": "hiroshi.sato@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2001,
+                "first_name": "Hiroshi",
+                "last_name": "Sato",
+                "full_name": "Hiroshi Sato",
+                "email_id": "hiroshi.sato@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 201,
+                    "c_name": "doc-gen",
+                    "title": "Document Generation",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 201,
+                            "capability_id": 201,
+                            "title": "文書生成",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80069
+                }
+            ],
+            "tags": [
+                "summary",
+                "reporting"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9704,
+            "original_asset_id": 9704,
+            "version_number": 1,
+            "title": "Proposal Draft Assistant",
+            "tag_line": "Draft client proposals faster",
+            "overview": "<p>Generates first-draft proposals from a short brief.<br>[Problem] Writing proposals from scratch consumed a full day per client.<br>[Solution] Produces a structured draft in minutes based on client requirements, reducing drafting time by 50%.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9704/800/450",
+            "type": {
+                "id": 101,
+                "c_name": "資料-文書作成",
+                "title": "資料・文書作成",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9705,
+                    "asset_id": 9704,
+                    "original_asset_id": 9704,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90352,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2002,
+                    "full_name": "Emily Carter",
+                    "email_id": "emily.carter@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2002,
+                "first_name": "Emily",
+                "last_name": "Carter",
+                "full_name": "Emily Carter",
+                "email_id": "emily.carter@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 201,
+                    "c_name": "doc-gen",
+                    "title": "Document Generation",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 201,
+                            "capability_id": 201,
+                            "title": "文書生成",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80070
+                }
+            ],
+            "tags": [
+                "proposal",
+                "writing"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9706,
+            "original_asset_id": 9706,
+            "version_number": 1,
+            "title": "Code Review Copilot",
+            "tag_line": "Catch issues before merge",
+            "overview": "<p>Reviews pull requests and flags common issues automatically.<br>[Problem] Manual code review was inconsistent across teams.<br>[Solution] Applies a shared rule set to every PR, reducing post-release defects by 35%.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9706/800/450",
+            "type": {
+                "id": 102,
+                "c_name": "開発-コード支援",
+                "title": "開発・コード支援",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9707,
+                    "asset_id": 9706,
+                    "original_asset_id": 9706,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90353,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2003,
+                    "full_name": "James Miller",
+                    "email_id": "james.miller@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2003,
+                "first_name": "James",
+                "last_name": "Miller",
+                "full_name": "James Miller",
+                "email_id": "james.miller@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 202,
+                    "c_name": "code-assist",
+                    "title": "Code Assistance",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 202,
+                            "capability_id": 202,
+                            "title": "コード支援",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80071
+                }
+            ],
+            "tags": [
+                "code-review",
+                "quality"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9708,
+            "original_asset_id": 9708,
+            "version_number": 1,
+            "title": "API Scaffold Generator",
+            "tag_line": "Bootstrap services in seconds",
+            "overview": "<p>Generates boilerplate REST API code from a schema definition.<br>[Problem] Setting up new services took a full day of repetitive coding.<br>[Solution] Produces a working service skeleton instantly, cutting setup time by 80%.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9708/800/450",
+            "type": {
+                "id": 102,
+                "c_name": "開発-コード支援",
+                "title": "開発・コード支援",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9709,
+                    "asset_id": 9708,
+                    "original_asset_id": 9708,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90354,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2004,
+                    "full_name": "Sophie Nguyen",
+                    "email_id": "sophie.nguyen@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2004,
+                "first_name": "Sophie",
+                "last_name": "Nguyen",
+                "full_name": "Sophie Nguyen",
+                "email_id": "sophie.nguyen@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 202,
+                    "c_name": "code-assist",
+                    "title": "Code Assistance",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 202,
+                            "capability_id": 202,
+                            "title": "コード支援",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80072
+                }
+            ],
+            "tags": [
+                "api",
+                "scaffolding"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9710,
+            "original_asset_id": 9710,
+            "version_number": 1,
+            "title": "Legacy Code Translator",
+            "tag_line": "Modernize old codebases",
+            "overview": "<p>Converts legacy code into a modern language or framework.<br>[Problem] Migrating legacy systems required scarce specialist knowledge.<br>[Solution] Automatically translates core logic, reducing migration effort by 60%.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9710/800/450",
+            "type": {
+                "id": 102,
+                "c_name": "開発-コード支援",
+                "title": "開発・コード支援",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9711,
+                    "asset_id": 9710,
+                    "original_asset_id": 9710,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90355,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2005,
+                    "full_name": "David Kim",
+                    "email_id": "david.kim@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2005,
+                "first_name": "David",
+                "last_name": "Kim",
+                "full_name": "David Kim",
+                "email_id": "david.kim@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 202,
+                    "c_name": "code-assist",
+                    "title": "Code Assistance",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 202,
+                            "capability_id": 202,
+                            "title": "コード支援",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80073
+                }
+            ],
+            "tags": [
+                "migration",
+                "legacy"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9712,
+            "original_asset_id": 9712,
+            "version_number": 1,
+            "title": "Sales Trend Analyzer",
+            "tag_line": "Spot trends before they slip",
+            "overview": "<p>Analyzes sales data to surface emerging trends.<br>[Problem] Trends were often noticed only after quarterly reviews.<br>[Solution] Continuously monitors data and alerts teams to shifts in real time.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9712/800/450",
+            "type": {
+                "id": 103,
+                "c_name": "データ分析-診断",
+                "title": "データ分析・診断",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9713,
+                    "asset_id": 9712,
+                    "original_asset_id": 9712,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90356,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2001,
+                    "full_name": "Hiroshi Sato",
+                    "email_id": "hiroshi.sato@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2001,
+                "first_name": "Hiroshi",
+                "last_name": "Sato",
+                "full_name": "Hiroshi Sato",
+                "email_id": "hiroshi.sato@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 203,
+                    "c_name": "data-analysis",
+                    "title": "Data Analysis",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 203,
+                            "capability_id": 203,
+                            "title": "データ分析",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80074
+                }
+            ],
+            "tags": [
+                "analytics",
+                "sales"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9714,
+            "original_asset_id": 9714,
+            "version_number": 1,
+            "title": "Anomaly Detection Dashboard",
+            "tag_line": "Catch outliers automatically",
+            "overview": "<p>Monitors operational data streams and highlights anomalies.<br>[Problem] Unusual patterns were discovered too late to act on.<br>[Solution] Flags anomalies as they occur, reducing incident response time by 40%.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9714/800/450",
+            "type": {
+                "id": 103,
+                "c_name": "データ分析-診断",
+                "title": "データ分析・診断",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9715,
+                    "asset_id": 9714,
+                    "original_asset_id": 9714,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90357,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2002,
+                    "full_name": "Emily Carter",
+                    "email_id": "emily.carter@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2002,
+                "first_name": "Emily",
+                "last_name": "Carter",
+                "full_name": "Emily Carter",
+                "email_id": "emily.carter@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 203,
+                    "c_name": "data-analysis",
+                    "title": "Data Analysis",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 203,
+                            "capability_id": 203,
+                            "title": "データ分析",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80075
+                }
+            ],
+            "tags": [
+                "anomaly-detection",
+                "monitoring"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9716,
+            "original_asset_id": 9716,
+            "version_number": 1,
+            "title": "Customer Churn Predictor",
+            "tag_line": "Know who is at risk",
+            "overview": "<p>Predicts which customers are likely to churn.<br>[Problem] Retention teams reacted only after customers left.<br>[Solution] Scores accounts by churn risk weekly, improving retention outreach effectiveness by 25%.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9716/800/450",
+            "type": {
+                "id": 103,
+                "c_name": "データ分析-診断",
+                "title": "データ分析・診断",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9717,
+                    "asset_id": 9716,
+                    "original_asset_id": 9716,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90358,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2003,
+                    "full_name": "James Miller",
+                    "email_id": "james.miller@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2003,
+                "first_name": "James",
+                "last_name": "Miller",
+                "full_name": "James Miller",
+                "email_id": "james.miller@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 203,
+                    "c_name": "data-analysis",
+                    "title": "Data Analysis",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 203,
+                            "capability_id": 203,
+                            "title": "データ分析",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80076
+                }
+            ],
+            "tags": [
+                "churn",
+                "prediction"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9718,
+            "original_asset_id": 9718,
+            "version_number": 1,
+            "title": "Market Research Digest",
+            "tag_line": "Weekly market intel, curated",
+            "overview": "<p>Aggregates and summarizes market news relevant to the business.<br>[Problem] Staying current on market news required hours of manual reading.<br>[Solution] Delivers a curated digest each week, saving analysts 5 hours weekly.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9718/800/450",
+            "type": {
+                "id": 104,
+                "c_name": "情報収集-調査",
+                "title": "情報収集・調査",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9719,
+                    "asset_id": 9718,
+                    "original_asset_id": 9718,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90359,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2004,
+                    "full_name": "Sophie Nguyen",
+                    "email_id": "sophie.nguyen@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2004,
+                "first_name": "Sophie",
+                "last_name": "Nguyen",
+                "full_name": "Sophie Nguyen",
+                "email_id": "sophie.nguyen@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 204,
+                    "c_name": "info-gather",
+                    "title": "Info Gathering",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 204,
+                            "capability_id": 204,
+                            "title": "情報収集",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80077
+                }
+            ],
+            "tags": [
+                "research",
+                "market"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9720,
+            "original_asset_id": 9720,
+            "version_number": 1,
+            "title": "Competitor Watch",
+            "tag_line": "Track competitor moves",
+            "overview": "<p>Monitors competitor websites and press releases for changes.<br>[Problem] Competitor updates were often missed until much later.<br>[Solution] Sends alerts within 24 hours of any competitor announcement.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9720/800/450",
+            "type": {
+                "id": 104,
+                "c_name": "情報収集-調査",
+                "title": "情報収集・調査",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9721,
+                    "asset_id": 9720,
+                    "original_asset_id": 9720,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90360,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2005,
+                    "full_name": "David Kim",
+                    "email_id": "david.kim@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2005,
+                "first_name": "David",
+                "last_name": "Kim",
+                "full_name": "David Kim",
+                "email_id": "david.kim@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 204,
+                    "c_name": "info-gather",
+                    "title": "Info Gathering",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 204,
+                            "capability_id": 204,
+                            "title": "情報収集",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80078
+                }
+            ],
+            "tags": [
+                "competitive-intelligence"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9722,
+            "original_asset_id": 9722,
+            "version_number": 1,
+            "title": "Meeting Follow-up Composer",
+            "tag_line": "Never miss a follow-up",
+            "overview": "<p>Drafts follow-up emails from meeting notes.<br>[Problem] Follow-up emails were frequently delayed or forgotten.<br>[Solution] Generates a ready-to-send draft immediately after the meeting ends.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9722/800/450",
+            "type": {
+                "id": 105,
+                "c_name": "営業-顧客対応",
+                "title": "営業・顧客対応",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9723,
+                    "asset_id": 9722,
+                    "original_asset_id": 9722,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90361,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2001,
+                    "full_name": "Hiroshi Sato",
+                    "email_id": "hiroshi.sato@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2001,
+                "first_name": "Hiroshi",
+                "last_name": "Sato",
+                "full_name": "Hiroshi Sato",
+                "email_id": "hiroshi.sato@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 205,
+                    "c_name": "sales-support",
+                    "title": "Sales Support",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 205,
+                            "capability_id": 205,
+                            "title": "営業支援",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80079
+                }
+            ],
+            "tags": [
+                "sales",
+                "email"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9724,
+            "original_asset_id": 9724,
+            "version_number": 1,
+            "title": "Client Health Score Tracker",
+            "tag_line": "Know your accounts at a glance",
+            "overview": "<p>Scores client accounts based on engagement and satisfaction signals.<br>[Problem] Account health was assessed only during quarterly reviews.<br>[Solution] Updates health scores daily, enabling earlier intervention on at-risk accounts.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9724/800/450",
+            "type": {
+                "id": 105,
+                "c_name": "営業-顧客対応",
+                "title": "営業・顧客対応",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9725,
+                    "asset_id": 9724,
+                    "original_asset_id": 9724,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90362,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2002,
+                    "full_name": "Emily Carter",
+                    "email_id": "emily.carter@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2002,
+                "first_name": "Emily",
+                "last_name": "Carter",
+                "full_name": "Emily Carter",
+                "email_id": "emily.carter@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 205,
+                    "c_name": "sales-support",
+                    "title": "Sales Support",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 205,
+                            "capability_id": 205,
+                            "title": "営業支援",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80080
+                }
+            ],
+            "tags": [
+                "crm",
+                "client-success"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9726,
+            "original_asset_id": 9726,
+            "version_number": 1,
+            "title": "Quote Generator",
+            "tag_line": "Accurate quotes, instantly",
+            "overview": "<p>Builds client quotes from a product and pricing catalog.<br>[Problem] Manual quote preparation was slow and error-prone.<br>[Solution] Produces an accurate quote in under a minute, reducing errors by 90%.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9726/800/450",
+            "type": {
+                "id": 105,
+                "c_name": "営業-顧客対応",
+                "title": "営業・顧客対応",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9727,
+                    "asset_id": 9726,
+                    "original_asset_id": 9726,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90363,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2003,
+                    "full_name": "James Miller",
+                    "email_id": "james.miller@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2003,
+                "first_name": "James",
+                "last_name": "Miller",
+                "full_name": "James Miller",
+                "email_id": "james.miller@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 205,
+                    "c_name": "sales-support",
+                    "title": "Sales Support",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 205,
+                            "capability_id": 205,
+                            "title": "営業支援",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80081
+                }
+            ],
+            "tags": [
+                "sales",
+                "pricing"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9728,
+            "original_asset_id": 9728,
+            "version_number": 1,
+            "title": "Document Consistency Checker",
+            "tag_line": "Catch inconsistencies fast",
+            "overview": "<p>Scans documents for inconsistent terminology and formatting.<br>[Problem] Large documents often contained inconsistent terms across sections.<br>[Solution] Flags inconsistencies automatically, cutting proofreading time in half.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9728/800/450",
+            "type": {
+                "id": 106,
+                "c_name": "レビュー-チェック",
+                "title": "レビュー・チェック",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9729,
+                    "asset_id": 9728,
+                    "original_asset_id": 9728,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90364,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2004,
+                    "full_name": "Sophie Nguyen",
+                    "email_id": "sophie.nguyen@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2004,
+                "first_name": "Sophie",
+                "last_name": "Nguyen",
+                "full_name": "Sophie Nguyen",
+                "email_id": "sophie.nguyen@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 206,
+                    "c_name": "review-check",
+                    "title": "Review & Check",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 206,
+                            "capability_id": 206,
+                            "title": "レビュー",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80082
+                }
+            ],
+            "tags": [
+                "review",
+                "quality"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9730,
+            "original_asset_id": 9730,
+            "version_number": 1,
+            "title": "Contract Clause Reviewer",
+            "tag_line": "Flag risky clauses early",
+            "overview": "<p>Reviews contracts and highlights clauses that deviate from standard terms.<br>[Problem] Non-standard clauses were sometimes missed during manual review.<br>[Solution] Flags deviations for legal review, reducing contract risk exposure.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9730/800/450",
+            "type": {
+                "id": 106,
+                "c_name": "レビュー-チェック",
+                "title": "レビュー・チェック",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9731,
+                    "asset_id": 9730,
+                    "original_asset_id": 9730,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90365,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2005,
+                    "full_name": "David Kim",
+                    "email_id": "david.kim@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2005,
+                "first_name": "David",
+                "last_name": "Kim",
+                "full_name": "David Kim",
+                "email_id": "david.kim@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 206,
+                    "c_name": "review-check",
+                    "title": "Review & Check",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 206,
+                            "capability_id": 206,
+                            "title": "レビュー",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80083
+                }
+            ],
+            "tags": [
+                "legal",
+                "contracts"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9732,
+            "original_asset_id": 9732,
+            "version_number": 1,
+            "title": "Test Case Generator",
+            "tag_line": "Cover more, write less",
+            "overview": "<p>Generates test cases from functional requirements.<br>[Problem] Writing comprehensive test cases manually was time-consuming.<br>[Solution] Produces a broad set of test cases automatically, increasing coverage by 45%.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9732/800/450",
+            "type": {
+                "id": 107,
+                "c_name": "テスト-品質保証",
+                "title": "テスト・品質保証",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9733,
+                    "asset_id": 9732,
+                    "original_asset_id": 9732,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90366,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2001,
+                    "full_name": "Hiroshi Sato",
+                    "email_id": "hiroshi.sato@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2001,
+                "first_name": "Hiroshi",
+                "last_name": "Sato",
+                "full_name": "Hiroshi Sato",
+                "email_id": "hiroshi.sato@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 207,
+                    "c_name": "test-auto",
+                    "title": "Test Automation",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 207,
+                            "capability_id": 207,
+                            "title": "テスト自動化",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80084
+                }
+            ],
+            "tags": [
+                "testing",
+                "qa"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9734,
+            "original_asset_id": 9734,
+            "version_number": 1,
+            "title": "Regression Suite Optimizer",
+            "tag_line": "Faster test runs, same coverage",
+            "overview": "<p>Prunes redundant tests from large regression suites.<br>[Problem] Regression suites grew too large, slowing releases.<br>[Solution] Removes redundant tests while preserving coverage, cutting run time by 30%.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9734/800/450",
+            "type": {
+                "id": 107,
+                "c_name": "テスト-品質保証",
+                "title": "テスト・品質保証",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9735,
+                    "asset_id": 9734,
+                    "original_asset_id": 9734,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90367,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2002,
+                    "full_name": "Emily Carter",
+                    "email_id": "emily.carter@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2002,
+                "first_name": "Emily",
+                "last_name": "Carter",
+                "full_name": "Emily Carter",
+                "email_id": "emily.carter@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 207,
+                    "c_name": "test-auto",
+                    "title": "Test Automation",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 207,
+                            "capability_id": 207,
+                            "title": "テスト自動化",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80085
+                }
+            ],
+            "tags": [
+                "testing",
+                "automation"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9736,
+            "original_asset_id": 9736,
+            "version_number": 1,
+            "title": "Feature Request Triage Board",
+            "tag_line": "Prioritize what matters",
+            "overview": "<p>Organizes and scores incoming feature requests.<br>[Problem] Feature requests piled up without a clear prioritization process.<br>[Solution] Scores requests by impact and effort, streamlining roadmap planning.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9736/800/450",
+            "type": {
+                "id": 108,
+                "c_name": "サービス-プロダクト",
+                "title": "サービス・プロダクト",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9737,
+                    "asset_id": 9736,
+                    "original_asset_id": 9736,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90368,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2003,
+                    "full_name": "James Miller",
+                    "email_id": "james.miller@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2003,
+                "first_name": "James",
+                "last_name": "Miller",
+                "full_name": "James Miller",
+                "email_id": "james.miller@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 208,
+                    "c_name": "product-mgmt",
+                    "title": "Product Management",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 208,
+                            "capability_id": 208,
+                            "title": "プロダクト管理",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80086
+                }
+            ],
+            "tags": [
+                "product",
+                "roadmap"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9738,
+            "original_asset_id": 9738,
+            "version_number": 1,
+            "title": "Release Notes Composer",
+            "tag_line": "Ship notes with every release",
+            "overview": "<p>Generates release notes from merged pull requests.<br>[Problem] Release notes were often written hastily or skipped.<br>[Solution] Compiles clear release notes automatically at build time.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9738/800/450",
+            "type": {
+                "id": 108,
+                "c_name": "サービス-プロダクト",
+                "title": "サービス・プロダクト",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9739,
+                    "asset_id": 9738,
+                    "original_asset_id": 9738,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90369,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2004,
+                    "full_name": "Sophie Nguyen",
+                    "email_id": "sophie.nguyen@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2004,
+                "first_name": "Sophie",
+                "last_name": "Nguyen",
+                "full_name": "Sophie Nguyen",
+                "email_id": "sophie.nguyen@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 208,
+                    "c_name": "product-mgmt",
+                    "title": "Product Management",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 208,
+                            "capability_id": 208,
+                            "title": "プロダクト管理",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80087
+                }
+            ],
+            "tags": [
+                "product",
+                "documentation"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9740,
+            "original_asset_id": 9740,
+            "version_number": 1,
+            "title": "Product Usage Heatmap",
+            "tag_line": "See how features are used",
+            "overview": "<p>Visualizes which product features are used most and least.<br>[Problem] Product decisions were made without clear usage data.<br>[Solution] Provides a live usage heatmap, guiding roadmap prioritization.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9740/800/450",
+            "type": {
+                "id": 108,
+                "c_name": "サービス-プロダクト",
+                "title": "サービス・プロダクト",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9741,
+                    "asset_id": 9740,
+                    "original_asset_id": 9740,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90370,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2005,
+                    "full_name": "David Kim",
+                    "email_id": "david.kim@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2005,
+                "first_name": "David",
+                "last_name": "Kim",
+                "full_name": "David Kim",
+                "email_id": "david.kim@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 208,
+                    "c_name": "product-mgmt",
+                    "title": "Product Management",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 208,
+                            "capability_id": 208,
+                            "title": "プロダクト管理",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80088
+                }
+            ],
+            "tags": [
+                "product",
+                "analytics"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9742,
+            "original_asset_id": 9742,
+            "version_number": 1,
+            "title": "Onboarding Knowledge Hub",
+            "tag_line": "Ramp new hires faster",
+            "overview": "<p>Centralizes onboarding materials into a searchable hub.<br>[Problem] New hires struggled to find scattered onboarding resources.<br>[Solution] Provides a single searchable hub, cutting ramp-up time by 20%.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9742/800/450",
+            "type": {
+                "id": 109,
+                "c_name": "ナレッジ-業務支援",
+                "title": "ナレッジ・業務支援",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9743,
+                    "asset_id": 9742,
+                    "original_asset_id": 9742,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90371,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2001,
+                    "full_name": "Hiroshi Sato",
+                    "email_id": "hiroshi.sato@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2001,
+                "first_name": "Hiroshi",
+                "last_name": "Sato",
+                "full_name": "Hiroshi Sato",
+                "email_id": "hiroshi.sato@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 209,
+                    "c_name": "knowledge-mgmt",
+                    "title": "Knowledge Management",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 209,
+                            "capability_id": 209,
+                            "title": "ナレッジ管理",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80089
+                }
+            ],
+            "tags": [
+                "knowledge",
+                "onboarding"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9744,
+            "original_asset_id": 9744,
+            "version_number": 1,
+            "title": "FAQ Auto-Responder",
+            "tag_line": "Answer common questions instantly",
+            "overview": "<p>Answers frequently asked internal questions automatically.<br>[Problem] Support teams spent hours answering repetitive questions.<br>[Solution] Resolves common questions instantly, freeing up support time by 30%.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9744/800/450",
+            "type": {
+                "id": 109,
+                "c_name": "ナレッジ-業務支援",
+                "title": "ナレッジ・業務支援",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9745,
+                    "asset_id": 9744,
+                    "original_asset_id": 9744,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90372,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2002,
+                    "full_name": "Emily Carter",
+                    "email_id": "emily.carter@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2002,
+                "first_name": "Emily",
+                "last_name": "Carter",
+                "full_name": "Emily Carter",
+                "email_id": "emily.carter@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 209,
+                    "c_name": "knowledge-mgmt",
+                    "title": "Knowledge Management",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 209,
+                            "capability_id": 209,
+                            "title": "ナレッジ管理",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80090
+                }
+            ],
+            "tags": [
+                "knowledge",
+                "support"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9746,
+            "original_asset_id": 9746,
+            "version_number": 1,
+            "title": "Slide Deck Polisher",
+            "tag_line": "Presentation-ready in one pass",
+            "overview": "<p>Refines slide decks for clarity and consistent formatting.<br>[Problem] Decks assembled by multiple authors looked inconsistent.<br>[Solution] Standardizes fonts, layout, and tone across all slides automatically.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9746/800/450",
+            "type": {
+                "id": 101,
+                "c_name": "資料-文書作成",
+                "title": "資料・文書作成",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9747,
+                    "asset_id": 9746,
+                    "original_asset_id": 9746,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90373,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2003,
+                    "full_name": "James Miller",
+                    "email_id": "james.miller@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2003,
+                "first_name": "James",
+                "last_name": "Miller",
+                "full_name": "James Miller",
+                "email_id": "james.miller@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 201,
+                    "c_name": "doc-gen",
+                    "title": "Document Generation",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 201,
+                            "capability_id": 201,
+                            "title": "文書生成",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80091
+                }
+            ],
+            "tags": [
+                "presentation",
+                "formatting"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9748,
+            "original_asset_id": 9748,
+            "version_number": 1,
+            "title": "Budget Variance Explainer",
+            "tag_line": "Understand budget gaps fast",
+            "overview": "<p>Explains the drivers behind budget variances in plain language.<br>[Problem] Finance teams spent days investigating variance causes.<br>[Solution] Surfaces likely drivers automatically, cutting investigation time by half.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9748/800/450",
+            "type": {
+                "id": 103,
+                "c_name": "データ分析-診断",
+                "title": "データ分析・診断",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9749,
+                    "asset_id": 9748,
+                    "original_asset_id": 9748,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90374,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2004,
+                    "full_name": "Sophie Nguyen",
+                    "email_id": "sophie.nguyen@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2004,
+                "first_name": "Sophie",
+                "last_name": "Nguyen",
+                "full_name": "Sophie Nguyen",
+                "email_id": "sophie.nguyen@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 203,
+                    "c_name": "data-analysis",
+                    "title": "Data Analysis",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 203,
+                            "capability_id": 203,
+                            "title": "データ分析",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80092
+                }
+            ],
+            "tags": [
+                "finance",
+                "analytics"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
+        },
+        {
+            "id": 9750,
+            "original_asset_id": 9750,
+            "version_number": 1,
+            "title": "Regulatory Update Tracker",
+            "tag_line": "Stay ahead of new rules",
+            "overview": "<p>Tracks regulatory changes relevant to the business.<br>[Problem] Regulatory updates were sometimes discovered after deadlines passed.<br>[Solution] Sends timely alerts on relevant changes, reducing compliance risk.</p>",
+            "contact_email_id": "",
+            "preview_gallery_id": null,
+            "preview_url": "https://picsum.photos/seed/asset9750/800/450",
+            "type": {
+                "id": 104,
+                "c_name": "情報収集-調査",
+                "title": "情報収集・調査",
+                "download_term_condition_url": null,
+                "download_term_condition_title": null
+            },
+            "status": {
+                "id": 4,
+                "c_name": "published",
+                "title": "Published"
+            },
+            "access_type": {
+                "id": 2,
+                "c_name": "everyone",
+                "title": "Everyone"
+            },
+            "people": [],
+            "last_updated_at": "2026-07-02T00:00:00.000Z",
+            "communities": [],
+            "languages": [],
+            "active_versions": [
+                {
+                    "id": 9751,
+                    "asset_id": 9750,
+                    "original_asset_id": 9750,
+                    "previous_asset_id": null,
+                    "version_number": 1,
+                    "is_active": true
+                }
+            ],
+            "versions": [],
+            "entities": [],
+            "locations": [],
+            "owners": [
+                {
+                    "mapping_id": 90375,
+                    "ownership_type": "Director",
+                    "is_owner": 1,
+                    "id": 2005,
+                    "full_name": "David Kim",
+                    "email_id": "david.kim@corporate.com",
+                    "inactive": false,
+                    "is_verified": true
+                }
+            ],
+            "creator": {
+                "id": 2005,
+                "first_name": "David",
+                "last_name": "Kim",
+                "full_name": "David Kim",
+                "email_id": "david.kim@corporate.com",
+                "inactive": false,
+                "is_verified": true
+            },
+            "moderators": [],
+            "capabilities": [
+                {
+                    "id": 204,
+                    "c_name": "info-gather",
+                    "title": "Info Gathering",
+                    "is_exclusive": false,
+                    "is_featured": false,
+                    "capability_type": {
+                        "id": 38,
+                        "c_name": "technology",
+                        "title": "Technology"
+                    },
+                    "sub_capabilities": [],
+                    "sub_capabilities_count": 0,
+                    "translations": [
+                        {
+                            "id": 204,
+                            "capability_id": 204,
+                            "title": "情報収集",
+                            "language_code": "ja"
+                        }
+                    ],
+                    "parent": null,
+                    "mapping_id": 80093
+                }
+            ],
+            "tags": [
+                "compliance",
+                "research"
+            ],
+            "stats": {
+                "view_count": 0,
+                "unique_view_count": 0,
+                "download_count": 0,
+                "unique_download_count": 0,
+                "open_download_count": 0,
+                "in_moderation_download_count": 0,
+                "published_download_count": 0,
+                "like_count": 0,
+                "dislike_count": 0,
+                "comment_count": 0,
+                "open_comment_count": 0,
+                "in_moderation_comment_count": 0,
+                "published_comment_count": 0,
+                "utilization_report_count": 0
+            },
+            "variants": [],
+            "is_locked": false
         }
     ]
 }
