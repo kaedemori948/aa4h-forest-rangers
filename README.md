@@ -37,21 +37,25 @@ Claude Code が GitHub Issue を元にUI/UXの改善提案を行う。
 ```
 /ui-improve（オーケストレーター）
   ├─ proposal:needed のIssue → /ui-improve-needed → 新規ブランチ & PR 作成
-  └─ proposal:revise のIssue → /ui-improve-revise → 既存ブランチに再実装 & PR 更新
+  ├─ proposal:revise のIssue → /ui-improve-revise → 既存ブランチに再実装 & PR 更新
+  └─ dev-fix のIssue → /issue-to-impl（実装+テスト） → /ship → 新規/既存ブランチで PR 作成・更新
 
 PR → リーダーレビュー & マージ → リーダーが任意のタイミングでデプロイ
 ```
 
 | ステップ | 担当 | 内容 |
 |---|---|---|
-| `/ui-improve` | Claude Code | `proposal:needed` / `proposal:revise` ラベルの Issue を全件取得し、サブスキルに並列委譲 |
+| `/ui-improve` | Claude Code | `proposal:needed` / `proposal:revise` / `dev-fix` ラベルの Issue を全件取得し、サブスキルに並列委譲 |
 | `/ui-improve-needed` | Claude Code | 新規 Issue を解析 → 改善案生成 → 実装 → 新規ブランチで PR 作成 |
 | `/ui-improve-revise` | Claude Code | 既存 PR の却下理由を収集 → 前回変更を巻き戻し → 再実装 → PR を更新 |
+| dev-fix 対応 | Claude Code | `dev-fix` Issue（開発者発・複数修正案を一括起票）を `/issue-to-impl` で解析・実装・テスト（SPEC-ID付きテストを追加し `npm test` 全緑を確認）→ チェックボックス更新 → `/ship` でPR作成/既存PRへの追加 |
 | 承認 & マージ | リーダー | PR をレビューし main へマージ。任意のタイミングで手動デプロイ |
 
 ### 全体像（外側ループ ⇄ 内側ループ）
 
 ユーザーが Form に入力して Issue を登録する **外側ループ** と、リーダーが `/ui-improve` を起動して処理する **内側ループ** が連動して回る。内側ループが完了（マージ・デプロイ）すると、再び外側ループの Form 入力サイクルに戻る。
+
+`dev-fix` Issue は外側ループを経由せず、開発者がサイトを見て気づいた修正案を直接起票するため、内側ループにのみ合流する（下図の破線）。
 
 ```mermaid
 flowchart TD
@@ -62,10 +66,12 @@ flowchart TD
         FORM --> ISSUE
     end
 
+    DEVFIX["開発者がサイトを見て気づいた修正案を直接起票<br/>dev-fix 付与・複数チェックボックスで一括登録"]
+
     subgraph INNER["内側ループ：リーダーが /ui-improve を起点に処理"]
         direction TB
         START["リーダーが /ui-improve を実行<br/>skill: ui-improve（オーケストレーター）"]
-        CLASSIFY["対象 Issue 取得・ラベルで2グループに分類<br/>gh issue list（proposal: needed / revise）"]
+        CLASSIFY["対象 Issue 取得・ラベルで3グループに分類<br/>gh issue list（proposal: needed / revise / dev-fix）"]
         START --> CLASSIFY
 
         subgraph NEEDED["proposal: needed → skill: ui-improve-needed"]
@@ -90,15 +96,28 @@ flowchart TD
             R1 --> R2 --> R3 --> R4 --> R5 --> R6 --> R7
         end
 
+        subgraph DEVFIXFLOW["dev-fix → skill: /issue-to-impl → /ship"]
+            direction TB
+            D1["1. イシュー取得（番号は既知のためスキップ）"]
+            D2["2. 解析・実装<br/>skill: /issue-to-impl"]
+            D3["3. テスト<br/>SPEC-ID付きテスト追加・npm test 全緑まで実装を直す"]
+            D4["4. チェックボックス更新<br/>完了した修正案のみ [x] に"]
+            D5["5. ship実行<br/>新規ブランチ&PR作成 or 既存ブランチへ追加"]
+            D1 --> D2 --> D3 --> D4 --> D5
+        end
+
         CLASSIFY --> N1
         CLASSIFY --> R1
+        CLASSIFY --> D1
 
         MERGE["リーダーが PR をレビュー・マージ・手動デプロイ"]
         N5 --> MERGE
         R7 --> MERGE
+        D5 --> MERGE
     end
 
     ISSUE -.->|"ストックされた Issue が<br/>内側ループ全体の入力になる"| START
+    DEVFIX -.->|"外側ループを経由せず<br/>内側ループにのみ合流"| START
     MERGE -.->|"完了後、再び Form 入力サイクルへ"| FORM
 ```
 

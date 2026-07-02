@@ -20,12 +20,10 @@
 .hero-lead { margin:20px 0 28px; max-width:54ch; font-size:15.5px; color:var(--muted); }
 .hero-cta { display:flex; gap:11px; flex-wrap:wrap; }
 
-.metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:8px 0 8px; }
-.metric { background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); padding:22px 24px; }
-.metric .n { font-size:clamp(28px,3.4vw,40px); font-weight:700; letter-spacing:-.02em; color:var(--ink);
-  font-variant-numeric:tabular-nums; line-height:1; }
-.metric .n.red { color:var(--red); }
-.metric .l { margin-top:8px; font-size:13px; color:var(--muted); }
+.metrics { display:flex; flex-wrap:wrap; align-items:center; gap:8px 20px; margin:8px 0 8px; font-size:13px; color:var(--muted); }
+.metrics .metric { display:inline-flex; align-items:baseline; gap:5px; }
+.metrics .metric .n { font-weight:600; font-variant-numeric:tabular-nums; color:var(--ink-2); }
+.metrics .metric .n.red { color:var(--red); }
 
 .section { padding:48px 0 0; }
 .sec-head { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:22px; }
@@ -43,7 +41,7 @@
 .cta-band .btn { background:#fff; color:var(--ink); border-color:#fff; }
 .cta-band .btn:hover { background:var(--surface-2); border-color:var(--surface-2); }
 
-@media (max-width:860px){ .metrics{grid-template-columns:1fr;} .grid-4{grid-template-columns:1fr 1fr;} }
+@media (max-width:860px){ .grid-4{grid-template-columns:1fr 1fr;} }
 @media (max-width:560px){ .grid-4{grid-template-columns:1fr;} }
 </style>
 </head>
@@ -78,9 +76,9 @@
 
   <section style="padding-top:8px"><div class="wrap">
     <div class="metrics">
-      <div class="metric"><div class="n red" data-stat="total">—</div><div class="l" data-i18n="stat_agents">公開アセット</div></div>
-      <div class="metric"><div class="n" data-stat="views">—</div><div class="l" data-i18n="stat_reuse">再利用数</div></div>
-      <div class="metric"><div class="n" data-stat="cats">—</div><div class="l" data-i18n="stat_cats">カテゴリ</div></div>
+      <span class="metric"><span class="n red" data-stat="total">—</span><span data-i18n="stat_agents">公開アセット</span></span>
+      <span class="metric"><span class="n" data-stat="views">—</span><span data-i18n="stat_reuse">再利用数</span></span>
+      <span class="metric"><span class="n" data-stat="cats">—</span><span data-i18n="stat_cats">カテゴリ</span></span>
     </div>
   </div></section>
 

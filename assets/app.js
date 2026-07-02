@@ -250,7 +250,7 @@
       suggest_reason_cap:'機能 "<b>$1</b>" に一致',
       suggest_reason_desc:'概要に "<b>$1</b>" が含まれます',
       rail_cats:"カテゴリ", rail_filter:"絞り込み",
-      card_reuse:"ビュー", card_users:"ユニーク",
+      card_dl:"DL",
       rank_reuse:"ビュー",
       modal_reuse:"ビュー数", modal_uniq:"ユニーク", modal_likes:"いいね", modal_rank:"人気順位",
       modal_owner:"オーナー", modal_pubdate:"更新日", modal_assetid:"アセットID",
@@ -302,7 +302,7 @@
       suggest_reason_cap:'Matches capability "<b>$1</b>"',
       suggest_reason_desc:'"<b>$1</b>" found in description',
       rail_cats:"Categories", rail_filter:"Filters",
-      card_reuse:"Views", card_users:"Unique",
+      card_dl:"DL",
       rank_reuse:"Views",
       modal_reuse:"Views", modal_uniq:"Unique", modal_likes:"Likes", modal_rank:"Rank",
       modal_owner:"Owner", modal_pubdate:"Updated", modal_assetid:"Asset ID",
@@ -372,9 +372,8 @@
   <h3 class="card-title">${esc(a.title)}</h3>
   ${desc}
   <div class="card-foot">
-    <span class="stat"><span class="lab">${t("card_reuse")}</span> ${fmt(a.views)}</span>
-    <span class="stat"><span class="lab">${t("card_users")}</span> ${fmt(a.uniqueViews)}</span>
     ${a.likes ? `<span class="stat"><span class="lab">♥</span> ${fmt(a.likes)}</span>` : ""}
+    <span class="stat"><span class="lab">${t("card_dl")}</span> ${fmt(a.downloads)}</span>
     ${a.owner ? `<span class="card-owner">${esc(a.owner)}</span>` : ""}
   </div>
 </article>`;
