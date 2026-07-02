@@ -31,7 +31,7 @@
 - スタイル: stroke="#1e293b" stroke-width="3"
 - 両端にノード（circle r="8" fill="#1e293b"）
 - ラベル: main（上部、font-weight="700"）
-- サブ: 本番ブランチ — 週1回 Vercel へ自動デプロイ
+- サブ: 本番ブランチ — 週1回 GitHub Pages へ自動デプロイ
 
 **weekly/2026-W26**（水平線 y=130）
 - スタイル: stroke="#E60012" stroke-width="2.5"

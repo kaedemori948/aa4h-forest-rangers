@@ -17,7 +17,7 @@
 
 ### 見出し
 - スタイル: `text-2xl font-bold text-gray-900 mb-6`
-- テキスト: GitHub / AIAgentサイト / Vercel / KMPF / VSCode の関係
+- テキスト: GitHub / AIAgentサイト / GitHub Pages / KMPF / VSCode の関係
 
 ### SVG関係図（viewBox="0 0 860 380"）
 
@@ -35,17 +35,17 @@
 - ラベル: GitHub
 - サブ: ソースコード管理 / Issue / PR / Branch
 
-**下: Vercel（仮）**
+**下: GitHub Pages**
 - 位置: x=320 y=270 w=220 h=70
 - スタイル: fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"
-- ラベル: Vercel（仮）
+- ラベル: GitHub Pages
 - サブ: ホスティング・公開 / mainブランチを自動デプロイ
 
 **右: KMPF**
 - 位置: x=620 y=140 w=180 h=70
 - スタイル: fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"
 - ラベル: KMPF
-- サブ: 既存API群 / クライアント管理・変更不可
+- サブ: 既存API群（GCP） / クライアント管理・変更不可
 
 **上: VSCode**
 - 位置: x=320 y=20 w=220 h=70
@@ -55,7 +55,7 @@
 
 #### 矢印
 - GitHub → AIAgentサイト: 「デプロイ元」灰色矢印
-- AIAgentサイト → Vercel: 「公開」灰色矢印
+- AIAgentサイト → GitHub Pages: 「公開」灰色矢印
 - AIAgentサイト → KMPF: 「API呼び出し」赤破線矢印（#E60012 stroke-dasharray="5,3"）
 - VSCode → GitHub: 「push / PR」灰色矢印
 - VSCode → AIAgentサイト: 「編集」灰色矢印

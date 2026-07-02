@@ -35,7 +35,7 @@
 #### 03 開発フロー
 - テキスト（親）: 開発フロー
 - サブ項目（flex flex-col gap-1 pl-2、スタイル: `text-xs text-gray-400`）:
-  - — ツール関係図（GitHub / AIAgentサイト / Vercel / KMPF / VSCode）
+  - — ツール関係図（GitHub / AIAgentサイト / GitHub Pages / KMPF / VSCode）
   - — UI/UX改善フロー（利用 → FB → Issue → 実装 → PR → 承認）
   - — ブランチ構成（main / weekly / PR）
 

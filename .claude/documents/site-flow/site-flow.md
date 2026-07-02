@@ -31,8 +31,8 @@
 
 → 矢印 (144,160)→(174,160)
 
-**GitHub Pages またはVercel HTML/JS**（x=174, y=115）
-- 3行テキスト: "GitHub Pages"（font-size="11"）/ "またはVercel"（font-size="10"）/ "HTML/JS"（font-size="10"）
+**GitHub Pages HTML/JS**（x=174, y=115）
+- 2行テキスト: "GitHub Pages"（font-size="11"）/ "HTML/JS"（font-size="10"）
 
 → 矢印 (308,160)→(338,160)
 
@@ -59,7 +59,7 @@
 - 横矢印: (666,260)→(700,260)
 - **サイト利用**: x=700, y=215（fill="#fff5f5" stroke="#E60012"）
 - ↓ 矢印 (767,305)→(767,320)
-- **Vercel Functions**: x=700, y=320（fill="#f8fafc" stroke="#64748b"）2行テキスト: "Vercel" / "Functions"
+- **GCP（API Gateway）**: x=700, y=320（fill="#f8fafc" stroke="#64748b"）2行テキスト: "GCP" / "API Gateway"
 - ↓ 矢印 (767,410)→(767,425)
 - **外部API（APIキー隠蔽）**: x=700, y=425（fill="#f8fafc" stroke="#64748b"）2行テキスト: "外部API" / "（APIキー隠蔽）"
 

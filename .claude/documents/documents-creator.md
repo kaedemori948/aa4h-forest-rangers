@@ -32,6 +32,11 @@ flow/flow.md
 Use:
 branch/branch.md
 
+# Page7-1〜7-3
+Use:
+lifecycle-flow/lifecycle-flow.md
+（3枚組: DISCOVERY/PLAN・DEVELOPMENT/TEST・DEPLOY/RUN・SUSTAIN）
+
 # Page8
 Use:
 sitemap/sitemap.md
