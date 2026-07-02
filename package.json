@@ -1,0 +1,17 @@
+{
+  "name": "aa4h-forest-rangers",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI Assets カタログ フロントエンド（仕様連動テスト付き）",
+  "type": "module",
+  "scripts": {
+    "serve": "node test/server.mjs",
+    "test:e2e": "playwright test",
+    "test:unit": "node --test \"test/unit/**/*.test.js\"",
+    "test:trace": "node test/spec-trace.mjs",
+    "test": "npm run test:trace && npm run test:unit && npm run test:e2e"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0"
+  }
+}

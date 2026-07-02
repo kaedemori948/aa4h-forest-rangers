@@ -224,7 +224,7 @@
   // ---- i18n ----
   const I18N = {
     ja: {
-      nav_index:"索引", nav_home:"ホーム", nav_agents:"エージェント一覧", nav_new:"新着",
+      nav_index:"索引", nav_home:"ホーム", nav_agents:"アセット一覧", nav_new:"新着",
       stat_agents_br:"公開アセット<br>Published", stat_reuse_br:"閲覧数<br>VIEWS", stat_cats_br:"カテゴリ<br>Categories",
       stat_agents:"公開アセット", stat_reuse:"閲覧数", stat_cats:"カテゴリ",
       sec_picks_sub:"AI-CoE 厳選 — Curated", sec_cats_sub:"利用シーン別 — Index",
@@ -232,7 +232,7 @@
       link_picks:"ピック一覧 →", link_cats:"すべて見る →", link_ranking:"ランキング全体 →", link_newest:"新着をもっと →",
       list_h1:"アセット一覧", list_desc:"公開中のAIアセットを横断検索。キーワード・カテゴリ・並び順で、目的のアセットへ素早くたどり着けます。",
       list_h1_en:"Directory",
-      search_ph:"アセット名・オーナー・概要で検索…",
+      search_ph:"アセット名・概要で検索…",
       sort_label:"並び順",
       sort_views:"人気順（ビュー）", sort_downloads:"利用実績順（DL）", sort_newest:"新着順", sort_likes:"いいね順", sort_title:"名前順",
       facet_cap_label:"機能タグ", facet_date_label:"更新日", facet_dl_label:"DL実績", facet_tag_label:"タグ",
@@ -366,7 +366,7 @@
 <article class="card reveal${sliderClass}" data-id="${a.id}"${delay}>
   ${slider}
   <div class="card-top">
-    <span class="card-cat"><span class="gl">${catGlyph(a.category)}</span>${esc(catName(a.category))}</span>
+    <a class="card-cat" href="${(window.AGENTS_PAGE||'agents.html')}?cat=${encodeURIComponent(a.category)}"><span class="gl">${catGlyph(a.category)}</span>${esc(catName(a.category))}</a>
     <span class="card-id">№${a.id}</span>
   </div>
   <h3 class="card-title">${esc(a.title)}</h3>
@@ -435,6 +435,7 @@
     root.addEventListener("click", e => {
       if (e.target.closest("[data-slider]") &&
           (e.target.closest(".card-slider-btn") || e.target.closest(".card-slider-dot"))) return;
+      if (e.target.closest(".card-cat")) return;
       const c = e.target.closest(".card");
       if (c) go(+c.dataset.id);
     });
@@ -457,14 +458,12 @@
 
     const ci = document.getElementById("cat-index");
     if (ci) {
-      const maxc = Math.max(...CATS.map(c => c.count));
       ci.innerHTML = CATS.map((c,i) => `
-        <a class="cat-row reveal" href="agents.html?cat=${c.id}" style="animation-delay:${i*50}ms">
+        <a class="cat-row reveal" href="${window.AGENTS_PAGE || 'pages/agents.html'}?cat=${c.id}" style="animation-delay:${i*50}ms">
           <span class="cat-no">${String(i+1).padStart(2,"0")}</span>
           <span class="cat-gl">${esc(c.icon)}</span>
           <span class="cat-name">${esc(c.name)}</span>
-          <span class="cat-bar"><span style="width:${(c.count/maxc*100).toFixed(1)}%"></span></span>
-          <span class="cat-count">${fmt(c.count)}</span>
+          <span class="cat-count">${fmt(c.count)} assets</span>
           <span class="cat-arr">→</span>
         </a>`).join("");
     }
@@ -551,9 +550,45 @@
     DATA.agents.forEach(a => (a.capabilities||[]).forEach(c => capSet.set(c, (capSet.get(c)||0)+1)));
     buildPills(capPills, capSet, state.caps);
 
+    const TAG_GROUPS = [
+      { label: "業務・文書",   tags: ["テンプレート","文書","手順書","チェックリスト","レポート","提案","ロードマップ"] },
+      { label: "データ・分析", tags: ["データ","分析","BI","KPI","ダッシュボード","トレンド","市場","調査","リサーチ","情報収集"] },
+      { label: "開発・技術",   tags: ["コード","開発","バグ","テスト","API","CI/CD対応","DevOps","UX","アーキテクチャ","QA","ノーコード","品質","品質保証"] },
+      { label: "営業・顧客",   tags: ["営業","顧客","リード","CRM","CRM連携","フォローアップ"] },
+      { label: "業務改善",     tags: ["自動化","効率化","業務改善","自動通知","監査","確認"] },
+      { label: "ナレッジ・情報", tags: ["ナレッジ","Wiki"] },
+      { label: "ツール連携",   tags: ["API連携","Excel対応","Outlook連携","チャットBot"] },
+      { label: "戦略・企画",   tags: ["戦略","プロダクト","アジャイル","ビジネス","レビュー"] },
+    ];
+
     const tagSet = new Map();
     DATA.agents.forEach(a => (a.tags||[]).forEach(tg => tagSet.set(tg, (tagSet.get(tg)||0)+1)));
-    buildPills(tagPills, tagSet, state.tags);
+
+    function buildGroupedTagPills(container, stateArr) {
+      if (!container) return;
+      const allKnown = new Set(TAG_GROUPS.flatMap(g => g.tags));
+      const otherTags = [...tagSet.keys()].filter(t => !allKnown.has(t)).sort((a,b) => a.localeCompare(b,"ja"));
+      const groups = otherTags.length > 0 ? [...TAG_GROUPS, { label:"その他", tags: otherTags }] : TAG_GROUPS;
+      container.innerHTML = groups.map(g => {
+        const pills = g.tags.filter(t => tagSet.has(t));
+        if (!pills.length) return "";
+        return `<div class="tag-group">
+          <div class="tag-group-label">${esc(g.label)}</div>
+          <div class="facet-pills">${pills.map(name =>
+            `<button class="facet-pill" data-val="${esc(name)}">${esc(name)}<span>${tagSet.get(name)}</span></button>`
+          ).join("")}</div>
+        </div>`;
+      }).join("");
+      container.addEventListener("click", e => {
+        const b = e.target.closest(".facet-pill"); if (!b) return;
+        const val = b.dataset.val;
+        const idx = stateArr.indexOf(val);
+        if (idx === -1) stateArr.push(val); else stateArr.splice(idx, 1);
+        b.classList.toggle("active", stateArr.includes(val));
+        refresh();
+      });
+    }
+    buildGroupedTagPills(tagPills, state.tags);
 
     function compute() {
       const tokens = state.q.trim().toLowerCase().split(/[\s　]+/).filter(Boolean);
@@ -652,7 +687,8 @@
       moreBtn.style.display = state.shown < state.results.length ? "" : "none";
       moreBtn.textContent = `${t("more_text")}  (${t("more_remain")} ${fmt(state.results.length - state.shown)})`;
       const isEmpty = state.results.length === 0;
-      emptyEl.style.display = isEmpty ? "" : "none";
+      // .empty は CSS で display:none のため、表示側は明示的に block を指定する
+      emptyEl.style.display = isEmpty ? "block" : "none";
       const tokens = state.q.trim().toLowerCase().split(/[\s　]+/).filter(Boolean);
       if (isEmpty && tokens.length) paintSuggests(tokens);
       else suggestEl.style.display = "none";
@@ -758,8 +794,7 @@
         <div class="dtl-img">${imgHTML}</div>
         <div class="dtl-info">
           <div class="dtl-eyebrow">
-            <span class="gl">${catGlyph(a.category)}</span>
-            ${esc(catName(a.category))}
+            <a class="dtl-cat-link" href="agents.html?cat=${encodeURIComponent(a.category)}"><span class="gl">${catGlyph(a.category)}</span>${esc(catName(a.category))}</a>
             <span>·</span><span>№${a.id}</span>
             ${a.pick ? `<span class="dtl-pick">· ${t("pick_badge")}</span>` : ""}
           </div>
@@ -774,11 +809,6 @@
             <div class="dtl-stat"><span class="dtl-stat-n">${fmt(a.downloads)}</span><span class="dtl-stat-l">${t("dtl_dl")}</span></div>
             <div class="dtl-stat"><span class="dtl-stat-n">${fmt(a.likes)}</span><span class="dtl-stat-l">${t("dtl_likes")}</span></div>
             <div class="dtl-stat"><span class="dtl-stat-n">${fmt(a.comments)}</span><span class="dtl-stat-l">コメント</span></div>
-          </div>
-
-          <div class="dtl-cta">
-            <button class="btn try-cta">${t("detail_try")} <span class="arr">→</span></button>
-            <span class="detail-demo">${t("detail_demo")}</span>
           </div>
 
           <dl class="dtl-meta">
@@ -803,9 +833,7 @@
 
     bindDetailSlider(root);
 
-    root.querySelector(".try-cta").addEventListener("click", function() {
-      this.innerHTML = t("detail_try_done"); this.classList.add("tried");
-    });
+
   }
 
   // ================= CHAT POD =================
@@ -995,11 +1023,24 @@
     });
   }
 
-  // ---- boot: read window.ASSETS_DATA (loaded via data/test.js script tag) ----
-  document.addEventListener("DOMContentLoaded", () => {
+  // ---- boot ----
+  document.addEventListener("DOMContentLoaded", async () => {
     applyI18n();
-    if (!window.ASSETS_DATA) { console.error("ASSETS_DATA not loaded"); return; }
-    DATA = transformData(window.ASSETS_DATA);
+
+    let raw;
+    if (typeof AA4H_API_ENABLED !== "undefined" && AA4H_API_ENABLED) {
+      try {
+        raw = await AA4HAPI.fetchAssets();
+      } catch (e) {
+        console.error("fetchAssets failed:", e);
+        return;
+      }
+    } else {
+      if (!window.ASSETS_DATA) { console.error("ASSETS_DATA not loaded"); return; }
+      raw = window.ASSETS_DATA;
+    }
+
+    DATA = transformData(raw);
     CATS = DATA.categories;
     CAT_BY_ID = Object.fromEntries(CATS.map(c => [c.id, c]));
     if (document.body.dataset.page === "home")   renderHome();
