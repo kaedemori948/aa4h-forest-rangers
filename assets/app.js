@@ -590,6 +590,44 @@
     }
     buildGroupedTagPills(tagPills, state.tags);
 
+    // データ側の語彙と利用者の語彙のズレ（例: データは「文書生成」、利用者は「ドキュメント生成」）を
+    // data/ を変更できない制約の下で表示側で吸収するための同義語グループ
+    const SEARCH_SYNONYMS = [
+      ["提案書", "提案資料", "プロポーザル"],
+      ["ドキュメント生成", "文書生成", "ドキュメント作成", "文書作成"],
+      ["ドキュメント", "文書", "資料"],
+      ["生成", "作成", "ドラフト"],
+      ["営業", "セールス"],
+    ];
+    const tokenVariants = tok => {
+      const v = new Set([tok]);
+      SEARCH_SYNONYMS.forEach(g => { if (g.includes(tok)) g.forEach(s => v.add(s)); });
+      return [...v];
+    };
+
+    // タイトル一致を最重視しつつ、タグ・機能・カテゴリ経由のヒットも拾えるようにする
+    const SEARCH_WEIGHTS = { title: 4, tags: 3, caps: 2, cat: 2, desc: 1.5, owner: 1 };
+    function relevance(a, tokens) {
+      const fields = {
+        title: a.title.toLowerCase(),
+        tags:  (a.tags || []).join(" ").toLowerCase(),
+        caps:  (a.capabilities || []).join(" ").toLowerCase(),
+        cat:   catName(a.category).toLowerCase(),
+        desc:  (a.description || "").toLowerCase(),
+        owner: (a.owner || "").toLowerCase(),
+      };
+      let matched = 0, score = 0;
+      tokens.forEach(tok => {
+        const variants = tokenVariants(tok);
+        let s = 0;
+        for (const f in SEARCH_WEIGHTS) {
+          if (variants.some(v => fields[f].includes(v))) s += SEARCH_WEIGHTS[f];
+        }
+        if (s > 0) { matched++; score += s; }
+      });
+      return { matched, score };
+    }
+
     function compute() {
       const tokens = state.q.trim().toLowerCase().split(/[\s　]+/).filter(Boolean);
       const now = new Date();
@@ -604,12 +642,6 @@
           if (state.dateRange === "year" && d.getFullYear() < now.getFullYear()) return false;
         }
         if (a.downloads < state.minDl) return false;
-        if (tokens.length > 0) {
-          const ti = a.title.toLowerCase();
-          const ow = (a.owner||"").toLowerCase();
-          const de = (a.description||"").toLowerCase();
-          if (!tokens.every(tok => ti.includes(tok) || ow.includes(tok) || de.includes(tok))) return false;
-        }
         return true;
       });
       const sorters = {
@@ -619,7 +651,16 @@
         title:     (a,b) => a.title.localeCompare(b.title,"ja"),
         likes:     (a,b) => b.likes - a.likes || b.views - a.views,
       };
-      r.sort(sorters[state.sort]);
+      if (tokens.length > 0) {
+        // 全トークンANDだと複合キーワードで0件になりやすいため、部分一致も結果に残し
+        // 全語一致 → 関連度 → 選択中の並び順、で目的のアセットが埋もれないようにする
+        r = r.map(a => ({ a, ...relevance(a, tokens) }))
+          .filter(x => x.matched > 0)
+          .sort((x, y) => y.matched - x.matched || y.score - x.score || sorters[state.sort](x.a, y.a))
+          .map(x => x.a);
+      } else {
+        r.sort(sorters[state.sort]);
+      }
       state.results = r; state.shown = 0;
     }
 
