@@ -102,6 +102,16 @@
             </div>
           </div>
         </div>
+        <div class="flex items-start gap-4 py-3 border-b border-gray-100">
+          <span class="text-[#E60012] font-bold text-sm w-6 shrink-0">07</span>
+          <div>
+            <div class="text-gray-700 font-medium mb-1">仕様書</div>
+            <div class="flex flex-col gap-1 pl-2">
+              <span class="text-xs text-gray-400">— 仕様⇔テストの連動の仕組み</span>
+              <span class="text-xs text-gray-400">— 画面別 仕様項目 一覧（ホーム／一覧／詳細／要望フォーム）</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -684,6 +694,257 @@
           </p>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SLIDE 11: 仕様書 連動の仕組み ── -->
+<div class="slide" data-act="Specs">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-8 flex flex-col">
+    <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase mb-2">07 — 仕様書① 仕様⇔テストの連動</p>
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">仕様書とテストコードの1:1連動</h2>
+    <div class="flex-1 flex flex-col justify-center gap-8">
+      <p class="text-sm text-gray-600 leading-relaxed">
+        <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">specs/</code> 配下は挙動仕様のマスター。
+        テストコードと SPEC-ID で1:1連動させ、中長期の開発で過去挙動が意図せず失われていないことを保証する。
+      </p>
+      <div class="flex items-center justify-center">
+        <svg viewBox="0 0 640 140" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-2xl">
+          <defs>
+            <marker id="arrSpec" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#E60012"/>
+            </marker>
+          </defs>
+          <rect x="10" y="40" width="220" height="60" rx="10" fill="#fff5f5" stroke="#E60012" stroke-width="2"/>
+          <text x="120" y="66" text-anchor="middle" font-size="13" font-weight="700" fill="#E60012">仕様項目</text>
+          <text x="120" y="84" text-anchor="middle" font-size="11" fill="#6b7280">SPEC-HOME-001</text>
+
+          <line x1="230" y1="70" x2="408" y2="70" stroke="#E60012" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrSpec)"/>
+          <line x1="408" y1="70" x2="230" y2="70" stroke="#E60012" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrSpec)"/>
+          <text x="320" y="52" text-anchor="middle" font-size="10" fill="#6b7280">同じIDで参照</text>
+
+          <rect x="410" y="40" width="220" height="60" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+          <text x="520" y="66" text-anchor="middle" font-size="13" font-weight="700" fill="#1e293b">E2Eテスト</text>
+          <text x="520" y="84" text-anchor="middle" font-size="11" fill="#6b7280">test('[SPEC-HOME-001] ...')</text>
+        </svg>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
+        <div class="text-xs text-gray-400 mb-3 font-semibold uppercase tracking-widest">運用フロー（実装のたびに回す）</div>
+        <ul class="flex flex-col gap-2">
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">1.</span>実装する</li>
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">2.</span>その挙動の E2E/ユニットテストを追加する（テスト名の先頭に `[SPEC-ID]` を付与）</li>
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">3.</span><code class="text-xs bg-white border border-gray-200 px-1.5 py-0.5 rounded">specs/&lt;画面&gt;.spec.md</code> に同じ SPEC-ID の仕様項目を追記/改定する</li>
+          <li class="flex gap-3 text-sm text-gray-600"><span class="text-[#E60012] font-bold shrink-0">4.</span><code class="text-xs bg-white border border-gray-200 px-1.5 py-0.5 rounded">npm test</code> を全緑にする（spec-trace で仕様⇔テストの一致を検証 → unit → e2e）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SLIDE 12: 仕様一覧 ホーム画面 ── -->
+<div class="slide" data-act="Specs">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-8 flex flex-col">
+    <div class="flex items-baseline justify-between mb-2">
+      <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase">07 — 仕様書② ホーム画面 仕様一覧</p>
+      <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">specs/home.spec.md</code>
+    </div>
+    <h2 class="text-2xl font-bold text-gray-900 mb-1">ホーム画面（index.html）</h2>
+    <p class="text-xs text-gray-400 mb-4">対応実装: <code class="bg-gray-100 border border-gray-200 px-1 rounded">assets/app.js renderHome()</code> ／ 全6項目</p>
+    <div class="bg-gray-50 border border-gray-200 rounded-xl p-5">
+      <table class="w-full text-xs">
+        <thead>
+          <tr class="text-left text-gray-400 border-b border-gray-200">
+            <th class="py-2 pr-4 font-semibold w-40">SPEC-ID</th>
+            <th class="py-2 font-semibold">説明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100">
+            <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">HOME-001</td>
+            <td class="py-2.5 text-gray-700">統計バーに件数・閲覧数・カテゴリ数を表示する</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">HOME-002</td>
+            <td class="py-2.5 text-gray-700">プロデューサーズピックは閲覧数上位4件を表示する</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">HOME-003</td>
+            <td class="py-2.5 text-gray-700">カテゴリ索引に全カテゴリを初出順・件数付きで表示する</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">HOME-004</td>
+            <td class="py-2.5 text-gray-700">人気ランキングは閲覧数降順で最大8件を表示する</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">HOME-005</td>
+            <td class="py-2.5 text-gray-700">新着は更新日降順で最大8件を表示する</td>
+          </tr>
+          <tr>
+            <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">HOME-006</td>
+            <td class="py-2.5 text-gray-700">カード／ランキング行クリックで詳細ページへ遷移する</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── SLIDE 13: 仕様一覧 一覧画面 ── -->
+<div class="slide" data-act="Specs">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-8 flex flex-col">
+    <div class="flex items-baseline justify-between mb-2">
+      <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase">07 — 仕様書③ 一覧画面 仕様一覧</p>
+      <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">specs/list.spec.md</code>
+    </div>
+    <h2 class="text-2xl font-bold text-gray-900 mb-1">一覧画面（pages/agents.html）</h2>
+    <p class="text-xs text-gray-400 mb-4">対応実装: <code class="bg-gray-100 border border-gray-200 px-1 rounded">assets/app.js renderList()</code> ／ 全9項目</p>
+    <div class="bg-gray-50 border border-gray-200 rounded-xl p-5">
+      <table class="w-full text-xs">
+        <thead>
+          <tr class="text-left text-gray-400 border-b border-gray-200">
+            <th class="py-1.5 pr-4 font-semibold w-40">SPEC-ID</th>
+            <th class="py-1.5 font-semibold">説明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100">
+            <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-001</td>
+            <td class="py-2 text-gray-700">初期表示で全件を閲覧数降順で並べ、件数を表示する</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-002</td>
+            <td class="py-2 text-gray-700">キーワード検索でタイトル・オーナー・概要・タグ・機能・カテゴリに部分一致で絞り込む</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-003</td>
+            <td class="py-2 text-gray-700">並び替えでDL実績の降順に並べ替える</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-004</td>
+            <td class="py-2 text-gray-700">カテゴリチップで絞り込む</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-005</td>
+            <td class="py-2 text-gray-700">該当が無いとき空状態を表示する</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-006</td>
+            <td class="py-2 text-gray-700">URLの ?cat= で初期カテゴリを絞り込む</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-007</td>
+            <td class="py-2 text-gray-700">タグ経由でも検索にヒットする</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-008</td>
+            <td class="py-2 text-gray-700">複数キーワードは全語一致を先頭に、部分一致も関連度順で表示する</td>
+          </tr>
+          <tr>
+            <td class="py-2 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">LIST-009</td>
+            <td class="py-2 text-gray-700">同義語展開により表記ゆれでも検索にヒットする</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── SLIDE 14: 仕様一覧 詳細画面 ── -->
+<div class="slide" data-act="Specs">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-8 flex flex-col">
+    <div class="flex items-baseline justify-between mb-2">
+      <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase">07 — 仕様書④ 詳細画面 仕様一覧</p>
+      <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">specs/detail.spec.md</code>
+    </div>
+    <h2 class="text-2xl font-bold text-gray-900 mb-1">詳細画面（pages/agent.html）</h2>
+    <p class="text-xs text-gray-400 mb-4">対応実装: <code class="bg-gray-100 border border-gray-200 px-1 rounded">assets/app.js renderDetail()</code> ／ 全5項目</p>
+    <div class="bg-gray-50 border border-gray-200 rounded-xl p-5">
+      <table class="w-full text-xs">
+        <thead>
+          <tr class="text-left text-gray-400 border-b border-gray-200">
+            <th class="py-2 pr-4 font-semibold w-40">SPEC-ID</th>
+            <th class="py-2 font-semibold">説明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100">
+            <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">DETAIL-001</td>
+            <td class="py-2.5 text-gray-700">指定IDのアセット詳細（タイトル・統計・オーナー）を表示する</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">DETAIL-002</td>
+            <td class="py-2.5 text-gray-700">カテゴリリンクは一覧へ ?cat= 付きで遷移する</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">DETAIL-003</td>
+            <td class="py-2.5 text-gray-700">ピック対象にはピックバッジを表示し、非対象には表示しない</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">DETAIL-004</td>
+            <td class="py-2.5 text-gray-700">存在しないIDでは not found メッセージを表示する</td>
+          </tr>
+          <tr>
+            <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">DETAIL-005</td>
+            <td class="py-2.5 text-gray-700">ドキュメントタイトルがアセット名になる</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── SLIDE 15: 仕様一覧 要望フォーム ── -->
+<div class="slide" data-act="Specs">
+  <div class="h-1.5 bg-[#E60012]"></div>
+  <div class="flex-1 bg-white px-16 py-8 flex flex-col">
+    <div class="flex items-baseline justify-between mb-2">
+      <p class="text-xs font-semibold tracking-widest text-[#E60012] uppercase">07 — 仕様書⑤ 要望フォーム 仕様一覧</p>
+      <code class="text-xs bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">specs/feedback.spec.md</code>
+    </div>
+    <h2 class="text-2xl font-bold text-gray-900 mb-1">要望フォーム（pages/feedback.html）</h2>
+    <p class="text-xs text-gray-400 mb-4">対応実装: <code class="bg-gray-100 border border-gray-200 px-1 rounded">pages/feedback.html インラインスクリプト</code> ／ 全5項目</p>
+    <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-4">
+      <table class="w-full text-xs">
+        <thead>
+          <tr class="text-left text-gray-400 border-b border-gray-200">
+            <th class="py-2 pr-4 font-semibold w-40">SPEC-ID</th>
+            <th class="py-2 font-semibold">説明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100">
+            <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">FEEDBACK-001</td>
+            <td class="py-2.5 text-gray-700">入力に応じてIssueタイトルをライブプレビューする</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">FEEDBACK-002</td>
+            <td class="py-2.5 text-gray-700">必須未入力で送信するとアラートを出し、APIを呼ばない</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">FEEDBACK-003</td>
+            <td class="py-2.5 text-gray-700">必須を満たして送信すると Issue を作成し、成功バナーとリンクを表示する</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">FEEDBACK-004</td>
+            <td class="py-2.5 text-gray-700">送信が失敗するとエラーアラートを出し、ボタンを再有効化する</td>
+          </tr>
+          <tr>
+            <td class="py-2.5 pr-4 font-mono font-semibold text-[#E60012] whitespace-nowrap align-top">FEEDBACK-005</td>
+            <td class="py-2.5 text-gray-700">キーワードを Enter でチップ追加し、重複は無視する</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bg-red-50 border border-red-200 rounded-xl p-4">
+      <p class="text-xs text-gray-700 leading-relaxed">
+        SPEC-ID 採番ルール: <code class="bg-white border border-gray-200 px-1 rounded">SPEC-&lt;画面&gt;-&lt;連番3桁&gt;</code>。
+        一度振ったIDは再利用・欠番の詰め直しをしない。挙動を廃止する場合は項目を削除せず「廃止」と明記し、対応テストも同時に削除する。
+        詳細ルールは <code class="bg-white border border-gray-200 px-1 rounded">specs/README.md</code> を参照。
+      </p>
     </div>
   </div>
 </div>
