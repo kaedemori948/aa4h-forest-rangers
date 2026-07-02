@@ -534,25 +534,27 @@
         <div class="pl-4"><span class="text-blue-600">├─ .claude/</span></div>
         <div class="pl-8"><span class="text-blue-500">├─ agents/</span> <span class="text-gray-400 font-sans">— AIエージェント定義ファイル（.md）</span></div>
         <div class="pl-8"><span class="text-blue-500">├─ documents/</span> <span class="text-gray-400 font-sans">— 資料ごとのMDファイル（スライド素材）</span></div>
-        <div class="pl-12"><span class="text-gray-500">├─ agents/</span></div>
-        <div class="pl-12"><span class="text-gray-500">├─ claude-code/</span></div>
-        <div class="pl-12"><span class="text-gray-500">├─ cover/</span></div>
-        <div class="pl-12"><span class="text-gray-500">├─ flow/</span></div>
-        <div class="pl-12"><span class="text-gray-500">└─ pj-summary/</span></div>
         <div class="pl-8"><span class="text-blue-500">├─ reports/</span> <span class="text-gray-400 font-sans">— 各エージェントの出力レポート</span></div>
         <div class="pl-12"><span class="text-gray-500">├─ qa/</span> <span class="text-gray-400 font-sans">— QAエージェントのレポート</span></div>
-        <div class="pl-12"><span class="text-gray-500">└─ security/</span> <span class="text-gray-400 font-sans">— セキュリティエージェントのレポート</span></div>
+        <div class="pl-12"><span class="text-gray-500">├─ security/</span> <span class="text-gray-400 font-sans">— セキュリティエージェントのレポート</span></div>
+        <div class="pl-12"><span class="text-gray-500">└─ ui-proposals/</span> <span class="text-gray-400 font-sans">— UI改善案のレポート</span></div>
         <div class="pl-8"><span class="text-blue-500">└─ skills/</span> <span class="text-gray-400 font-sans">— ClaudeCodeのSkill定義</span></div>
+        <div class="pl-12"><span class="text-gray-500">├─ issue-to-impl/</span> <span class="text-gray-400 font-sans">— Issue→実装スキル</span></div>
+        <div class="pl-12"><span class="text-gray-500">├─ ship/</span> <span class="text-gray-400 font-sans">— デプロイスキル</span></div>
+        <div class="pl-12"><span class="text-gray-500">├─ resolve-conflict/</span> <span class="text-gray-400 font-sans">— PRコンフリクト解消スキル</span></div>
+        <div class="pl-12"><span class="text-gray-500">├─ ui-improve/ ／ ui-improve-needed/ ／ ui-improve-revise/</span> <span class="text-gray-400 font-sans">— UI改善issue自動対応</span></div>
+        <div class="pl-12"><span class="text-gray-500">├─ update-dev-env/</span> <span class="text-gray-400 font-sans">— 本ドキュメント更新スキル</span></div>
         <div class="pl-12"><span class="text-gray-500">├─ frontend-design/</span> <span class="text-gray-400 font-sans">— UI/UX実装支援スキル</span></div>
-        <div class="pl-12"><span class="text-gray-500">├─ issue-to-impl.md</span> <span class="text-gray-400 font-sans">— Issue→実装スキル</span></div>
-        <div class="pl-12"><span class="text-gray-500">├─ ship.md</span> <span class="text-gray-400 font-sans">— デプロイスキル</span></div>
         <div class="pl-12"><span class="text-gray-500">└─ superpowers/</span> <span class="text-gray-400 font-sans">— ClaudeCode標準拡張スキル群</span></div>
+        <div class="pl-4"><span class="text-blue-600">├─ .github/</span> <span class="text-gray-400 font-sans">— Issueテンプレート・GitHub Actions</span></div>
         <div class="pl-4"><span class="text-blue-600">├─ assets/</span> <span class="text-gray-400 font-sans">— 共通CSS・JSファイル</span></div>
-        <div class="pl-4"><span class="text-blue-600">├─ b/</span> <span class="text-gray-400 font-sans">— AIAgentサイト本体（HTML群）</span></div>
         <div class="pl-4"><span class="text-blue-600">├─ data/</span> <span class="text-gray-400 font-sans">— モックデータ・テストデータ</span></div>
-        <div class="pl-4"><span class="text-blue-600">├─ scripts/</span> <span class="text-gray-400 font-sans">— ユーティリティスクリプト</span></div>
+        <div class="pl-4"><span class="text-blue-600">├─ pages/</span> <span class="text-gray-400 font-sans">— 画面別HTML（agents / agent / feedback / user-test-form）</span></div>
+        <div class="pl-4"><span class="text-blue-600">├─ scripts/</span> <span class="text-gray-400 font-sans">— データ整形用ユーティリティスクリプト</span></div>
+        <div class="pl-4"><span class="text-blue-600">├─ specs/</span> <span class="text-gray-400 font-sans">— 画面別仕様書（SPEC-ID管理）</span></div>
+        <div class="pl-4"><span class="text-blue-600">├─ test/</span> <span class="text-gray-400 font-sans">— Playwrightテスト（e2e / unit / spec-trace）</span></div>
         <div class="pl-4"><span class="text-gray-700">├─ CLAUDE.md</span> <span class="text-gray-400 font-sans">— AI向けプロジェクト規約</span></div>
-        <div class="pl-4"><span class="text-gray-700">├─ index.html</span> <span class="text-gray-400 font-sans">— b/index.html へリダイレクト</span></div>
+        <div class="pl-4"><span class="text-gray-700">├─ index.html</span> <span class="text-gray-400 font-sans">— ホーム画面</span></div>
         <div class="pl-4"><span class="text-gray-700">└─ dev-environment.html</span> <span class="text-gray-400 font-sans">— このドキュメント</span></div>
       </div>
     </div>
@@ -616,10 +618,6 @@
         <p class="text-xs text-gray-600">テスト済みの変更をブランチ作成→commit→push→PR作成まで行う</p>
       </div>
       <div class="bg-gray-50 border border-gray-200 rounded-xl p-2">
-        <div class="text-xs font-semibold text-[#E60012] mb-1">update-docs</div>
-        <p class="text-xs text-gray-600">.claude/documents/ を参照して dev-environment.html を再生成する</p>
-      </div>
-      <div class="bg-gray-50 border border-gray-200 rounded-xl p-2">
         <div class="text-xs font-semibold text-[#E60012] mb-1">frontend-design</div>
         <p class="text-xs text-gray-600">個性的・意図的なビジュアルデザインの指針を提供する</p>
       </div>
@@ -629,23 +627,19 @@
       </div>
       <div class="bg-gray-50 border border-gray-200 rounded-xl p-2">
         <div class="text-xs font-semibold text-[#E60012] mb-1">ui-improve</div>
-        <p class="text-xs text-gray-600">proposal:needed / proposal:revise ラベルのissueを全件ピックアップし並列処理するオーケストレーター</p>
+        <p class="text-xs text-gray-600">proposal:needed / proposal:revise / dev-fix ラベルのissueを全件ピックアップし並列処理するオーケストレーター</p>
       </div>
       <div class="bg-gray-50 border border-gray-200 rounded-xl p-2">
         <div class="text-xs font-semibold text-[#E60012] mb-1">ui-improve-needed</div>
-        <p class="text-xs text-gray-600">proposal: needed のissueを1件選び、改善案の生成・実装・PR提出まで自動で行う</p>
+        <p class="text-xs text-gray-600">proposal: needed のissueを1件選び、改善案の生成・承認・実装・PR提出まで自動で行う</p>
       </div>
       <div class="bg-gray-50 border border-gray-200 rounded-xl p-2">
         <div class="text-xs font-semibold text-[#E60012] mb-1">ui-improve-revise</div>
-        <p class="text-xs text-gray-600">proposal: revise のissueを1件選び、却下理由を踏まえて再実装・pushする</p>
-      </div>
-      <div class="bg-gray-50 border border-gray-200 rounded-xl p-2">
-        <div class="text-xs font-semibold text-[#E60012] mb-1">sync-skills-page</div>
-        <p class="text-xs text-gray-600">.claude/agents/ と .claude/skills/ の内容を読み取り、dev-environment.html のスキル一覧ページを更新する</p>
+        <p class="text-xs text-gray-600">proposal: revise のissueを1件選び、却下理由を踏まえて前回変更を戻し再実装・push・PRコメント更新まで行う</p>
       </div>
       <div class="bg-gray-50 border border-gray-200 rounded-xl p-2">
         <div class="text-xs font-semibold text-[#E60012] mb-1">resolve-conflict</div>
-        <p class="text-xs text-gray-600">指定PRのコンフリクトをAIが自動解消し、コミット・プッシュまで行う</p>
+        <p class="text-xs text-gray-600">PRのコンフリクトを前回diff保存→mainバックマージ→再実装で解消する（コミット・プッシュはユーザー/呼び出し元が行う）</p>
       </div>
       <div class="col-span-2 bg-gray-50 border border-gray-200 rounded-xl p-2">
         <div class="text-xs font-semibold text-[#E60012] mb-1">superpowers（拡張スキル群）</div>
