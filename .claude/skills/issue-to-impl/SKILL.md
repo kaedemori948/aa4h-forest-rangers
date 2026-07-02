@@ -1,3 +1,8 @@
+---
+name: issue-to-impl
+description: GitHubイシューを解析し、実装までを行う。確認なしで進める。issueの内容をコードに反映したいときに使う。
+---
+
 # issue-to-impl
 
 GitHubイシューを解析し、実装までを行う。確認なしで進める。

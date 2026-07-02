@@ -1,3 +1,8 @@
+---
+name: ship
+description: テスト済みの変更をブランチ作成 → commit → push → PR作成まで行う。testスキルがパスした後、または実装済みの変更をPR化したいときに使う。
+---
+
 # ship
 
 テスト済みの変更をブランチ作成 → commit → push → PR作成まで行う。

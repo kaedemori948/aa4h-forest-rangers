@@ -1,3 +1,8 @@
+---
+name: update-docs
+description: .claude/documents/ フォルダ内のMarkdownファイルを参照して、dev-environment.html を再生成する。開発環境ドキュメントのスライドを更新したいときに使う。
+---
+
 # update-docs
 
 `.claude/documents/` フォルダ内のMarkdownファイルを参照して、`dev-environment.html` を再生成するスキル。
