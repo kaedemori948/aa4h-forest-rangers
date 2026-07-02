@@ -30,6 +30,8 @@ gh issue list --label "dev-fix" --state open --json number,title,labels --limit 
 
 3つの結果をまとめてリスト化する。すべて空なら「対象issueなし」と報告して終了する。
 
+**ラベル競合時の優先順位:** 1件のissueが複数グループ（例: `dev-fix`かつ`proposal: revise`）に同時に該当する場合、`proposal: revise`を優先し、`ui-improve-revise`フローで1回だけ処理する（`dev-fix`フローとしては重複処理しない）。
+
 ### 2. issueの分類と表示
 
 取得したissueを以下の3グループに分けて一覧表示する。
