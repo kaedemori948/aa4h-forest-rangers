@@ -118,7 +118,7 @@ a.card-cat:hover { color:var(--red); }
 .cat-row:hover .cat-arr { transform:translateX(3px); color:var(--red); }
 
 /* ranking */
-.rank-list { display:grid; grid-template-columns:1fr; gap:8px; }
+.rank-list { display:grid; grid-template-columns:1fr 1fr; gap:8px 24px; }
 .rank-row { display:grid; grid-template-columns:34px 1fr auto; gap:14px; align-items:center;
   padding:14px 14px; border-radius:var(--r); cursor:pointer; transition: background .16s var(--ease); }
 .rank-row:hover { background:var(--surface); }
@@ -314,4 +314,5 @@ a.card-cat:hover { color:var(--red); }
   .detail-metrics { grid-template-columns:1fr 1fr; }
   .voices { grid-template-columns:1fr; }
   .fld { grid-template-columns:1fr; gap:4px; }
+  .rank-list { grid-template-columns:1fr; }
 }
