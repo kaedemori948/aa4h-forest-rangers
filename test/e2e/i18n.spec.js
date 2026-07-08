@@ -58,8 +58,9 @@ test("[SPEC-I18N-005] 要望フォームを言語に応じて翻訳する", asyn
   await useEnglish(page);
   await page.goto("/pages/feedback.html");
   await expect(page.locator("#submit-btn")).toHaveText("Submit as Issue");
-  await expect(page.locator(".fb-section-title").first()).toHaveText("Your Task & Needs");
+  await expect(page.locator(".fb-section-title").first()).toHaveText("Type of Feedback");
 
+  await page.locator('#fb-type-group label.check-pill:has(input[value="specific"])').click();
   await page.locator("#asset-name").fill("X");
   await expect(page.locator("#preview-issue-title")).toHaveText("[Asset Request] X");
 });

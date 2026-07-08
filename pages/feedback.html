@@ -104,6 +104,7 @@ select.fb-input { appearance: none; padding-right: 30px;
 
 .char-count { font-size: 11px; color: var(--muted); text-align: right; margin-top: 2px; }
 .required-note { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+.fb-hidden { display: none; }
 </style>
 </head>
 <body data-page="feedback">
@@ -131,99 +132,175 @@ select.fb-input { appearance: none; padding-right: 30px;
 
   <p class="required-note"><span style="color:var(--red)">*</span> <span data-i18n="fb_required_note">は必須項目です</span></p>
 
-  <!-- セクション1 -->
+  <!-- セクション1: フィードバック種別 -->
   <div class="fb-section">
     <div class="fb-section-head">
       <div class="fb-section-num">1</div>
-      <div class="fb-section-title" data-i18n="fb_s1_title">あなたの業務・ニーズ</div>
-      <div class="fb-section-desc" data-i18n="fb_s1_desc">何をしたかったのかを教えてください</div>
+      <div class="fb-section-title" data-i18n="fb_type_title">フィードバックの種類</div>
+      <div class="fb-section-desc" data-i18n="fb_type_desc">当てはまるものを選んでください</div>
     </div>
     <div class="fb-section-body">
       <div class="fb-field">
-        <label class="fb-label" for="goal"><span data-i18n="fb_goal_label">達成したかったこと</span><span class="req">*</span></label>
-        <textarea class="fb-input" id="goal" rows="3"
-          data-i18n-ph="fb_goal_ph"
-          placeholder="例：営業提案書の下書きを自動生成したかった。毎週の市場レポートをAIにまとめてほしかった。"></textarea>
-        <div class="char-count"><span id="goal-count">0</span> <span data-i18n="fb_chars">文字</span></div>
+        <label class="fb-label"><span data-i18n="fb_type_label">種類</span><span class="req">*</span></label>
+        <div class="check-grid" id="fb-type-group">
+          <label class="check-pill"><input type="radio" name="fb-type" value="specific"><span class="tick">✓</span><span data-i18n="fb_type_specific">目的のアセットがあったが見つからなかった</span></label>
+          <label class="check-pill"><input type="radio" name="fb-type" value="browse"><span class="tick">✓</span><span data-i18n="fb_type_browse">なんとなく探したが見つからなかった</span></label>
+          <label class="check-pill"><input type="radio" name="fb-type" value="ux"><span class="tick">✓</span><span data-i18n="fb_type_ux">サイトの使い勝手について意見がある</span></label>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- セクション2 -->
-  <div class="fb-section">
-    <div class="fb-section-head">
-      <div class="fb-section-num">2</div>
-      <div class="fb-section-title" data-i18n="fb_s2_title">試した操作</div>
-      <div class="fb-section-desc" data-i18n="fb_s2_desc">どのように探しましたか？（複数選択可）</div>
+  <div id="branch-search" class="fb-hidden">
+    <!-- セクション2 -->
+    <div class="fb-section">
+      <div class="fb-section-head">
+        <div class="fb-section-num">2</div>
+        <div class="fb-section-title" data-i18n="fb_s1_title">あなたの業務・ニーズ</div>
+        <div class="fb-section-desc" data-i18n="fb_s1_desc">何をしたかったのかを教えてください</div>
+      </div>
+      <div class="fb-section-body">
+        <div class="fb-field">
+          <label class="fb-label" for="goal"><span data-i18n="fb_goal_label">達成したかったこと</span><span class="req">*</span></label>
+          <textarea class="fb-input" id="goal" rows="3"
+            data-i18n-ph="fb_goal_ph"
+            placeholder="例：営業提案書の下書きを自動生成したかった。毎週の市場レポートをAIにまとめてほしかった。"></textarea>
+          <div class="char-count"><span id="goal-count">0</span> <span data-i18n="fb_chars">文字</span></div>
+        </div>
+      </div>
     </div>
-    <div class="fb-section-body">
-      <div class="fb-field">
-        <label class="fb-label" data-i18n="fb_methods_label">試した検索・絞り込み方法</label>
-        <div class="check-grid" id="tried-methods">
-          <label class="check-pill"><input type="checkbox" value="keyword"><span class="tick">✓</span><span data-i18n="fb_m_keyword">キーワード検索</span></label>
-          <label class="check-pill"><input type="checkbox" value="category"><span class="tick">✓</span><span data-i18n="fb_m_category">カテゴリ絞り込み</span></label>
-          <label class="check-pill"><input type="checkbox" value="tag"><span class="tick">✓</span><span data-i18n="fb_m_tag">タグフィルタ</span></label>
-          <label class="check-pill"><input type="checkbox" value="dl"><span class="tick">✓</span><span data-i18n="fb_m_dl">DL実績フィルタ</span></label>
-          <label class="check-pill"><input type="checkbox" value="date"><span class="tick">✓</span><span data-i18n="fb_m_date">更新日フィルタ</span></label>
-          <label class="check-pill"><input type="checkbox" value="sort"><span class="tick">✓</span><span data-i18n="fb_m_sort">並び順変更</span></label>
-          <label class="check-pill"><input type="checkbox" value="browse"><span class="tick">✓</span><span data-i18n="fb_m_browse">一覧を眺めた</span></label>
+
+    <!-- セクション3 -->
+    <div class="fb-section">
+      <div class="fb-section-head">
+        <div class="fb-section-num">3</div>
+        <div class="fb-section-title" data-i18n="fb_s2_title">試した操作</div>
+        <div class="fb-section-desc" data-i18n="fb_s2_desc">どのように探しましたか？（複数選択可）</div>
+      </div>
+      <div class="fb-section-body">
+        <div class="fb-field">
+          <label class="fb-label" data-i18n="fb_methods_label">試した検索・絞り込み方法</label>
+          <div class="check-grid" id="tried-methods">
+            <label class="check-pill"><input type="checkbox" value="keyword"><span class="tick">✓</span><span data-i18n="fb_m_keyword">キーワード検索</span></label>
+            <label class="check-pill"><input type="checkbox" value="category"><span class="tick">✓</span><span data-i18n="fb_m_category">カテゴリ絞り込み</span></label>
+            <label class="check-pill"><input type="checkbox" value="tag"><span class="tick">✓</span><span data-i18n="fb_m_tag">タグフィルタ</span></label>
+            <label class="check-pill"><input type="checkbox" value="dl"><span class="tick">✓</span><span data-i18n="fb_m_dl">DL実績フィルタ</span></label>
+            <label class="check-pill"><input type="checkbox" value="date"><span class="tick">✓</span><span data-i18n="fb_m_date">更新日フィルタ</span></label>
+            <label class="check-pill"><input type="checkbox" value="sort"><span class="tick">✓</span><span data-i18n="fb_m_sort">並び順変更</span></label>
+            <label class="check-pill"><input type="checkbox" value="browse"><span class="tick">✓</span><span data-i18n="fb_m_browse">一覧を眺めた</span></label>
+          </div>
+        </div>
+        <div class="fb-field">
+          <label class="fb-label" for="keywords-input" data-i18n="fb_kw_label">使ったキーワード（Enter で追加）</label>
+          <div class="tag-field" id="keywords-wrap">
+            <input type="text" id="keywords-input" data-i18n-ph="fb_kw_ph" placeholder="例: 提案書 → Enter">
+          </div>
+        </div>
+        <div class="fb-field">
+          <label class="fb-label" for="result"><span data-i18n="fb_result_label">検索結果の状況</span><span class="req">*</span></label>
+          <select class="fb-input" id="result">
+            <option value="" data-i18n="fb_result_ph">選択してください</option>
+            <option value="zero" data-i18n="fb_r_zero">件数0件だった</option>
+            <option value="many" data-i18n="fb_r_many">件数は多かったが目的のものがなかった</option>
+            <option value="close" data-i18n="fb_r_close">近いものはあったが機能が足りなかった</option>
+            <option value="lost" data-i18n="fb_r_lost">何を選べばよいか分からなかった</option>
+            <option value="other" data-i18n="fb_r_other">その他</option>
+          </select>
+        </div>
+        <div class="fb-field">
+          <label class="fb-label" for="confidence" data-i18n="fb_confidence_label">同種のアセットが社内に存在する可能性についての感触（任意）</label>
+          <select class="fb-input" id="confidence">
+            <option value="" data-i18n="fb_confidence_ph">選択してください</option>
+            <option value="similar_exists" data-i18n="fb_conf_similar">似たものはあったが機能・データが足りなかった</option>
+            <option value="unsure" data-i18n="fb_conf_unsure">社内に同種のものがあるかは分からない</option>
+            <option value="sure_not_exist" data-i18n="fb_conf_sure">探した範囲では存在しないと思う</option>
+          </select>
         </div>
       </div>
-      <div class="fb-field">
-        <label class="fb-label" for="keywords-input" data-i18n="fb_kw_label">使ったキーワード（Enter で追加）</label>
-        <div class="tag-field" id="keywords-wrap">
-          <input type="text" id="keywords-input" data-i18n-ph="fb_kw_ph" placeholder="例: 提案書 → Enter">
-        </div>
+    </div>
+
+    <!-- セクション4 -->
+    <div class="fb-section">
+      <div class="fb-section-head">
+        <div class="fb-section-num">4</div>
+        <div class="fb-section-title" data-i18n="fb_s3_title">求めているアセットのイメージ</div>
+        <div class="fb-section-desc" data-i18n="fb_s3_desc">あればあるほど精度が上がります</div>
       </div>
-      <div class="fb-field">
-        <label class="fb-label" for="result"><span data-i18n="fb_result_label">検索結果の状況</span><span class="req">*</span></label>
-        <select class="fb-input" id="result">
-          <option value="" data-i18n="fb_result_ph">選択してください</option>
-          <option value="zero" data-i18n="fb_r_zero">件数0件だった</option>
-          <option value="many" data-i18n="fb_r_many">件数は多かったが目的のものがなかった</option>
-          <option value="close" data-i18n="fb_r_close">近いものはあったが機能が足りなかった</option>
-          <option value="lost" data-i18n="fb_r_lost">何を選べばよいか分からなかった</option>
-          <option value="other" data-i18n="fb_r_other">その他</option>
-        </select>
+      <div class="fb-section-body">
+        <div class="fb-field">
+          <label class="fb-label" for="asset-name" data-i18n="fb_name_label">アセットに付けたい名前（仮称）</label>
+          <input type="text" class="fb-input" id="asset-name" data-i18n-ph="fb_name_ph" placeholder="例：営業提案書ドラフト生成AI">
+        </div>
+        <div class="fb-field">
+          <label class="fb-label" for="asset-desc"><span data-i18n="fb_desc_label">どんな処理・機能をしてほしいか</span><span class="req">*</span></label>
+          <textarea class="fb-input" id="asset-desc" rows="4"
+            data-i18n-ph="fb_desc_ph"
+            placeholder="例：顧客名・商材名・金額を入力すると、社内フォーマットに沿った提案書のドラフトをWord形式で出力してほしい。"></textarea>
+          <div class="char-count"><span id="desc-count">0</span> <span data-i18n="fb_chars">文字</span></div>
+        </div>
+        <div class="fb-field">
+          <label class="fb-label" data-i18n="fb_tools_label">連携・対応してほしいツール（複数選択可）</label>
+          <div class="check-grid" id="tools">
+            <label class="check-pill"><input type="checkbox" value="Excel"><span class="tick">✓</span>Excel</label>
+            <label class="check-pill"><input type="checkbox" value="Word"><span class="tick">✓</span>Word</label>
+            <label class="check-pill"><input type="checkbox" value="PowerPoint"><span class="tick">✓</span>PowerPoint</label>
+            <label class="check-pill"><input type="checkbox" value="Outlook"><span class="tick">✓</span>Outlook</label>
+            <label class="check-pill"><input type="checkbox" value="Teams"><span class="tick">✓</span>Teams</label>
+            <label class="check-pill"><input type="checkbox" value="Salesforce"><span class="tick">✓</span>Salesforce</label>
+            <label class="check-pill"><input type="checkbox" value="API"><span class="tick">✓</span><span data-i18n="fb_t_api">API連携</span></label>
+            <label class="check-pill"><input type="checkbox" value="nocode"><span class="tick">✓</span><span data-i18n="fb_t_nocode">ノーコード</span></label>
+          </div>
+        </div>
+        <div class="fb-field">
+          <label class="fb-label" for="ref" data-i18n="fb_ref_label">参考にしたい既存アセット・類似ツール</label>
+          <input type="text" class="fb-input" id="ref" data-i18n-ph="fb_ref_ph" placeholder="例：売上トレンド分析AI、ChatGPT、Copilot など">
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- セクション3 -->
-  <div class="fb-section">
-    <div class="fb-section-head">
-      <div class="fb-section-num">3</div>
-      <div class="fb-section-title" data-i18n="fb_s3_title">求めているアセットのイメージ</div>
-      <div class="fb-section-desc" data-i18n="fb_s3_desc">あればあるほど精度が上がります</div>
-    </div>
-    <div class="fb-section-body">
-      <div class="fb-field">
-        <label class="fb-label" for="asset-name" data-i18n="fb_name_label">アセットに付けたい名前（仮称）</label>
-        <input type="text" class="fb-input" id="asset-name" data-i18n-ph="fb_name_ph" placeholder="例：営業提案書ドラフト生成AI">
+  <div id="branch-ux" class="fb-hidden">
+    <!-- セクション5 -->
+    <div class="fb-section">
+      <div class="fb-section-head">
+        <div class="fb-section-num">5</div>
+        <div class="fb-section-title" data-i18n="fb_s5_title">困りごとの詳細</div>
+        <div class="fb-section-desc" data-i18n="fb_s5_desc">サイトのどこで何に困ったか教えてください</div>
       </div>
-      <div class="fb-field">
-        <label class="fb-label" for="asset-desc"><span data-i18n="fb_desc_label">どんな処理・機能をしてほしいか</span><span class="req">*</span></label>
-        <textarea class="fb-input" id="asset-desc" rows="4"
-          data-i18n-ph="fb_desc_ph"
-          placeholder="例：顧客名・商材名・金額を入力すると、社内フォーマットに沿った提案書のドラフトをWord形式で出力してほしい。"></textarea>
-        <div class="char-count"><span id="desc-count">0</span> <span data-i18n="fb_chars">文字</span></div>
-      </div>
-      <div class="fb-field">
-        <label class="fb-label" data-i18n="fb_tools_label">連携・対応してほしいツール（複数選択可）</label>
-        <div class="check-grid" id="tools">
-          <label class="check-pill"><input type="checkbox" value="Excel"><span class="tick">✓</span>Excel</label>
-          <label class="check-pill"><input type="checkbox" value="Word"><span class="tick">✓</span>Word</label>
-          <label class="check-pill"><input type="checkbox" value="PowerPoint"><span class="tick">✓</span>PowerPoint</label>
-          <label class="check-pill"><input type="checkbox" value="Outlook"><span class="tick">✓</span>Outlook</label>
-          <label class="check-pill"><input type="checkbox" value="Teams"><span class="tick">✓</span>Teams</label>
-          <label class="check-pill"><input type="checkbox" value="Salesforce"><span class="tick">✓</span>Salesforce</label>
-          <label class="check-pill"><input type="checkbox" value="API"><span class="tick">✓</span><span data-i18n="fb_t_api">API連携</span></label>
-          <label class="check-pill"><input type="checkbox" value="nocode"><span class="tick">✓</span><span data-i18n="fb_t_nocode">ノーコード</span></label>
+      <div class="fb-section-body">
+        <div class="fb-field">
+          <label class="fb-label" for="ux-page" data-i18n="fb_page_label">該当ページ</label>
+          <select class="fb-input" id="ux-page">
+            <option value="" data-i18n="fb_page_ph">選択してください</option>
+            <option value="home" data-i18n="fb_page_home">ホーム</option>
+            <option value="list" data-i18n="fb_page_list">アセット一覧</option>
+            <option value="detail" data-i18n="fb_page_detail">アセット詳細</option>
+            <option value="feedback" data-i18n="fb_page_feedback">要望フォーム</option>
+            <option value="other" data-i18n="fb_page_other">その他</option>
+          </select>
         </div>
-      </div>
-      <div class="fb-field">
-        <label class="fb-label" for="ref" data-i18n="fb_ref_label">参考にしたい既存アセット・類似ツール</label>
-        <input type="text" class="fb-input" id="ref" data-i18n-ph="fb_ref_ph" placeholder="例：売上トレンド分析AI、ChatGPT、Copilot など">
+        <div class="fb-field">
+          <label class="fb-label" for="ux-desc"><span data-i18n="fb_ux_desc_label">具体的な困りごと</span><span class="req">*</span></label>
+          <textarea class="fb-input" id="ux-desc" rows="4"
+            data-i18n-ph="fb_ux_desc_ph"
+            placeholder="例：一覧画面でソートを変更すると、選択していたフィルタが解除されてしまう。"></textarea>
+          <div class="char-count"><span id="ux-desc-count">0</span> <span data-i18n="fb_chars">文字</span></div>
+        </div>
+        <div class="fb-field">
+          <label class="fb-label" for="ux-severity" data-i18n="fb_severity_label">深刻度</label>
+          <select class="fb-input" id="ux-severity">
+            <option value="" data-i18n="fb_severity_ph">選択してください</option>
+            <option value="minor" data-i18n="fb_sev_minor">軽微（少し不便）</option>
+            <option value="annoying" data-i18n="fb_sev_annoying">困る（作業が止まる）</option>
+            <option value="blocker" data-i18n="fb_sev_blocker">致命的（使えない）</option>
+          </select>
+        </div>
+        <div class="fb-field">
+          <label class="fb-label" for="ux-steps" data-i18n="fb_steps_label">再現手順（任意）</label>
+          <textarea class="fb-input" id="ux-steps" rows="3"
+            data-i18n-ph="fb_steps_ph"
+            placeholder="例：1. 一覧画面を開く 2. カテゴリを『営業』に絞り込む 3. 並び順を『DL数順』に変更する"></textarea>
+        </div>
       </div>
     </div>
   </div>
@@ -231,7 +308,7 @@ select.fb-input { appearance: none; padding-right: 30px;
   <!-- プレビュー -->
   <div class="fb-section">
     <div class="fb-section-head">
-      <div class="fb-section-num">4</div>
+      <div class="fb-section-num">6</div>
       <div class="fb-section-title" data-i18n="fb_s4_title">GitHub Issue プレビュー</div>
       <div class="fb-section-desc" data-i18n="fb_s4_desc">送信される内容の確認</div>
     </div>
@@ -283,8 +360,29 @@ select.fb-input { appearance: none; padding-right: 30px;
     keyword: "fb_m_keyword", category: "fb_m_category", tag: "fb_m_tag",
     dl: "fb_m_dl", date: "fb_m_date", sort: "fb_m_sort", browse: "fb_m_browse",
   };
+  const TYPE_KEY = { specific: "fb_type_specific", browse: "fb_type_browse", ux: "fb_type_ux" };
+  const CONF_KEY = { similar_exists: "fb_conf_similar", unsure: "fb_conf_unsure", sure_not_exist: "fb_conf_sure" };
+  const PAGE_KEY = { home: "fb_page_home", list: "fb_page_list", detail: "fb_page_detail", feedback: "fb_page_feedback", other: "fb_page_other" };
+  const SEV_KEY = { minor: "fb_sev_minor", annoying: "fb_sev_annoying", blocker: "fb_sev_blocker" };
 
   let keywords = [];
+
+  // ── フィードバック種別で表示セクション・必須項目を切り替える ──
+  function getFeedbackType() {
+    const el = document.querySelector('input[name="fb-type"]:checked');
+    return el ? el.value : "";
+  }
+
+  function updateBranchVisibility() {
+    const type = getFeedbackType();
+    document.getElementById("branch-search").classList.toggle("fb-hidden", type !== "specific" && type !== "browse");
+    document.getElementById("branch-ux").classList.toggle("fb-hidden", type !== "ux");
+  }
+
+  document.querySelectorAll('input[name="fb-type"]').forEach(r => {
+    r.addEventListener("change", () => { updateBranchVisibility(); updatePreview(); });
+  });
+  updateBranchVisibility();
 
   // ── keyword tag input ──
   const kwInput = document.getElementById("keywords-input");
@@ -336,9 +434,10 @@ select.fb-input { appearance: none; padding-right: 30px;
   }
   attachCounter("goal", "goal-count");
   attachCounter("asset-desc", "desc-count");
+  attachCounter("ux-desc", "ux-desc-count");
 
   // all fields → live preview
-  ["goal","result","asset-name","asset-desc","ref"].forEach(id => {
+  ["goal","result","confidence","asset-name","asset-desc","ref","ux-page","ux-desc","ux-severity","ux-steps"].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener("input", updatePreview);
   });
@@ -352,9 +451,37 @@ select.fb-input { appearance: none; padding-right: 30px;
     return [...document.querySelectorAll(`#${groupId} input:checked`)].map(c => c.value);
   }
 
-  function buildIssue() {
+  function buildUxIssue() {
+    const page     = document.getElementById("ux-page").value;
+    const desc     = document.getElementById("ux-desc").value.trim();
+    const severity = document.getElementById("ux-severity").value;
+    const steps    = document.getElementById("ux-steps").value.trim();
+
+    const title = desc
+      ? `${I("fb_title_prefix_ux")}${desc.slice(0, 40)}${desc.length > 40 ? "…" : ""}`
+      : I("fb_title_untitled_ux");
+
+    const lines = [];
+    lines.push(I("fb_md_overview"));
+    lines.push(desc || I("fb_md_unfilled"));
+    lines.push("");
+    lines.push(`${I("fb_md_page")} ${I(PAGE_KEY[page]) || I("fb_md_none")}`);
+    lines.push(`${I("fb_md_severity")} ${I(SEV_KEY[severity]) || I("fb_md_none")}`);
+    lines.push(`\n${I("fb_md_steps")}`);
+    lines.push(steps || I("fb_md_unfilled"));
+    lines.push("");
+    lines.push("");
+    lines.push(I("fb_md_labels_head"));
+    lines.push("`ux-improvement` `needs-triage`");
+
+    return { title, body: lines.join("\n") };
+  }
+
+  function buildSearchIssue() {
+    const type      = getFeedbackType();
     const goal      = document.getElementById("goal").value.trim();
     const result    = document.getElementById("result").value;
+    const confidence= document.getElementById("confidence").value;
     const assetName = document.getElementById("asset-name").value.trim();
     const assetDesc = document.getElementById("asset-desc").value.trim();
     const ref       = document.getElementById("ref").value.trim();
@@ -372,11 +499,13 @@ select.fb-input { appearance: none; padding-right: 30px;
     lines.push("");
 
     lines.push(I("fb_md_search"));
+    lines.push(`${I("fb_md_feedback_type")} ${I(TYPE_KEY[type]) || I("fb_md_none")}`);
     lines.push(I("fb_md_tried"));
     if (methods.length > 0) methods.forEach(m => lines.push(`- ${m}`));
     else lines.push(`- ${I("fb_md_none")}`);
     if (keywords.length > 0) lines.push(`\n${I("fb_md_keywords")} ${keywords.map(k => `\`${k}\``).join(", ")}`);
     lines.push(`\n${I("fb_md_result")} ${I(RESULT_KEY[result]) || I("fb_md_none")}`);
+    if (confidence) lines.push(`\n${I("fb_md_confidence")} ${I(CONF_KEY[confidence]) || confidence}`);
     lines.push("");
 
     lines.push(I("fb_md_want"));
@@ -393,6 +522,10 @@ select.fb-input { appearance: none; padding-right: 30px;
     lines.push("`asset-request` `needs-triage`");
 
     return { title, body: lines.join("\n") };
+  }
+
+  function buildIssue() {
+    return getFeedbackType() === "ux" ? buildUxIssue() : buildSearchIssue();
   }
 
   function updatePreview() {
@@ -414,13 +547,21 @@ select.fb-input { appearance: none; padding-right: 30px;
 
   // ── submit ──
   document.getElementById("submit-btn").addEventListener("click", async () => {
-    const goal   = document.getElementById("goal").value.trim();
-    const result = document.getElementById("result").value;
-    const desc   = document.getElementById("asset-desc").value.trim();
+    const type = getFeedbackType();
     const missing = [];
-    if (!goal)   missing.push(I("fb_val_goal"));
-    if (!result) missing.push(I("fb_val_result"));
-    if (!desc)   missing.push(I("fb_val_desc"));
+    if (!type) {
+      missing.push(I("fb_val_type"));
+    } else if (type === "ux") {
+      const uxDesc = document.getElementById("ux-desc").value.trim();
+      if (!uxDesc) missing.push(I("fb_val_ux_desc"));
+    } else {
+      const goal   = document.getElementById("goal").value.trim();
+      const result = document.getElementById("result").value;
+      const desc   = document.getElementById("asset-desc").value.trim();
+      if (!goal)   missing.push(I("fb_val_goal"));
+      if (!result) missing.push(I("fb_val_result"));
+      if (!desc)   missing.push(I("fb_val_desc"));
+    }
     if (missing.length > 0) {
       alert(I("fb_val_intro") + "\n\n" + missing.map(m => "・" + m).join("\n"));
       return;
