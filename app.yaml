@@ -1,0 +1,15 @@
+# 静的サイトのみを配信する構成。サーバーコードは持たないため entrypoint 不要
+runtime: python312
+
+handlers:
+  # ルートは index.html を返す
+  - url: /
+    static_files: index.html
+    upload: index.html
+    secure: always
+
+  # それ以外はパスをそのままファイルにマッピング（pages/, assets/, data/ など）
+  - url: /(.+)
+    static_files: \1
+    upload: .+
+    secure: always

@@ -1,0 +1,21 @@
+# デプロイ不要な開発用ファイルをアップロード対象から除外する
+.git/
+.gitignore
+.gcloudignore
+.claude/
+.github/
+node_modules/
+test/
+specs/
+scripts/
+data/fill_test_json.py
+playwright.config.js
+package.json
+package-lock.json
+serve.ps1
+CLAUDE.md
+README.md
+agents.js
+agents.json
+agents.js.txt
+assets/app.txt
